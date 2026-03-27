@@ -1,0 +1,46 @@
+district_id,state,district,latitude,longitude,elevation,soil_type,agro_climate_zone
+1001,Maharashtra,Pune,8.7588,93.7401,568,Alluvial Soil,Semi-Arid
+1002,Maharashtra,Mumbai,26.6736,93.5477,508,Black Soil,Tropical Wet
+1003,Maharashtra,Nagpur,30.6422,86.8967,198,Red Soil,Tropical Wet
+1004,Maharashtra,Nashik,12.1728,73.6253,271,Laterite Soil,Humid Subtropical
+1005,Maharashtra,Aurangabad,31.8419,75.6761,748,Alluvial Soil,Tropical Wet
+1006,Maharashtra,Solapur,14.4958,85.5043,773,Alluvial Soil,Tropical Wet
+1007,Karnataka,Bangalore Urban,9.4337,87.9484,835,Black Soil,Dry
+1008,Karnataka,Mysore,27.6805,90.187,427,Laterite Soil,Dry
+1009,Karnataka,Mangalore,23.9294,92.8184,831,Red Soil,Humid Subtropical
+1010,Karnataka,Hubli,14.7369,78.5476,919,Laterite Soil,Tropical Wet
+1011,Karnataka,Belgaum,21.8457,85.7459,563,Alluvial Soil,Humid Subtropical
+1012,Uttar Pradesh,Lucknow,33.6701,89.8962,642,Laterite Soil,Humid Subtropical
+1013,Uttar Pradesh,Kanpur,10.0085,89.0952,323,Alluvial Soil,Tropical Wet
+1014,Uttar Pradesh,Varanasi,9.8626,75.4574,61,Alluvial Soil,Humid Subtropical
+1015,Uttar Pradesh,Agra,19.9623,95.2633,71,Alluvial Soil,Semi-Arid
+1016,Uttar Pradesh,Meerut,32.0105,96.9746,754,Alluvial Soil,Humid Subtropical
+1017,Tamil Nadu,Chennai,35.1499,82.661,759,Red Soil,Humid Subtropical
+1018,Tamil Nadu,Coimbatore,18.7452,81.5051,118,Laterite Soil,Tropical Wet
+1019,Tamil Nadu,Madurai,24.4093,70.8927,714,Laterite Soil,Semi-Arid
+1020,Tamil Nadu,Salem,35.4984,77.577,966,Laterite Soil,Dry
+1021,Tamil Nadu,Tiruchirappalli,16.8089,72.4067,135,Red Soil,Semi-Arid
+1022,Gujarat,Ahmedabad,11.3493,88.0053,940,Red Soil,Tropical Wet
+1023,Gujarat,Surat,16.6915,86.3076,807,Black Soil,Humid Subtropical
+1024,Gujarat,Vadodara,32.7289,71.8418,232,Red Soil,Humid Subtropical
+1025,Gujarat,Rajkot,26.7735,93.8739,65,Alluvial Soil,Humid Subtropical
+1026,Gujarat,Bhavnagar,30.2489,94.5309,324,Alluvial Soil,Semi-Arid
+1027,Rajasthan,Jaipur,35.485,68.5138,286,Black Soil,Tropical Wet
+1028,Rajasthan,Udaipur,34.412,71.9602,346,Alluvial Soil,Dry
+1029,Rajasthan,Jodhpur,19.9768,71.6677,611,Laterite Soil,Dry
+1030,Rajasthan,Kota,14.1598,76.5747,608,Laterite Soil,Humid Subtropical
+1031,Rajasthan,Ajmer,14.5621,77.9403,76,Laterite Soil,Dry
+1032,West Bengal,Kolkata,28.2981,86.8224,182,Laterite Soil,Semi-Arid
+1033,West Bengal,Howrah,15.5531,75.8875,743,Red Soil,Semi-Arid
+1034,West Bengal,Durgapur,22.6803,88.0385,482,Black Soil,Tropical Wet
+1035,West Bengal,Siliguri,25.5239,91.8741,819,Black Soil,Tropical Wet
+1036,Madhya Pradesh,Bhopal,10.895,83.216,976,Alluvial Soil,Dry
+1037,Madhya Pradesh,Indore,23.0963,80.0033,331,Laterite Soil,Semi-Arid
+1038,Madhya Pradesh,Gwalior,14.0883,84.8702,744,Red Soil,Semi-Arid
+1039,Madhya Pradesh,Jabalpur,18.0843,96.571,385,Alluvial Soil,Dry
+1040,Telangana,Hyderabad,9.1011,69.2849,189,Black Soil,Tropical Wet
+1041,Telangana,Warangal,26.6153,91.5149,122,Laterite Soil,Humid Subtropical
+1042,Telangana,Nizamabad,23.6736,68.7075,340,Black Soil,Dry
+1043,Andhra Pradesh,Vijayawada,23.378,92.0861,669,Laterite Soil,Semi-Arid
+1044,Andhra Pradesh,Visakhapatnam,15.1178,75.1494,287,Alluvial Soil,Dry
+1045,Andhra Pradesh,Guntur,8.2554,75.7078,279,Alluvial Soil,Tropical Wet

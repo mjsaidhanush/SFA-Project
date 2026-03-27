@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    networks:
+      - farm_net
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+      
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/smartfarm
+      - PG_URI=postgresql://farm_user:farm_pass@postgres:5432/smartfarm
+      - REDIS_URL=redis://redis:6379
+      - ML_SERVICE_URL=http://ml-services:8000
+      - JWT_SECRET=supersecret123
+    depends_on:
+      - mongo
+      - postgres
+      - redis
+    networks:
+      - farm_net
+
+  ml-services:
+    build:
+      context: ./ml-services
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - farm_net
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=farm_user
+      - POSTGRES_PASSWORD=farm_pass
+      - POSTGRES_DB=smartfarm
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - farm_net
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - farm_net
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - farm_net
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+      - farm_net
+
+volumes:
+  pgdata:
+  mongodata:
+  redisdata:
+  esdata:
+
+
+networks:
+  farm_net:
+    driver: bridge

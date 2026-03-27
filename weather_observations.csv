@@ -1,0 +1,1081 @@
+observation_id,district_id,state,district,timestamp,temperature_c,humidity,rainfall_mm,wind_speed_kmh,pressure_hpa,weather_condition,prediction_type
+50001,1001,Maharashtra,Pune,2026-03-23 13:10,29.9,83,23.7,25,1024,Thunderstorm,actual
+50002,1001,Maharashtra,Pune,2026-03-23 12:10,39.5,95,14.0,10,1013,Sunny,actual
+50003,1001,Maharashtra,Pune,2026-03-23 11:10,41.3,40,3.9,8,998,Rain,actual
+50004,1001,Maharashtra,Pune,2026-03-23 10:10,36.3,54,15.0,12,994,Thunderstorm,actual
+50005,1001,Maharashtra,Pune,2026-03-23 09:10,27.3,30,4.3,11,1006,Fog,predicted
+50006,1001,Maharashtra,Pune,2026-03-23 08:10,40.6,94,4.2,23,1024,Sunny,predicted
+50007,1001,Maharashtra,Pune,2026-03-23 07:10,32.7,52,24.2,15,1022,Rain,actual
+50008,1001,Maharashtra,Pune,2026-03-23 06:10,33.0,90,23.0,15,1018,Sunny,predicted
+50009,1001,Maharashtra,Pune,2026-03-23 05:10,31.2,64,6.9,13,991,Cloudy,predicted
+50010,1001,Maharashtra,Pune,2026-03-23 04:10,40.7,92,7.3,20,1005,Sunny,actual
+50011,1001,Maharashtra,Pune,2026-03-23 03:10,40.0,75,21.0,14,1018,Thunderstorm,predicted
+50012,1001,Maharashtra,Pune,2026-03-23 02:10,40.7,79,18.9,21,1025,Sunny,actual
+50013,1001,Maharashtra,Pune,2026-03-23 01:10,40.7,45,11.7,10,1001,Rain,predicted
+50014,1001,Maharashtra,Pune,2026-03-23 00:10,40.0,48,3.3,29,991,Thunderstorm,actual
+50015,1001,Maharashtra,Pune,2026-03-22 23:10,36.6,38,3.4,19,1015,Sunny,actual
+50016,1001,Maharashtra,Pune,2026-03-22 22:10,29.8,86,20.4,28,1014,Fog,actual
+50017,1001,Maharashtra,Pune,2026-03-22 21:10,34.8,38,17.4,21,1014,Fog,predicted
+50018,1001,Maharashtra,Pune,2026-03-22 20:10,30.9,87,21.0,11,1025,Cloudy,predicted
+50019,1001,Maharashtra,Pune,2026-03-22 19:10,24.2,81,12.5,20,1015,Fog,actual
+50020,1001,Maharashtra,Pune,2026-03-22 18:10,22.5,70,3.0,27,993,Sunny,predicted
+50021,1001,Maharashtra,Pune,2026-03-22 17:10,41.7,48,0.2,18,1007,Sunny,predicted
+50022,1001,Maharashtra,Pune,2026-03-22 16:10,26.0,55,22.0,5,998,Rain,actual
+50023,1001,Maharashtra,Pune,2026-03-22 15:10,33.2,60,24.9,20,1009,Thunderstorm,actual
+50024,1001,Maharashtra,Pune,2026-03-22 14:10,30.8,66,8.7,18,1014,Cloudy,predicted
+50025,1002,Maharashtra,Mumbai,2026-03-23 13:10,28.1,38,6.1,14,1016,Thunderstorm,predicted
+50026,1002,Maharashtra,Mumbai,2026-03-23 12:10,31.2,92,6.5,16,1008,Fog,predicted
+50027,1002,Maharashtra,Mumbai,2026-03-23 11:10,23.4,59,15.7,19,1010,Fog,predicted
+50028,1002,Maharashtra,Mumbai,2026-03-23 10:10,32.3,50,24.0,19,994,Sunny,predicted
+50029,1002,Maharashtra,Mumbai,2026-03-23 09:10,24.8,85,4.8,25,1022,Cloudy,predicted
+50030,1002,Maharashtra,Mumbai,2026-03-23 08:10,22.6,55,1.9,18,1003,Fog,predicted
+50031,1002,Maharashtra,Mumbai,2026-03-23 07:10,31.1,36,18.9,10,1019,Fog,predicted
+50032,1002,Maharashtra,Mumbai,2026-03-23 06:10,38.3,48,20.4,9,990,Rain,predicted
+50033,1002,Maharashtra,Mumbai,2026-03-23 05:10,33.2,64,12.7,14,1011,Cloudy,actual
+50034,1002,Maharashtra,Mumbai,2026-03-23 04:10,40.2,80,9.5,22,1014,Sunny,actual
+50035,1002,Maharashtra,Mumbai,2026-03-23 03:10,31.1,69,14.1,12,992,Cloudy,actual
+50036,1002,Maharashtra,Mumbai,2026-03-23 02:10,39.7,63,2.5,17,995,Sunny,actual
+50037,1002,Maharashtra,Mumbai,2026-03-23 01:10,21.8,70,19.1,7,1003,Fog,predicted
+50038,1002,Maharashtra,Mumbai,2026-03-23 00:10,21.6,94,4.5,19,1025,Fog,actual
+50039,1002,Maharashtra,Mumbai,2026-03-22 23:10,28.6,53,19.9,22,1023,Thunderstorm,predicted
+50040,1002,Maharashtra,Mumbai,2026-03-22 22:10,36.5,61,3.8,14,1024,Fog,actual
+50041,1002,Maharashtra,Mumbai,2026-03-22 21:10,40.5,93,11.9,7,1019,Rain,predicted
+50042,1002,Maharashtra,Mumbai,2026-03-22 20:10,35.1,86,17.0,24,995,Fog,predicted
+50043,1002,Maharashtra,Mumbai,2026-03-22 19:10,23.2,84,7.9,25,1007,Cloudy,actual
+50044,1002,Maharashtra,Mumbai,2026-03-22 18:10,40.7,35,16.6,27,994,Fog,predicted
+50045,1002,Maharashtra,Mumbai,2026-03-22 17:10,21.4,85,22.7,27,1011,Thunderstorm,actual
+50046,1002,Maharashtra,Mumbai,2026-03-22 16:10,22.0,40,4.5,26,1012,Rain,actual
+50047,1002,Maharashtra,Mumbai,2026-03-22 15:10,35.4,76,15.7,6,997,Rain,predicted
+50048,1002,Maharashtra,Mumbai,2026-03-22 14:10,28.9,94,24.8,24,993,Thunderstorm,predicted
+50049,1003,Maharashtra,Nagpur,2026-03-23 13:10,28.0,91,0.2,20,1025,Rain,predicted
+50050,1003,Maharashtra,Nagpur,2026-03-23 12:10,37.3,40,3.3,12,1017,Sunny,predicted
+50051,1003,Maharashtra,Nagpur,2026-03-23 11:10,34.5,91,18.9,14,1017,Fog,predicted
+50052,1003,Maharashtra,Nagpur,2026-03-23 10:10,30.0,83,7.5,7,1025,Rain,predicted
+50053,1003,Maharashtra,Nagpur,2026-03-23 09:10,23.6,61,18.5,20,990,Thunderstorm,actual
+50054,1003,Maharashtra,Nagpur,2026-03-23 08:10,21.1,52,21.1,26,1014,Cloudy,predicted
+50055,1003,Maharashtra,Nagpur,2026-03-23 07:10,37.2,77,8.6,22,1019,Thunderstorm,predicted
+50056,1003,Maharashtra,Nagpur,2026-03-23 06:10,37.6,90,8.7,14,1020,Fog,actual
+50057,1003,Maharashtra,Nagpur,2026-03-23 05:10,21.7,48,17.4,7,1023,Rain,predicted
+50058,1003,Maharashtra,Nagpur,2026-03-23 04:10,33.8,62,3.7,20,993,Rain,actual
+50059,1003,Maharashtra,Nagpur,2026-03-23 03:10,26.5,71,7.9,7,1018,Cloudy,predicted
+50060,1003,Maharashtra,Nagpur,2026-03-23 02:10,20.5,70,18.4,24,1020,Thunderstorm,actual
+50061,1003,Maharashtra,Nagpur,2026-03-23 01:10,32.4,50,3.2,23,1004,Thunderstorm,actual
+50062,1003,Maharashtra,Nagpur,2026-03-23 00:10,35.1,44,7.0,8,990,Thunderstorm,actual
+50063,1003,Maharashtra,Nagpur,2026-03-22 23:10,27.9,33,12.0,7,1000,Thunderstorm,predicted
+50064,1003,Maharashtra,Nagpur,2026-03-22 22:10,37.7,82,16.3,22,1020,Thunderstorm,predicted
+50065,1003,Maharashtra,Nagpur,2026-03-22 21:10,26.6,58,23.8,12,994,Fog,predicted
+50066,1003,Maharashtra,Nagpur,2026-03-22 20:10,33.3,58,10.5,8,997,Cloudy,actual
+50067,1003,Maharashtra,Nagpur,2026-03-22 19:10,31.5,65,22.1,22,1015,Rain,actual
+50068,1003,Maharashtra,Nagpur,2026-03-22 18:10,20.7,44,20.8,27,1004,Thunderstorm,actual
+50069,1003,Maharashtra,Nagpur,2026-03-22 17:10,22.2,63,9.2,6,992,Fog,predicted
+50070,1003,Maharashtra,Nagpur,2026-03-22 16:10,31.0,56,24.1,21,995,Thunderstorm,actual
+50071,1003,Maharashtra,Nagpur,2026-03-22 15:10,41.6,57,15.7,26,1007,Sunny,predicted
+50072,1003,Maharashtra,Nagpur,2026-03-22 14:10,21.1,87,17.8,7,1009,Sunny,actual
+50073,1004,Maharashtra,Nashik,2026-03-23 13:10,38.8,89,13.6,25,990,Cloudy,actual
+50074,1004,Maharashtra,Nashik,2026-03-23 12:10,35.5,50,14.5,25,999,Cloudy,actual
+50075,1004,Maharashtra,Nashik,2026-03-23 11:10,38.0,38,23.3,7,1022,Sunny,predicted
+50076,1004,Maharashtra,Nashik,2026-03-23 10:10,39.8,49,8.5,10,1006,Sunny,predicted
+50077,1004,Maharashtra,Nashik,2026-03-23 09:10,22.2,48,13.8,23,1019,Sunny,actual
+50078,1004,Maharashtra,Nashik,2026-03-23 08:10,33.8,64,14.1,16,1002,Thunderstorm,predicted
+50079,1004,Maharashtra,Nashik,2026-03-23 07:10,32.7,54,18.3,10,1006,Cloudy,actual
+50080,1004,Maharashtra,Nashik,2026-03-23 06:10,23.8,76,8.9,11,1004,Sunny,actual
+50081,1004,Maharashtra,Nashik,2026-03-23 05:10,30.1,46,24.0,28,990,Thunderstorm,actual
+50082,1004,Maharashtra,Nashik,2026-03-23 04:10,33.0,56,15.7,12,1010,Thunderstorm,actual
+50083,1004,Maharashtra,Nashik,2026-03-23 03:10,21.4,66,2.1,16,992,Cloudy,predicted
+50084,1004,Maharashtra,Nashik,2026-03-23 02:10,24.1,65,18.6,26,1025,Rain,actual
+50085,1004,Maharashtra,Nashik,2026-03-23 01:10,34.0,40,23.7,26,1021,Cloudy,predicted
+50086,1004,Maharashtra,Nashik,2026-03-23 00:10,40.6,34,4.3,7,997,Cloudy,actual
+50087,1004,Maharashtra,Nashik,2026-03-22 23:10,40.7,32,21.3,23,993,Rain,predicted
+50088,1004,Maharashtra,Nashik,2026-03-22 22:10,28.0,36,11.6,18,1008,Sunny,predicted
+50089,1004,Maharashtra,Nashik,2026-03-22 21:10,22.8,70,20.5,21,991,Sunny,predicted
+50090,1004,Maharashtra,Nashik,2026-03-22 20:10,38.8,65,10.7,9,1005,Rain,predicted
+50091,1004,Maharashtra,Nashik,2026-03-22 19:10,28.3,87,7.5,22,1019,Fog,predicted
+50092,1004,Maharashtra,Nashik,2026-03-22 18:10,27.8,86,13.0,9,992,Thunderstorm,predicted
+50093,1004,Maharashtra,Nashik,2026-03-22 17:10,35.7,30,2.3,18,1014,Cloudy,actual
+50094,1004,Maharashtra,Nashik,2026-03-22 16:10,39.1,48,5.8,28,1024,Fog,predicted
+50095,1004,Maharashtra,Nashik,2026-03-22 15:10,35.4,84,6.0,12,999,Rain,predicted
+50096,1004,Maharashtra,Nashik,2026-03-22 14:10,35.2,39,9.1,19,1017,Cloudy,actual
+50097,1005,Maharashtra,Aurangabad,2026-03-23 13:10,39.9,80,5.9,16,1013,Rain,actual
+50098,1005,Maharashtra,Aurangabad,2026-03-23 12:10,41.1,47,6.3,29,1001,Sunny,predicted
+50099,1005,Maharashtra,Aurangabad,2026-03-23 11:10,40.8,64,6.2,23,1005,Rain,predicted
+50100,1005,Maharashtra,Aurangabad,2026-03-23 10:10,34.9,55,17.4,27,1024,Sunny,predicted
+50101,1005,Maharashtra,Aurangabad,2026-03-23 09:10,42.0,80,12.8,25,1009,Sunny,predicted
+50102,1005,Maharashtra,Aurangabad,2026-03-23 08:10,31.2,69,19.4,16,1012,Sunny,actual
+50103,1005,Maharashtra,Aurangabad,2026-03-23 07:10,35.8,33,15.1,22,992,Sunny,predicted
+50104,1005,Maharashtra,Aurangabad,2026-03-23 06:10,40.4,81,13.3,9,1010,Thunderstorm,predicted
+50105,1005,Maharashtra,Aurangabad,2026-03-23 05:10,25.2,76,2.3,18,1021,Thunderstorm,actual
+50106,1005,Maharashtra,Aurangabad,2026-03-23 04:10,36.9,84,12.5,20,1005,Thunderstorm,predicted
+50107,1005,Maharashtra,Aurangabad,2026-03-23 03:10,28.4,94,23.0,9,999,Cloudy,predicted
+50108,1005,Maharashtra,Aurangabad,2026-03-23 02:10,20.4,58,4.8,10,1025,Thunderstorm,predicted
+50109,1005,Maharashtra,Aurangabad,2026-03-23 01:10,41.6,31,0.2,18,1021,Cloudy,actual
+50110,1005,Maharashtra,Aurangabad,2026-03-23 00:10,36.3,70,24.3,9,996,Thunderstorm,predicted
+50111,1005,Maharashtra,Aurangabad,2026-03-22 23:10,35.1,31,5.6,5,1025,Cloudy,actual
+50112,1005,Maharashtra,Aurangabad,2026-03-22 22:10,32.5,40,13.2,20,1011,Sunny,actual
+50113,1005,Maharashtra,Aurangabad,2026-03-22 21:10,35.8,87,6.3,12,1021,Sunny,actual
+50114,1005,Maharashtra,Aurangabad,2026-03-22 20:10,21.4,45,23.5,10,1012,Fog,predicted
+50115,1005,Maharashtra,Aurangabad,2026-03-22 19:10,39.1,36,18.0,26,991,Sunny,predicted
+50116,1005,Maharashtra,Aurangabad,2026-03-22 18:10,21.9,71,8.3,30,1009,Rain,predicted
+50117,1005,Maharashtra,Aurangabad,2026-03-22 17:10,39.8,65,7.4,23,996,Thunderstorm,predicted
+50118,1005,Maharashtra,Aurangabad,2026-03-22 16:10,40.3,38,1.5,13,1019,Cloudy,actual
+50119,1005,Maharashtra,Aurangabad,2026-03-22 15:10,27.6,57,5.1,24,1000,Cloudy,predicted
+50120,1005,Maharashtra,Aurangabad,2026-03-22 14:10,41.2,51,10.3,13,1002,Thunderstorm,actual
+50121,1006,Maharashtra,Solapur,2026-03-23 13:10,32.3,46,10.7,9,1015,Rain,actual
+50122,1006,Maharashtra,Solapur,2026-03-23 12:10,38.5,60,17.7,29,1021,Sunny,actual
+50123,1006,Maharashtra,Solapur,2026-03-23 11:10,36.1,81,10.7,11,992,Cloudy,predicted
+50124,1006,Maharashtra,Solapur,2026-03-23 10:10,35.0,46,24.9,5,1021,Sunny,predicted
+50125,1006,Maharashtra,Solapur,2026-03-23 09:10,35.6,36,23.0,16,1013,Thunderstorm,predicted
+50126,1006,Maharashtra,Solapur,2026-03-23 08:10,24.9,57,2.1,5,1015,Fog,actual
+50127,1006,Maharashtra,Solapur,2026-03-23 07:10,39.6,70,6.7,29,1005,Rain,predicted
+50128,1006,Maharashtra,Solapur,2026-03-23 06:10,20.6,78,16.9,24,1013,Fog,actual
+50129,1006,Maharashtra,Solapur,2026-03-23 05:10,37.7,60,13.1,11,1006,Sunny,actual
+50130,1006,Maharashtra,Solapur,2026-03-23 04:10,30.1,70,15.6,21,997,Cloudy,actual
+50131,1006,Maharashtra,Solapur,2026-03-23 03:10,28.3,57,11.5,20,1013,Fog,actual
+50132,1006,Maharashtra,Solapur,2026-03-23 02:10,20.9,64,4.3,7,1019,Thunderstorm,actual
+50133,1006,Maharashtra,Solapur,2026-03-23 01:10,37.4,31,1.7,21,991,Sunny,actual
+50134,1006,Maharashtra,Solapur,2026-03-23 00:10,22.6,39,15.9,13,1023,Thunderstorm,predicted
+50135,1006,Maharashtra,Solapur,2026-03-22 23:10,33.0,53,7.3,26,996,Cloudy,predicted
+50136,1006,Maharashtra,Solapur,2026-03-22 22:10,38.0,74,0.6,15,1021,Sunny,predicted
+50137,1006,Maharashtra,Solapur,2026-03-22 21:10,25.8,52,1.4,21,1024,Rain,actual
+50138,1006,Maharashtra,Solapur,2026-03-22 20:10,20.4,39,19.1,13,1006,Rain,predicted
+50139,1006,Maharashtra,Solapur,2026-03-22 19:10,31.4,65,8.3,7,1011,Thunderstorm,actual
+50140,1006,Maharashtra,Solapur,2026-03-22 18:10,25.3,55,16.1,28,995,Sunny,actual
+50141,1006,Maharashtra,Solapur,2026-03-22 17:10,24.8,95,1.1,11,1023,Thunderstorm,predicted
+50142,1006,Maharashtra,Solapur,2026-03-22 16:10,37.5,93,17.8,12,992,Fog,predicted
+50143,1006,Maharashtra,Solapur,2026-03-22 15:10,35.9,40,15.7,18,1000,Fog,actual
+50144,1006,Maharashtra,Solapur,2026-03-22 14:10,28.3,60,5.4,23,1015,Fog,predicted
+50145,1007,Karnataka,Bangalore Urban,2026-03-23 13:10,22.3,56,21.4,11,1009,Fog,actual
+50146,1007,Karnataka,Bangalore Urban,2026-03-23 12:10,34.4,74,3.1,30,992,Rain,actual
+50147,1007,Karnataka,Bangalore Urban,2026-03-23 11:10,23.0,77,24.0,7,994,Rain,actual
+50148,1007,Karnataka,Bangalore Urban,2026-03-23 10:10,29.5,35,1.4,23,1008,Cloudy,predicted
+50149,1007,Karnataka,Bangalore Urban,2026-03-23 09:10,27.8,80,4.6,8,1001,Sunny,actual
+50150,1007,Karnataka,Bangalore Urban,2026-03-23 08:10,27.6,75,1.8,24,1025,Thunderstorm,actual
+50151,1007,Karnataka,Bangalore Urban,2026-03-23 07:10,31.7,62,2.8,6,1002,Sunny,predicted
+50152,1007,Karnataka,Bangalore Urban,2026-03-23 06:10,30.0,57,7.8,24,997,Sunny,predicted
+50153,1007,Karnataka,Bangalore Urban,2026-03-23 05:10,31.2,61,22.8,8,1009,Rain,actual
+50154,1007,Karnataka,Bangalore Urban,2026-03-23 04:10,26.0,34,14.3,9,1003,Fog,actual
+50155,1007,Karnataka,Bangalore Urban,2026-03-23 03:10,34.0,31,12.6,20,1003,Sunny,predicted
+50156,1007,Karnataka,Bangalore Urban,2026-03-23 02:10,27.7,64,22.2,24,1018,Rain,predicted
+50157,1007,Karnataka,Bangalore Urban,2026-03-23 01:10,22.2,44,5.5,28,1012,Cloudy,actual
+50158,1007,Karnataka,Bangalore Urban,2026-03-23 00:10,30.5,70,22.8,19,995,Fog,predicted
+50159,1007,Karnataka,Bangalore Urban,2026-03-22 23:10,21.2,71,6.0,16,1017,Cloudy,actual
+50160,1007,Karnataka,Bangalore Urban,2026-03-22 22:10,23.6,32,15.7,23,1013,Rain,actual
+50161,1007,Karnataka,Bangalore Urban,2026-03-22 21:10,23.0,71,21.3,25,996,Fog,actual
+50162,1007,Karnataka,Bangalore Urban,2026-03-22 20:10,33.3,91,3.9,9,1003,Sunny,predicted
+50163,1007,Karnataka,Bangalore Urban,2026-03-22 19:10,27.2,48,18.2,5,1006,Cloudy,actual
+50164,1007,Karnataka,Bangalore Urban,2026-03-22 18:10,21.0,61,23.2,5,996,Cloudy,actual
+50165,1007,Karnataka,Bangalore Urban,2026-03-22 17:10,31.3,39,21.0,13,996,Thunderstorm,predicted
+50166,1007,Karnataka,Bangalore Urban,2026-03-22 16:10,22.8,90,4.2,13,991,Sunny,predicted
+50167,1007,Karnataka,Bangalore Urban,2026-03-22 15:10,31.8,61,3.9,15,1016,Thunderstorm,actual
+50168,1007,Karnataka,Bangalore Urban,2026-03-22 14:10,25.5,77,16.4,22,1017,Thunderstorm,predicted
+50169,1008,Karnataka,Mysore,2026-03-23 13:10,35.2,48,16.3,21,1005,Sunny,actual
+50170,1008,Karnataka,Mysore,2026-03-23 12:10,36.7,59,11.2,30,1002,Fog,predicted
+50171,1008,Karnataka,Mysore,2026-03-23 11:10,22.9,71,15.1,26,1012,Cloudy,predicted
+50172,1008,Karnataka,Mysore,2026-03-23 10:10,24.2,36,15.5,8,997,Thunderstorm,predicted
+50173,1008,Karnataka,Mysore,2026-03-23 09:10,25.5,50,17.4,15,1001,Fog,actual
+50174,1008,Karnataka,Mysore,2026-03-23 08:10,39.8,52,15.2,20,992,Rain,actual
+50175,1008,Karnataka,Mysore,2026-03-23 07:10,25.7,62,10.4,19,1012,Fog,actual
+50176,1008,Karnataka,Mysore,2026-03-23 06:10,22.3,31,3.3,11,1007,Rain,actual
+50177,1008,Karnataka,Mysore,2026-03-23 05:10,35.3,56,6.4,7,1016,Rain,predicted
+50178,1008,Karnataka,Mysore,2026-03-23 04:10,23.0,58,11.8,11,1011,Cloudy,actual
+50179,1008,Karnataka,Mysore,2026-03-23 03:10,24.2,36,7.5,22,1018,Rain,predicted
+50180,1008,Karnataka,Mysore,2026-03-23 02:10,22.8,44,21.1,17,990,Thunderstorm,predicted
+50181,1008,Karnataka,Mysore,2026-03-23 01:10,36.7,88,8.3,13,1008,Thunderstorm,predicted
+50182,1008,Karnataka,Mysore,2026-03-23 00:10,40.2,94,0.6,12,1012,Fog,actual
+50183,1008,Karnataka,Mysore,2026-03-22 23:10,28.4,36,3.6,10,997,Fog,actual
+50184,1008,Karnataka,Mysore,2026-03-22 22:10,39.0,38,12.5,21,1018,Rain,predicted
+50185,1008,Karnataka,Mysore,2026-03-22 21:10,29.9,68,13.9,5,1021,Cloudy,predicted
+50186,1008,Karnataka,Mysore,2026-03-22 20:10,20.6,53,20.1,26,1019,Cloudy,actual
+50187,1008,Karnataka,Mysore,2026-03-22 19:10,38.7,45,13.1,25,1012,Cloudy,predicted
+50188,1008,Karnataka,Mysore,2026-03-22 18:10,34.7,45,25.0,23,1004,Cloudy,predicted
+50189,1008,Karnataka,Mysore,2026-03-22 17:10,32.4,46,11.6,25,1005,Rain,actual
+50190,1008,Karnataka,Mysore,2026-03-22 16:10,21.4,35,15.8,24,1022,Sunny,actual
+50191,1008,Karnataka,Mysore,2026-03-22 15:10,24.6,33,8.4,11,1021,Fog,actual
+50192,1008,Karnataka,Mysore,2026-03-22 14:10,25.5,89,0.6,22,1004,Sunny,predicted
+50193,1009,Karnataka,Mangalore,2026-03-23 13:10,29.3,61,24.8,16,1017,Thunderstorm,predicted
+50194,1009,Karnataka,Mangalore,2026-03-23 12:10,27.9,50,7.0,28,1014,Rain,predicted
+50195,1009,Karnataka,Mangalore,2026-03-23 11:10,21.8,74,20.6,9,1008,Thunderstorm,predicted
+50196,1009,Karnataka,Mangalore,2026-03-23 10:10,40.3,84,9.1,8,1002,Fog,actual
+50197,1009,Karnataka,Mangalore,2026-03-23 09:10,25.0,64,22.1,23,1000,Fog,actual
+50198,1009,Karnataka,Mangalore,2026-03-23 08:10,25.0,55,17.8,22,1023,Sunny,actual
+50199,1009,Karnataka,Mangalore,2026-03-23 07:10,22.4,61,17.0,20,1000,Rain,predicted
+50200,1009,Karnataka,Mangalore,2026-03-23 06:10,28.3,62,3.5,5,991,Fog,predicted
+50201,1009,Karnataka,Mangalore,2026-03-23 05:10,35.4,53,13.9,11,1000,Rain,predicted
+50202,1009,Karnataka,Mangalore,2026-03-23 04:10,29.4,39,21.0,29,1003,Rain,predicted
+50203,1009,Karnataka,Mangalore,2026-03-23 03:10,34.8,90,20.2,6,1013,Rain,actual
+50204,1009,Karnataka,Mangalore,2026-03-23 02:10,38.5,41,22.2,16,1023,Fog,actual
+50205,1009,Karnataka,Mangalore,2026-03-23 01:10,25.3,69,8.4,8,1016,Rain,predicted
+50206,1009,Karnataka,Mangalore,2026-03-23 00:10,40.1,53,17.3,23,990,Thunderstorm,actual
+50207,1009,Karnataka,Mangalore,2026-03-22 23:10,33.7,86,18.5,6,990,Thunderstorm,actual
+50208,1009,Karnataka,Mangalore,2026-03-22 22:10,37.5,66,7.1,30,1004,Sunny,predicted
+50209,1009,Karnataka,Mangalore,2026-03-22 21:10,27.3,30,23.9,7,1013,Cloudy,predicted
+50210,1009,Karnataka,Mangalore,2026-03-22 20:10,29.9,95,8.5,13,1008,Fog,actual
+50211,1009,Karnataka,Mangalore,2026-03-22 19:10,40.6,72,6.1,14,996,Thunderstorm,actual
+50212,1009,Karnataka,Mangalore,2026-03-22 18:10,23.1,70,9.0,27,1015,Thunderstorm,actual
+50213,1009,Karnataka,Mangalore,2026-03-22 17:10,38.7,82,22.6,25,1007,Sunny,predicted
+50214,1009,Karnataka,Mangalore,2026-03-22 16:10,35.1,40,24.0,6,1017,Fog,predicted
+50215,1009,Karnataka,Mangalore,2026-03-22 15:10,24.3,82,18.8,24,1020,Thunderstorm,predicted
+50216,1009,Karnataka,Mangalore,2026-03-22 14:10,39.3,33,24.8,21,999,Fog,actual
+50217,1010,Karnataka,Hubli,2026-03-23 13:10,32.2,86,12.2,24,1002,Fog,predicted
+50218,1010,Karnataka,Hubli,2026-03-23 12:10,35.7,45,15.1,22,1025,Thunderstorm,predicted
+50219,1010,Karnataka,Hubli,2026-03-23 11:10,41.5,38,12.7,23,1001,Thunderstorm,actual
+50220,1010,Karnataka,Hubli,2026-03-23 10:10,39.8,70,9.1,20,1001,Cloudy,predicted
+50221,1010,Karnataka,Hubli,2026-03-23 09:10,25.1,39,9.6,22,1019,Thunderstorm,actual
+50222,1010,Karnataka,Hubli,2026-03-23 08:10,34.6,73,14.8,10,1006,Fog,actual
+50223,1010,Karnataka,Hubli,2026-03-23 07:10,41.4,83,7.4,8,1009,Cloudy,predicted
+50224,1010,Karnataka,Hubli,2026-03-23 06:10,40.7,77,17.1,22,1004,Thunderstorm,actual
+50225,1010,Karnataka,Hubli,2026-03-23 05:10,30.8,82,13.7,10,990,Fog,actual
+50226,1010,Karnataka,Hubli,2026-03-23 04:10,40.2,52,5.3,21,1013,Thunderstorm,actual
+50227,1010,Karnataka,Hubli,2026-03-23 03:10,36.3,92,10.6,19,1010,Fog,actual
+50228,1010,Karnataka,Hubli,2026-03-23 02:10,30.1,69,12.8,20,1019,Thunderstorm,actual
+50229,1010,Karnataka,Hubli,2026-03-23 01:10,27.9,30,21.7,19,1021,Thunderstorm,actual
+50230,1010,Karnataka,Hubli,2026-03-23 00:10,29.5,87,15.8,15,1016,Thunderstorm,predicted
+50231,1010,Karnataka,Hubli,2026-03-22 23:10,22.3,81,20.7,11,1009,Fog,predicted
+50232,1010,Karnataka,Hubli,2026-03-22 22:10,28.0,62,8.3,19,994,Rain,predicted
+50233,1010,Karnataka,Hubli,2026-03-22 21:10,39.6,87,23.5,22,1015,Rain,actual
+50234,1010,Karnataka,Hubli,2026-03-22 20:10,22.1,48,2.1,6,1011,Cloudy,actual
+50235,1010,Karnataka,Hubli,2026-03-22 19:10,22.7,73,9.6,28,1013,Rain,actual
+50236,1010,Karnataka,Hubli,2026-03-22 18:10,39.0,91,17.4,24,990,Rain,predicted
+50237,1010,Karnataka,Hubli,2026-03-22 17:10,20.3,36,20.3,11,994,Rain,predicted
+50238,1010,Karnataka,Hubli,2026-03-22 16:10,32.5,38,20.1,25,1005,Cloudy,predicted
+50239,1010,Karnataka,Hubli,2026-03-22 15:10,27.0,68,15.6,14,991,Fog,predicted
+50240,1010,Karnataka,Hubli,2026-03-22 14:10,23.2,79,10.2,9,1001,Rain,actual
+50241,1011,Karnataka,Belgaum,2026-03-23 13:10,35.5,34,22.6,8,1024,Thunderstorm,predicted
+50242,1011,Karnataka,Belgaum,2026-03-23 12:10,30.1,94,0.3,16,1017,Fog,predicted
+50243,1011,Karnataka,Belgaum,2026-03-23 11:10,26.3,89,16.7,15,1021,Sunny,actual
+50244,1011,Karnataka,Belgaum,2026-03-23 10:10,27.2,61,3.4,6,1010,Thunderstorm,predicted
+50245,1011,Karnataka,Belgaum,2026-03-23 09:10,39.8,88,14.0,28,1009,Rain,predicted
+50246,1011,Karnataka,Belgaum,2026-03-23 08:10,31.2,58,17.6,21,1005,Thunderstorm,predicted
+50247,1011,Karnataka,Belgaum,2026-03-23 07:10,21.8,32,9.5,17,997,Sunny,predicted
+50248,1011,Karnataka,Belgaum,2026-03-23 06:10,22.7,81,21.7,24,1022,Sunny,predicted
+50249,1011,Karnataka,Belgaum,2026-03-23 05:10,26.9,39,18.7,17,1019,Fog,actual
+50250,1011,Karnataka,Belgaum,2026-03-23 04:10,31.8,38,11.5,22,1020,Rain,predicted
+50251,1011,Karnataka,Belgaum,2026-03-23 03:10,26.4,39,13.5,8,1003,Rain,predicted
+50252,1011,Karnataka,Belgaum,2026-03-23 02:10,37.3,87,11.9,21,1022,Thunderstorm,actual
+50253,1011,Karnataka,Belgaum,2026-03-23 01:10,28.8,88,12.2,30,1024,Sunny,actual
+50254,1011,Karnataka,Belgaum,2026-03-23 00:10,21.2,57,7.0,20,1007,Rain,predicted
+50255,1011,Karnataka,Belgaum,2026-03-22 23:10,24.8,47,8.6,19,1009,Cloudy,actual
+50256,1011,Karnataka,Belgaum,2026-03-22 22:10,21.5,74,14.3,12,1023,Cloudy,actual
+50257,1011,Karnataka,Belgaum,2026-03-22 21:10,38.7,42,6.8,14,1019,Fog,predicted
+50258,1011,Karnataka,Belgaum,2026-03-22 20:10,20.5,67,11.6,10,1016,Fog,predicted
+50259,1011,Karnataka,Belgaum,2026-03-22 19:10,36.3,91,0.2,6,1024,Rain,predicted
+50260,1011,Karnataka,Belgaum,2026-03-22 18:10,34.4,94,15.7,9,991,Thunderstorm,predicted
+50261,1011,Karnataka,Belgaum,2026-03-22 17:10,31.7,60,19.0,7,997,Rain,predicted
+50262,1011,Karnataka,Belgaum,2026-03-22 16:10,30.6,90,11.3,14,1000,Sunny,predicted
+50263,1011,Karnataka,Belgaum,2026-03-22 15:10,22.2,91,17.2,5,996,Fog,actual
+50264,1011,Karnataka,Belgaum,2026-03-22 14:10,20.8,41,18.1,10,1005,Sunny,predicted
+50265,1012,Uttar Pradesh,Lucknow,2026-03-23 13:10,24.9,60,4.8,30,1003,Thunderstorm,actual
+50266,1012,Uttar Pradesh,Lucknow,2026-03-23 12:10,29.6,61,11.0,23,1006,Rain,actual
+50267,1012,Uttar Pradesh,Lucknow,2026-03-23 11:10,37.3,77,18.9,24,1024,Rain,predicted
+50268,1012,Uttar Pradesh,Lucknow,2026-03-23 10:10,27.4,41,23.9,28,1010,Sunny,predicted
+50269,1012,Uttar Pradesh,Lucknow,2026-03-23 09:10,37.0,68,0.9,19,1020,Rain,actual
+50270,1012,Uttar Pradesh,Lucknow,2026-03-23 08:10,38.5,78,17.3,16,1014,Cloudy,predicted
+50271,1012,Uttar Pradesh,Lucknow,2026-03-23 07:10,27.2,87,22.6,18,1009,Fog,predicted
+50272,1012,Uttar Pradesh,Lucknow,2026-03-23 06:10,32.0,68,19.5,17,1025,Thunderstorm,predicted
+50273,1012,Uttar Pradesh,Lucknow,2026-03-23 05:10,23.2,86,23.1,6,1009,Sunny,actual
+50274,1012,Uttar Pradesh,Lucknow,2026-03-23 04:10,28.4,44,9.9,28,1021,Cloudy,predicted
+50275,1012,Uttar Pradesh,Lucknow,2026-03-23 03:10,41.5,74,17.8,22,991,Thunderstorm,predicted
+50276,1012,Uttar Pradesh,Lucknow,2026-03-23 02:10,39.0,36,16.8,25,991,Thunderstorm,actual
+50277,1012,Uttar Pradesh,Lucknow,2026-03-23 01:10,23.8,32,9.4,23,1008,Fog,actual
+50278,1012,Uttar Pradesh,Lucknow,2026-03-23 00:10,29.9,89,23.9,21,1000,Sunny,actual
+50279,1012,Uttar Pradesh,Lucknow,2026-03-22 23:10,30.5,48,24.1,24,1025,Rain,actual
+50280,1012,Uttar Pradesh,Lucknow,2026-03-22 22:10,25.9,90,23.6,7,1012,Thunderstorm,actual
+50281,1012,Uttar Pradesh,Lucknow,2026-03-22 21:10,32.7,82,24.3,8,1016,Fog,actual
+50282,1012,Uttar Pradesh,Lucknow,2026-03-22 20:10,38.9,38,17.8,30,1025,Rain,predicted
+50283,1012,Uttar Pradesh,Lucknow,2026-03-22 19:10,37.9,53,9.8,13,1002,Cloudy,actual
+50284,1012,Uttar Pradesh,Lucknow,2026-03-22 18:10,28.0,59,13.0,26,1016,Rain,predicted
+50285,1012,Uttar Pradesh,Lucknow,2026-03-22 17:10,29.2,80,15.9,22,1022,Cloudy,predicted
+50286,1012,Uttar Pradesh,Lucknow,2026-03-22 16:10,41.6,34,3.4,30,996,Thunderstorm,actual
+50287,1012,Uttar Pradesh,Lucknow,2026-03-22 15:10,37.4,33,20.4,25,1002,Fog,predicted
+50288,1012,Uttar Pradesh,Lucknow,2026-03-22 14:10,40.4,80,21.5,24,991,Thunderstorm,predicted
+50289,1013,Uttar Pradesh,Kanpur,2026-03-23 13:10,28.4,46,15.3,25,993,Sunny,actual
+50290,1013,Uttar Pradesh,Kanpur,2026-03-23 12:10,39.1,78,11.6,18,1007,Cloudy,actual
+50291,1013,Uttar Pradesh,Kanpur,2026-03-23 11:10,34.1,49,17.1,27,1024,Rain,predicted
+50292,1013,Uttar Pradesh,Kanpur,2026-03-23 10:10,30.0,93,13.1,7,1008,Cloudy,predicted
+50293,1013,Uttar Pradesh,Kanpur,2026-03-23 09:10,36.8,45,0.3,16,1014,Fog,predicted
+50294,1013,Uttar Pradesh,Kanpur,2026-03-23 08:10,26.5,58,22.6,12,1013,Rain,predicted
+50295,1013,Uttar Pradesh,Kanpur,2026-03-23 07:10,41.4,30,12.0,7,1012,Sunny,actual
+50296,1013,Uttar Pradesh,Kanpur,2026-03-23 06:10,37.0,72,1.5,28,1006,Sunny,actual
+50297,1013,Uttar Pradesh,Kanpur,2026-03-23 05:10,27.8,74,3.2,8,995,Thunderstorm,actual
+50298,1013,Uttar Pradesh,Kanpur,2026-03-23 04:10,20.8,30,16.5,10,1015,Thunderstorm,actual
+50299,1013,Uttar Pradesh,Kanpur,2026-03-23 03:10,30.4,87,20.2,24,1004,Sunny,actual
+50300,1013,Uttar Pradesh,Kanpur,2026-03-23 02:10,28.3,57,2.5,20,1020,Rain,predicted
+50301,1013,Uttar Pradesh,Kanpur,2026-03-23 01:10,26.0,85,6.2,17,993,Fog,predicted
+50302,1013,Uttar Pradesh,Kanpur,2026-03-23 00:10,40.1,36,2.6,11,1008,Cloudy,predicted
+50303,1013,Uttar Pradesh,Kanpur,2026-03-22 23:10,34.9,64,4.8,24,1020,Sunny,predicted
+50304,1013,Uttar Pradesh,Kanpur,2026-03-22 22:10,40.6,90,23.1,11,1010,Thunderstorm,predicted
+50305,1013,Uttar Pradesh,Kanpur,2026-03-22 21:10,26.4,89,0.9,19,1021,Sunny,predicted
+50306,1013,Uttar Pradesh,Kanpur,2026-03-22 20:10,33.7,74,13.2,25,1003,Fog,predicted
+50307,1013,Uttar Pradesh,Kanpur,2026-03-22 19:10,39.6,45,18.8,19,1009,Thunderstorm,predicted
+50308,1013,Uttar Pradesh,Kanpur,2026-03-22 18:10,36.1,68,21.8,7,1022,Fog,actual
+50309,1013,Uttar Pradesh,Kanpur,2026-03-22 17:10,20.6,90,16.5,8,1002,Fog,actual
+50310,1013,Uttar Pradesh,Kanpur,2026-03-22 16:10,40.6,79,1.7,20,1018,Thunderstorm,predicted
+50311,1013,Uttar Pradesh,Kanpur,2026-03-22 15:10,32.9,78,23.9,9,1023,Rain,actual
+50312,1013,Uttar Pradesh,Kanpur,2026-03-22 14:10,26.0,55,10.0,28,1013,Sunny,predicted
+50313,1014,Uttar Pradesh,Varanasi,2026-03-23 13:10,30.4,46,2.4,8,1012,Sunny,actual
+50314,1014,Uttar Pradesh,Varanasi,2026-03-23 12:10,22.6,74,16.4,6,1005,Cloudy,actual
+50315,1014,Uttar Pradesh,Varanasi,2026-03-23 11:10,27.0,69,22.1,14,1023,Cloudy,actual
+50316,1014,Uttar Pradesh,Varanasi,2026-03-23 10:10,40.6,62,4.1,23,1025,Fog,actual
+50317,1014,Uttar Pradesh,Varanasi,2026-03-23 09:10,40.9,52,8.2,21,1001,Fog,predicted
+50318,1014,Uttar Pradesh,Varanasi,2026-03-23 08:10,26.4,84,10.3,20,994,Fog,actual
+50319,1014,Uttar Pradesh,Varanasi,2026-03-23 07:10,29.0,58,1.7,6,1023,Thunderstorm,actual
+50320,1014,Uttar Pradesh,Varanasi,2026-03-23 06:10,21.7,81,4.2,21,1017,Sunny,predicted
+50321,1014,Uttar Pradesh,Varanasi,2026-03-23 05:10,32.9,54,13.1,17,999,Sunny,actual
+50322,1014,Uttar Pradesh,Varanasi,2026-03-23 04:10,31.9,44,22.8,27,1008,Rain,predicted
+50323,1014,Uttar Pradesh,Varanasi,2026-03-23 03:10,31.1,36,0.6,12,997,Cloudy,predicted
+50324,1014,Uttar Pradesh,Varanasi,2026-03-23 02:10,25.6,78,21.6,25,995,Cloudy,predicted
+50325,1014,Uttar Pradesh,Varanasi,2026-03-23 01:10,33.5,82,4.8,9,1012,Rain,predicted
+50326,1014,Uttar Pradesh,Varanasi,2026-03-23 00:10,22.7,68,8.0,17,1009,Cloudy,predicted
+50327,1014,Uttar Pradesh,Varanasi,2026-03-22 23:10,37.4,34,1.1,15,998,Cloudy,actual
+50328,1014,Uttar Pradesh,Varanasi,2026-03-22 22:10,31.4,34,23.4,21,1014,Thunderstorm,predicted
+50329,1014,Uttar Pradesh,Varanasi,2026-03-22 21:10,27.9,57,23.2,16,1018,Thunderstorm,actual
+50330,1014,Uttar Pradesh,Varanasi,2026-03-22 20:10,36.8,69,12.7,16,1018,Cloudy,actual
+50331,1014,Uttar Pradesh,Varanasi,2026-03-22 19:10,28.1,78,12.5,6,1021,Rain,actual
+50332,1014,Uttar Pradesh,Varanasi,2026-03-22 18:10,23.1,42,7.7,16,1001,Thunderstorm,predicted
+50333,1014,Uttar Pradesh,Varanasi,2026-03-22 17:10,21.5,69,20.9,23,1015,Rain,actual
+50334,1014,Uttar Pradesh,Varanasi,2026-03-22 16:10,33.2,86,7.7,5,1014,Fog,actual
+50335,1014,Uttar Pradesh,Varanasi,2026-03-22 15:10,37.0,81,13.7,10,1020,Sunny,actual
+50336,1014,Uttar Pradesh,Varanasi,2026-03-22 14:10,31.4,83,18.7,26,1008,Fog,predicted
+50337,1015,Uttar Pradesh,Agra,2026-03-23 13:10,24.1,73,20.5,24,993,Thunderstorm,actual
+50338,1015,Uttar Pradesh,Agra,2026-03-23 12:10,32.5,61,0.5,19,1017,Cloudy,actual
+50339,1015,Uttar Pradesh,Agra,2026-03-23 11:10,37.2,81,8.7,7,1016,Sunny,actual
+50340,1015,Uttar Pradesh,Agra,2026-03-23 10:10,21.5,59,21.8,25,1001,Rain,actual
+50341,1015,Uttar Pradesh,Agra,2026-03-23 09:10,20.6,94,12.2,21,1009,Thunderstorm,predicted
+50342,1015,Uttar Pradesh,Agra,2026-03-23 08:10,32.1,78,11.5,25,1017,Thunderstorm,predicted
+50343,1015,Uttar Pradesh,Agra,2026-03-23 07:10,33.2,62,21.1,14,993,Cloudy,actual
+50344,1015,Uttar Pradesh,Agra,2026-03-23 06:10,31.1,36,5.8,12,998,Cloudy,predicted
+50345,1015,Uttar Pradesh,Agra,2026-03-23 05:10,30.3,70,10.8,26,1017,Thunderstorm,actual
+50346,1015,Uttar Pradesh,Agra,2026-03-23 04:10,36.3,87,9.2,27,1020,Cloudy,actual
+50347,1015,Uttar Pradesh,Agra,2026-03-23 03:10,40.2,71,6.8,27,1002,Fog,predicted
+50348,1015,Uttar Pradesh,Agra,2026-03-23 02:10,31.5,93,0.5,18,1013,Cloudy,predicted
+50349,1015,Uttar Pradesh,Agra,2026-03-23 01:10,38.8,50,5.1,20,1023,Fog,predicted
+50350,1015,Uttar Pradesh,Agra,2026-03-23 00:10,21.0,68,0.1,12,1011,Thunderstorm,predicted
+50351,1015,Uttar Pradesh,Agra,2026-03-22 23:10,24.7,74,22.9,13,1014,Sunny,actual
+50352,1015,Uttar Pradesh,Agra,2026-03-22 22:10,38.6,89,18.1,25,999,Cloudy,predicted
+50353,1015,Uttar Pradesh,Agra,2026-03-22 21:10,27.7,74,4.7,27,994,Cloudy,predicted
+50354,1015,Uttar Pradesh,Agra,2026-03-22 20:10,26.1,43,8.0,11,1007,Rain,predicted
+50355,1015,Uttar Pradesh,Agra,2026-03-22 19:10,27.5,90,14.0,9,1012,Rain,predicted
+50356,1015,Uttar Pradesh,Agra,2026-03-22 18:10,41.4,39,8.2,13,994,Fog,predicted
+50357,1015,Uttar Pradesh,Agra,2026-03-22 17:10,31.6,70,10.8,14,991,Rain,predicted
+50358,1015,Uttar Pradesh,Agra,2026-03-22 16:10,35.7,92,2.4,21,999,Fog,actual
+50359,1015,Uttar Pradesh,Agra,2026-03-22 15:10,20.8,60,13.9,16,1002,Thunderstorm,actual
+50360,1015,Uttar Pradesh,Agra,2026-03-22 14:10,28.3,73,13.9,17,1004,Sunny,predicted
+50361,1016,Uttar Pradesh,Meerut,2026-03-23 13:10,28.5,39,22.5,21,1019,Cloudy,predicted
+50362,1016,Uttar Pradesh,Meerut,2026-03-23 12:10,30.5,85,0.9,23,1018,Thunderstorm,actual
+50363,1016,Uttar Pradesh,Meerut,2026-03-23 11:10,40.8,40,2.6,9,993,Fog,actual
+50364,1016,Uttar Pradesh,Meerut,2026-03-23 10:10,36.6,93,24.0,12,998,Sunny,actual
+50365,1016,Uttar Pradesh,Meerut,2026-03-23 09:10,26.7,32,16.6,6,1007,Sunny,actual
+50366,1016,Uttar Pradesh,Meerut,2026-03-23 08:10,20.3,82,9.5,27,1012,Thunderstorm,predicted
+50367,1016,Uttar Pradesh,Meerut,2026-03-23 07:10,27.7,56,8.4,15,1003,Rain,actual
+50368,1016,Uttar Pradesh,Meerut,2026-03-23 06:10,20.4,51,9.3,18,1018,Thunderstorm,predicted
+50369,1016,Uttar Pradesh,Meerut,2026-03-23 05:10,30.5,85,7.5,9,1009,Thunderstorm,predicted
+50370,1016,Uttar Pradesh,Meerut,2026-03-23 04:10,30.2,54,0.4,5,999,Sunny,predicted
+50371,1016,Uttar Pradesh,Meerut,2026-03-23 03:10,35.3,74,11.2,29,1021,Rain,actual
+50372,1016,Uttar Pradesh,Meerut,2026-03-23 02:10,28.0,89,11.6,18,1024,Rain,predicted
+50373,1016,Uttar Pradesh,Meerut,2026-03-23 01:10,35.8,45,3.3,17,1008,Thunderstorm,actual
+50374,1016,Uttar Pradesh,Meerut,2026-03-23 00:10,24.5,30,5.4,19,993,Rain,actual
+50375,1016,Uttar Pradesh,Meerut,2026-03-22 23:10,28.2,79,24.9,21,993,Fog,predicted
+50376,1016,Uttar Pradesh,Meerut,2026-03-22 22:10,22.4,92,12.6,6,1009,Cloudy,predicted
+50377,1016,Uttar Pradesh,Meerut,2026-03-22 21:10,32.8,61,4.8,16,1001,Sunny,actual
+50378,1016,Uttar Pradesh,Meerut,2026-03-22 20:10,28.8,73,23.8,11,1024,Thunderstorm,predicted
+50379,1016,Uttar Pradesh,Meerut,2026-03-22 19:10,31.3,47,2.5,27,992,Cloudy,actual
+50380,1016,Uttar Pradesh,Meerut,2026-03-22 18:10,35.9,62,8.2,27,1013,Rain,actual
+50381,1016,Uttar Pradesh,Meerut,2026-03-22 17:10,32.5,42,6.4,24,994,Cloudy,actual
+50382,1016,Uttar Pradesh,Meerut,2026-03-22 16:10,34.8,31,22.3,23,1003,Cloudy,predicted
+50383,1016,Uttar Pradesh,Meerut,2026-03-22 15:10,41.3,43,14.0,21,1022,Fog,predicted
+50384,1016,Uttar Pradesh,Meerut,2026-03-22 14:10,22.8,62,13.9,19,1023,Cloudy,predicted
+50385,1017,Tamil Nadu,Chennai,2026-03-23 13:10,22.2,71,7.2,24,1004,Thunderstorm,predicted
+50386,1017,Tamil Nadu,Chennai,2026-03-23 12:10,23.6,32,0.7,8,1008,Cloudy,actual
+50387,1017,Tamil Nadu,Chennai,2026-03-23 11:10,20.6,58,20.9,5,1005,Cloudy,actual
+50388,1017,Tamil Nadu,Chennai,2026-03-23 10:10,36.2,42,6.3,10,997,Cloudy,actual
+50389,1017,Tamil Nadu,Chennai,2026-03-23 09:10,34.0,92,21.5,10,1005,Cloudy,actual
+50390,1017,Tamil Nadu,Chennai,2026-03-23 08:10,39.8,42,13.7,13,1013,Cloudy,actual
+50391,1017,Tamil Nadu,Chennai,2026-03-23 07:10,33.6,88,12.1,7,1017,Rain,predicted
+50392,1017,Tamil Nadu,Chennai,2026-03-23 06:10,35.8,83,11.7,11,1005,Rain,predicted
+50393,1017,Tamil Nadu,Chennai,2026-03-23 05:10,27.2,81,20.3,21,1013,Thunderstorm,predicted
+50394,1017,Tamil Nadu,Chennai,2026-03-23 04:10,26.1,78,22.2,16,990,Cloudy,actual
+50395,1017,Tamil Nadu,Chennai,2026-03-23 03:10,35.5,90,19.8,26,1012,Sunny,predicted
+50396,1017,Tamil Nadu,Chennai,2026-03-23 02:10,22.9,39,18.0,23,1025,Rain,predicted
+50397,1017,Tamil Nadu,Chennai,2026-03-23 01:10,39.8,64,11.0,17,1002,Rain,actual
+50398,1017,Tamil Nadu,Chennai,2026-03-23 00:10,21.8,70,20.1,17,1024,Sunny,actual
+50399,1017,Tamil Nadu,Chennai,2026-03-22 23:10,38.1,38,10.1,20,1016,Thunderstorm,actual
+50400,1017,Tamil Nadu,Chennai,2026-03-22 22:10,29.1,53,21.1,6,1019,Thunderstorm,predicted
+50401,1017,Tamil Nadu,Chennai,2026-03-22 21:10,32.4,39,24.9,25,999,Fog,predicted
+50402,1017,Tamil Nadu,Chennai,2026-03-22 20:10,21.5,45,13.5,15,994,Sunny,predicted
+50403,1017,Tamil Nadu,Chennai,2026-03-22 19:10,28.8,47,22.1,25,1000,Thunderstorm,actual
+50404,1017,Tamil Nadu,Chennai,2026-03-22 18:10,20.5,88,16.3,16,1003,Rain,actual
+50405,1017,Tamil Nadu,Chennai,2026-03-22 17:10,31.0,30,22.6,22,995,Cloudy,predicted
+50406,1017,Tamil Nadu,Chennai,2026-03-22 16:10,31.6,34,20.8,22,1008,Sunny,predicted
+50407,1017,Tamil Nadu,Chennai,2026-03-22 15:10,28.1,95,2.0,16,1022,Cloudy,predicted
+50408,1017,Tamil Nadu,Chennai,2026-03-22 14:10,26.0,78,19.9,5,1014,Sunny,actual
+50409,1018,Tamil Nadu,Coimbatore,2026-03-23 13:10,28.1,79,24.2,26,991,Sunny,actual
+50410,1018,Tamil Nadu,Coimbatore,2026-03-23 12:10,26.1,67,17.2,10,1017,Thunderstorm,predicted
+50411,1018,Tamil Nadu,Coimbatore,2026-03-23 11:10,41.1,63,17.2,11,998,Rain,predicted
+50412,1018,Tamil Nadu,Coimbatore,2026-03-23 10:10,36.4,66,15.5,20,1011,Sunny,predicted
+50413,1018,Tamil Nadu,Coimbatore,2026-03-23 09:10,35.9,76,24.9,20,1019,Fog,predicted
+50414,1018,Tamil Nadu,Coimbatore,2026-03-23 08:10,31.8,59,16.4,29,1000,Sunny,predicted
+50415,1018,Tamil Nadu,Coimbatore,2026-03-23 07:10,31.5,50,17.3,21,1009,Cloudy,actual
+50416,1018,Tamil Nadu,Coimbatore,2026-03-23 06:10,30.0,76,12.3,8,1022,Thunderstorm,predicted
+50417,1018,Tamil Nadu,Coimbatore,2026-03-23 05:10,36.8,52,7.9,26,1016,Thunderstorm,predicted
+50418,1018,Tamil Nadu,Coimbatore,2026-03-23 04:10,40.5,51,10.9,13,995,Sunny,actual
+50419,1018,Tamil Nadu,Coimbatore,2026-03-23 03:10,24.9,90,2.1,8,1001,Fog,predicted
+50420,1018,Tamil Nadu,Coimbatore,2026-03-23 02:10,32.1,84,12.9,15,998,Rain,actual
+50421,1018,Tamil Nadu,Coimbatore,2026-03-23 01:10,27.0,72,13.8,19,1001,Thunderstorm,actual
+50422,1018,Tamil Nadu,Coimbatore,2026-03-23 00:10,31.2,63,3.3,26,1011,Fog,predicted
+50423,1018,Tamil Nadu,Coimbatore,2026-03-22 23:10,32.7,53,24.1,11,990,Cloudy,predicted
+50424,1018,Tamil Nadu,Coimbatore,2026-03-22 22:10,33.6,65,0.4,11,1004,Fog,actual
+50425,1018,Tamil Nadu,Coimbatore,2026-03-22 21:10,28.4,87,3.2,14,1023,Fog,actual
+50426,1018,Tamil Nadu,Coimbatore,2026-03-22 20:10,30.8,85,14.0,28,1006,Fog,predicted
+50427,1018,Tamil Nadu,Coimbatore,2026-03-22 19:10,40.0,71,1.1,8,1012,Cloudy,actual
+50428,1018,Tamil Nadu,Coimbatore,2026-03-22 18:10,27.6,34,16.0,28,996,Sunny,predicted
+50429,1018,Tamil Nadu,Coimbatore,2026-03-22 17:10,20.7,85,20.3,10,1008,Thunderstorm,actual
+50430,1018,Tamil Nadu,Coimbatore,2026-03-22 16:10,33.5,52,7.5,17,1006,Thunderstorm,actual
+50431,1018,Tamil Nadu,Coimbatore,2026-03-22 15:10,20.7,43,6.6,19,999,Fog,predicted
+50432,1018,Tamil Nadu,Coimbatore,2026-03-22 14:10,36.9,54,24.1,29,1017,Fog,predicted
+50433,1019,Tamil Nadu,Madurai,2026-03-23 13:10,31.2,68,8.5,12,1023,Fog,predicted
+50434,1019,Tamil Nadu,Madurai,2026-03-23 12:10,37.2,64,20.1,22,1017,Cloudy,actual
+50435,1019,Tamil Nadu,Madurai,2026-03-23 11:10,25.4,69,15.4,22,1024,Cloudy,actual
+50436,1019,Tamil Nadu,Madurai,2026-03-23 10:10,23.4,87,13.2,14,1002,Fog,predicted
+50437,1019,Tamil Nadu,Madurai,2026-03-23 09:10,34.6,66,16.9,9,992,Fog,predicted
+50438,1019,Tamil Nadu,Madurai,2026-03-23 08:10,36.7,36,6.3,23,999,Fog,predicted
+50439,1019,Tamil Nadu,Madurai,2026-03-23 07:10,38.5,38,7.3,16,1010,Rain,actual
+50440,1019,Tamil Nadu,Madurai,2026-03-23 06:10,29.4,75,8.8,7,992,Fog,actual
+50441,1019,Tamil Nadu,Madurai,2026-03-23 05:10,26.1,90,19.0,17,1013,Cloudy,predicted
+50442,1019,Tamil Nadu,Madurai,2026-03-23 04:10,21.8,58,5.1,20,992,Fog,predicted
+50443,1019,Tamil Nadu,Madurai,2026-03-23 03:10,25.9,86,2.5,9,992,Thunderstorm,actual
+50444,1019,Tamil Nadu,Madurai,2026-03-23 02:10,38.0,39,17.6,20,1025,Thunderstorm,predicted
+50445,1019,Tamil Nadu,Madurai,2026-03-23 01:10,38.1,52,18.8,5,1018,Sunny,actual
+50446,1019,Tamil Nadu,Madurai,2026-03-23 00:10,34.6,46,24.9,14,1010,Fog,actual
+50447,1019,Tamil Nadu,Madurai,2026-03-22 23:10,29.5,60,24.5,30,1008,Sunny,predicted
+50448,1019,Tamil Nadu,Madurai,2026-03-22 22:10,37.1,44,13.0,15,992,Rain,actual
+50449,1019,Tamil Nadu,Madurai,2026-03-22 21:10,26.9,73,16.8,22,1020,Cloudy,actual
+50450,1019,Tamil Nadu,Madurai,2026-03-22 20:10,32.4,83,4.8,21,992,Thunderstorm,actual
+50451,1019,Tamil Nadu,Madurai,2026-03-22 19:10,39.8,44,22.6,7,1019,Sunny,actual
+50452,1019,Tamil Nadu,Madurai,2026-03-22 18:10,27.4,46,22.4,6,1018,Thunderstorm,actual
+50453,1019,Tamil Nadu,Madurai,2026-03-22 17:10,32.9,66,7.4,28,998,Sunny,predicted
+50454,1019,Tamil Nadu,Madurai,2026-03-22 16:10,26.1,92,24.9,30,994,Thunderstorm,predicted
+50455,1019,Tamil Nadu,Madurai,2026-03-22 15:10,24.5,34,15.8,8,992,Sunny,predicted
+50456,1019,Tamil Nadu,Madurai,2026-03-22 14:10,24.3,59,12.3,5,1021,Thunderstorm,predicted
+50457,1020,Tamil Nadu,Salem,2026-03-23 13:10,41.0,81,9.3,21,1003,Rain,predicted
+50458,1020,Tamil Nadu,Salem,2026-03-23 12:10,37.2,31,7.8,11,1009,Cloudy,actual
+50459,1020,Tamil Nadu,Salem,2026-03-23 11:10,39.3,39,5.9,30,999,Rain,predicted
+50460,1020,Tamil Nadu,Salem,2026-03-23 10:10,36.2,59,22.1,27,1007,Sunny,actual
+50461,1020,Tamil Nadu,Salem,2026-03-23 09:10,40.3,90,13.0,26,992,Rain,actual
+50462,1020,Tamil Nadu,Salem,2026-03-23 08:10,35.7,33,17.5,11,1003,Fog,predicted
+50463,1020,Tamil Nadu,Salem,2026-03-23 07:10,36.2,93,12.8,18,1002,Sunny,predicted
+50464,1020,Tamil Nadu,Salem,2026-03-23 06:10,21.4,50,12.1,14,996,Rain,predicted
+50465,1020,Tamil Nadu,Salem,2026-03-23 05:10,24.6,94,16.8,27,1019,Cloudy,actual
+50466,1020,Tamil Nadu,Salem,2026-03-23 04:10,26.5,92,4.8,10,1014,Thunderstorm,actual
+50467,1020,Tamil Nadu,Salem,2026-03-23 03:10,41.9,92,20.5,29,1002,Rain,actual
+50468,1020,Tamil Nadu,Salem,2026-03-23 02:10,27.5,33,9.1,29,998,Cloudy,predicted
+50469,1020,Tamil Nadu,Salem,2026-03-23 01:10,37.9,90,1.1,13,1001,Fog,predicted
+50470,1020,Tamil Nadu,Salem,2026-03-23 00:10,40.9,69,20.5,24,1017,Thunderstorm,actual
+50471,1020,Tamil Nadu,Salem,2026-03-22 23:10,41.7,47,10.8,28,1002,Thunderstorm,actual
+50472,1020,Tamil Nadu,Salem,2026-03-22 22:10,32.4,40,18.2,24,994,Rain,actual
+50473,1020,Tamil Nadu,Salem,2026-03-22 21:10,23.1,61,21.3,13,999,Rain,actual
+50474,1020,Tamil Nadu,Salem,2026-03-22 20:10,38.9,45,2.0,27,1003,Sunny,predicted
+50475,1020,Tamil Nadu,Salem,2026-03-22 19:10,22.8,92,14.1,24,1015,Thunderstorm,actual
+50476,1020,Tamil Nadu,Salem,2026-03-22 18:10,22.4,64,15.1,13,1015,Fog,predicted
+50477,1020,Tamil Nadu,Salem,2026-03-22 17:10,28.4,46,14.7,21,1010,Fog,actual
+50478,1020,Tamil Nadu,Salem,2026-03-22 16:10,34.7,31,23.9,9,1004,Fog,actual
+50479,1020,Tamil Nadu,Salem,2026-03-22 15:10,22.8,88,21.6,10,1022,Rain,predicted
+50480,1020,Tamil Nadu,Salem,2026-03-22 14:10,22.4,42,10.7,26,1016,Rain,actual
+50481,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 13:10,41.9,69,14.4,23,1004,Thunderstorm,predicted
+50482,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 12:10,36.7,60,23.6,21,995,Fog,predicted
+50483,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 11:10,20.5,51,19.6,13,1008,Fog,predicted
+50484,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 10:10,29.5,71,10.6,22,998,Fog,actual
+50485,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 09:10,21.1,58,3.5,17,994,Thunderstorm,actual
+50486,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 08:10,37.0,48,1.5,12,1019,Cloudy,actual
+50487,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 07:10,37.9,37,4.6,24,996,Rain,actual
+50488,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 06:10,26.3,92,18.9,24,992,Cloudy,predicted
+50489,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 05:10,38.2,86,17.8,5,1018,Rain,actual
+50490,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 04:10,40.0,92,22.3,24,1007,Sunny,predicted
+50491,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 03:10,39.7,92,16.2,29,993,Sunny,actual
+50492,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 02:10,22.3,30,14.4,30,1012,Fog,predicted
+50493,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 01:10,24.2,61,9.0,10,1021,Rain,actual
+50494,1021,Tamil Nadu,Tiruchirappalli,2026-03-23 00:10,28.5,72,12.1,24,999,Sunny,predicted
+50495,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 23:10,27.4,89,7.1,19,994,Thunderstorm,predicted
+50496,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 22:10,25.8,73,21.0,17,1025,Thunderstorm,actual
+50497,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 21:10,21.8,89,0.8,12,1014,Thunderstorm,actual
+50498,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 20:10,33.3,60,4.8,9,1001,Thunderstorm,actual
+50499,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 19:10,25.9,53,7.1,7,1021,Fog,predicted
+50500,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 18:10,36.5,54,8.1,24,1011,Thunderstorm,actual
+50501,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 17:10,30.0,65,1.2,7,1023,Sunny,actual
+50502,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 16:10,35.0,55,12.7,24,1022,Rain,predicted
+50503,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 15:10,40.4,61,4.6,26,1017,Fog,predicted
+50504,1021,Tamil Nadu,Tiruchirappalli,2026-03-22 14:10,20.2,46,12.5,21,1010,Sunny,predicted
+50505,1022,Gujarat,Ahmedabad,2026-03-23 13:10,28.7,47,16.5,12,1024,Fog,predicted
+50506,1022,Gujarat,Ahmedabad,2026-03-23 12:10,20.5,81,18.4,24,1021,Thunderstorm,predicted
+50507,1022,Gujarat,Ahmedabad,2026-03-23 11:10,38.4,78,20.5,14,997,Sunny,predicted
+50508,1022,Gujarat,Ahmedabad,2026-03-23 10:10,26.8,54,14.5,6,1020,Thunderstorm,predicted
+50509,1022,Gujarat,Ahmedabad,2026-03-23 09:10,39.5,74,14.5,26,1012,Cloudy,actual
+50510,1022,Gujarat,Ahmedabad,2026-03-23 08:10,24.7,93,4.6,17,1025,Fog,actual
+50511,1022,Gujarat,Ahmedabad,2026-03-23 07:10,37.3,92,12.2,22,1004,Sunny,predicted
+50512,1022,Gujarat,Ahmedabad,2026-03-23 06:10,33.0,74,10.9,7,1019,Rain,actual
+50513,1022,Gujarat,Ahmedabad,2026-03-23 05:10,20.9,39,24.5,17,1016,Thunderstorm,predicted
+50514,1022,Gujarat,Ahmedabad,2026-03-23 04:10,21.5,39,13.2,25,1006,Cloudy,predicted
+50515,1022,Gujarat,Ahmedabad,2026-03-23 03:10,40.7,45,15.3,23,1016,Fog,predicted
+50516,1022,Gujarat,Ahmedabad,2026-03-23 02:10,27.9,83,21.2,29,1007,Thunderstorm,predicted
+50517,1022,Gujarat,Ahmedabad,2026-03-23 01:10,21.1,95,4.8,24,1012,Sunny,actual
+50518,1022,Gujarat,Ahmedabad,2026-03-23 00:10,20.3,54,6.9,26,1018,Cloudy,actual
+50519,1022,Gujarat,Ahmedabad,2026-03-22 23:10,33.5,77,18.5,14,1010,Sunny,actual
+50520,1022,Gujarat,Ahmedabad,2026-03-22 22:10,23.7,92,4.2,7,992,Thunderstorm,actual
+50521,1022,Gujarat,Ahmedabad,2026-03-22 21:10,24.9,30,18.4,29,1025,Sunny,actual
+50522,1022,Gujarat,Ahmedabad,2026-03-22 20:10,30.4,42,0.2,8,1016,Sunny,predicted
+50523,1022,Gujarat,Ahmedabad,2026-03-22 19:10,34.5,66,19.0,19,1021,Rain,predicted
+50524,1022,Gujarat,Ahmedabad,2026-03-22 18:10,22.3,39,0.2,7,1013,Thunderstorm,predicted
+50525,1022,Gujarat,Ahmedabad,2026-03-22 17:10,39.0,41,23.3,23,1006,Fog,actual
+50526,1022,Gujarat,Ahmedabad,2026-03-22 16:10,41.9,51,23.9,5,1018,Thunderstorm,actual
+50527,1022,Gujarat,Ahmedabad,2026-03-22 15:10,30.4,47,17.7,15,993,Fog,actual
+50528,1022,Gujarat,Ahmedabad,2026-03-22 14:10,26.7,58,22.5,15,994,Fog,predicted
+50529,1023,Gujarat,Surat,2026-03-23 13:10,35.9,66,7.1,29,994,Rain,predicted
+50530,1023,Gujarat,Surat,2026-03-23 12:10,38.8,39,15.5,13,1023,Sunny,predicted
+50531,1023,Gujarat,Surat,2026-03-23 11:10,30.4,30,21.5,7,1024,Cloudy,actual
+50532,1023,Gujarat,Surat,2026-03-23 10:10,30.3,77,8.3,16,990,Sunny,actual
+50533,1023,Gujarat,Surat,2026-03-23 09:10,32.5,58,19.9,8,1005,Sunny,actual
+50534,1023,Gujarat,Surat,2026-03-23 08:10,34.4,45,6.5,10,1019,Fog,actual
+50535,1023,Gujarat,Surat,2026-03-23 07:10,26.6,67,2.7,25,995,Rain,actual
+50536,1023,Gujarat,Surat,2026-03-23 06:10,34.7,34,3.2,20,1020,Cloudy,predicted
+50537,1023,Gujarat,Surat,2026-03-23 05:10,32.3,41,11.0,18,998,Cloudy,actual
+50538,1023,Gujarat,Surat,2026-03-23 04:10,25.3,77,11.6,9,1000,Rain,actual
+50539,1023,Gujarat,Surat,2026-03-23 03:10,22.1,39,12.2,24,1001,Fog,predicted
+50540,1023,Gujarat,Surat,2026-03-23 02:10,31.6,86,17.7,21,998,Fog,actual
+50541,1023,Gujarat,Surat,2026-03-23 01:10,38.5,88,1.1,14,1024,Fog,predicted
+50542,1023,Gujarat,Surat,2026-03-23 00:10,22.9,52,3.6,12,1002,Fog,actual
+50543,1023,Gujarat,Surat,2026-03-22 23:10,28.9,41,18.3,30,1024,Fog,predicted
+50544,1023,Gujarat,Surat,2026-03-22 22:10,36.1,31,21.4,24,1004,Thunderstorm,predicted
+50545,1023,Gujarat,Surat,2026-03-22 21:10,33.0,82,11.3,9,1002,Cloudy,predicted
+50546,1023,Gujarat,Surat,2026-03-22 20:10,30.4,53,15.4,7,1005,Rain,actual
+50547,1023,Gujarat,Surat,2026-03-22 19:10,23.5,62,16.6,20,1011,Thunderstorm,predicted
+50548,1023,Gujarat,Surat,2026-03-22 18:10,34.0,47,9.3,26,1017,Thunderstorm,actual
+50549,1023,Gujarat,Surat,2026-03-22 17:10,36.8,95,20.2,24,1016,Thunderstorm,predicted
+50550,1023,Gujarat,Surat,2026-03-22 16:10,35.7,89,1.2,9,1019,Fog,actual
+50551,1023,Gujarat,Surat,2026-03-22 15:10,24.3,51,10.6,23,1023,Thunderstorm,predicted
+50552,1023,Gujarat,Surat,2026-03-22 14:10,31.1,77,16.5,18,1020,Rain,actual
+50553,1024,Gujarat,Vadodara,2026-03-23 13:10,40.3,72,14.0,10,1018,Cloudy,predicted
+50554,1024,Gujarat,Vadodara,2026-03-23 12:10,34.7,32,3.9,16,1015,Sunny,actual
+50555,1024,Gujarat,Vadodara,2026-03-23 11:10,31.9,82,17.5,16,1022,Cloudy,actual
+50556,1024,Gujarat,Vadodara,2026-03-23 10:10,29.0,49,12.2,25,1024,Rain,predicted
+50557,1024,Gujarat,Vadodara,2026-03-23 09:10,41.8,65,13.9,17,1009,Sunny,actual
+50558,1024,Gujarat,Vadodara,2026-03-23 08:10,32.7,49,18.3,22,1017,Cloudy,predicted
+50559,1024,Gujarat,Vadodara,2026-03-23 07:10,33.1,92,24.8,14,996,Thunderstorm,actual
+50560,1024,Gujarat,Vadodara,2026-03-23 06:10,33.0,59,14.7,9,994,Rain,predicted
+50561,1024,Gujarat,Vadodara,2026-03-23 05:10,26.7,59,3.0,17,1020,Rain,predicted
+50562,1024,Gujarat,Vadodara,2026-03-23 04:10,31.2,51,14.2,25,1004,Rain,actual
+50563,1024,Gujarat,Vadodara,2026-03-23 03:10,26.8,40,2.8,12,993,Fog,actual
+50564,1024,Gujarat,Vadodara,2026-03-23 02:10,37.4,34,18.2,30,1023,Thunderstorm,predicted
+50565,1024,Gujarat,Vadodara,2026-03-23 01:10,22.7,84,19.2,29,1025,Fog,actual
+50566,1024,Gujarat,Vadodara,2026-03-23 00:10,23.8,50,24.7,8,1019,Sunny,actual
+50567,1024,Gujarat,Vadodara,2026-03-22 23:10,31.0,46,10.7,19,994,Thunderstorm,predicted
+50568,1024,Gujarat,Vadodara,2026-03-22 22:10,21.2,36,8.1,30,1003,Fog,actual
+50569,1024,Gujarat,Vadodara,2026-03-22 21:10,32.6,68,19.6,8,1016,Cloudy,actual
+50570,1024,Gujarat,Vadodara,2026-03-22 20:10,35.1,68,10.6,10,997,Cloudy,actual
+50571,1024,Gujarat,Vadodara,2026-03-22 19:10,29.9,37,7.4,7,994,Rain,predicted
+50572,1024,Gujarat,Vadodara,2026-03-22 18:10,21.3,88,10.8,21,991,Sunny,actual
+50573,1024,Gujarat,Vadodara,2026-03-22 17:10,34.7,33,7.6,29,1014,Fog,actual
+50574,1024,Gujarat,Vadodara,2026-03-22 16:10,26.9,95,14.9,29,992,Cloudy,actual
+50575,1024,Gujarat,Vadodara,2026-03-22 15:10,35.0,83,11.6,8,996,Rain,actual
+50576,1024,Gujarat,Vadodara,2026-03-22 14:10,34.3,64,5.6,20,1007,Fog,actual
+50577,1025,Gujarat,Rajkot,2026-03-23 13:10,31.8,36,17.9,30,1005,Sunny,actual
+50578,1025,Gujarat,Rajkot,2026-03-23 12:10,26.9,38,0.1,7,1005,Sunny,predicted
+50579,1025,Gujarat,Rajkot,2026-03-23 11:10,33.7,32,25.0,22,1023,Fog,predicted
+50580,1025,Gujarat,Rajkot,2026-03-23 10:10,22.8,51,0.4,18,998,Cloudy,predicted
+50581,1025,Gujarat,Rajkot,2026-03-23 09:10,38.4,73,15.3,15,1022,Sunny,actual
+50582,1025,Gujarat,Rajkot,2026-03-23 08:10,25.7,53,7.9,11,1017,Rain,predicted
+50583,1025,Gujarat,Rajkot,2026-03-23 07:10,23.5,52,14.9,30,1024,Cloudy,actual
+50584,1025,Gujarat,Rajkot,2026-03-23 06:10,26.2,84,3.3,24,1007,Cloudy,actual
+50585,1025,Gujarat,Rajkot,2026-03-23 05:10,24.6,69,0.4,6,1023,Cloudy,actual
+50586,1025,Gujarat,Rajkot,2026-03-23 04:10,40.2,70,19.1,29,1016,Rain,predicted
+50587,1025,Gujarat,Rajkot,2026-03-23 03:10,20.7,76,14.5,24,1006,Cloudy,actual
+50588,1025,Gujarat,Rajkot,2026-03-23 02:10,21.2,54,3.5,14,1018,Sunny,predicted
+50589,1025,Gujarat,Rajkot,2026-03-23 01:10,30.5,81,7.2,11,999,Thunderstorm,predicted
+50590,1025,Gujarat,Rajkot,2026-03-23 00:10,21.2,80,22.2,11,1021,Fog,predicted
+50591,1025,Gujarat,Rajkot,2026-03-22 23:10,26.6,91,24.2,18,1007,Cloudy,actual
+50592,1025,Gujarat,Rajkot,2026-03-22 22:10,22.5,56,23.2,14,999,Thunderstorm,actual
+50593,1025,Gujarat,Rajkot,2026-03-22 21:10,40.1,68,11.2,20,1016,Cloudy,actual
+50594,1025,Gujarat,Rajkot,2026-03-22 20:10,24.4,64,17.0,5,1011,Cloudy,actual
+50595,1025,Gujarat,Rajkot,2026-03-22 19:10,37.5,88,5.5,21,1018,Rain,predicted
+50596,1025,Gujarat,Rajkot,2026-03-22 18:10,24.5,66,2.7,28,993,Cloudy,predicted
+50597,1025,Gujarat,Rajkot,2026-03-22 17:10,22.4,65,8.3,16,1002,Rain,predicted
+50598,1025,Gujarat,Rajkot,2026-03-22 16:10,27.0,30,13.1,23,993,Sunny,actual
+50599,1025,Gujarat,Rajkot,2026-03-22 15:10,30.3,35,11.3,16,1011,Sunny,actual
+50600,1025,Gujarat,Rajkot,2026-03-22 14:10,25.9,76,18.6,16,1017,Cloudy,predicted
+50601,1026,Gujarat,Bhavnagar,2026-03-23 13:10,38.1,68,19.9,15,1010,Cloudy,actual
+50602,1026,Gujarat,Bhavnagar,2026-03-23 12:10,24.1,50,24.1,24,992,Rain,predicted
+50603,1026,Gujarat,Bhavnagar,2026-03-23 11:10,21.9,52,12.6,18,1020,Sunny,actual
+50604,1026,Gujarat,Bhavnagar,2026-03-23 10:10,21.3,81,23.6,27,1019,Sunny,predicted
+50605,1026,Gujarat,Bhavnagar,2026-03-23 09:10,24.1,54,13.1,9,995,Fog,predicted
+50606,1026,Gujarat,Bhavnagar,2026-03-23 08:10,34.5,83,10.4,23,1023,Rain,predicted
+50607,1026,Gujarat,Bhavnagar,2026-03-23 07:10,27.1,65,15.5,27,994,Cloudy,actual
+50608,1026,Gujarat,Bhavnagar,2026-03-23 06:10,32.8,48,14.7,11,1022,Cloudy,predicted
+50609,1026,Gujarat,Bhavnagar,2026-03-23 05:10,21.3,88,24.8,16,1006,Thunderstorm,predicted
+50610,1026,Gujarat,Bhavnagar,2026-03-23 04:10,38.0,95,15.2,26,1013,Cloudy,predicted
+50611,1026,Gujarat,Bhavnagar,2026-03-23 03:10,29.6,67,16.4,27,1001,Rain,predicted
+50612,1026,Gujarat,Bhavnagar,2026-03-23 02:10,21.8,58,21.6,12,1009,Cloudy,predicted
+50613,1026,Gujarat,Bhavnagar,2026-03-23 01:10,32.0,76,3.7,13,997,Cloudy,actual
+50614,1026,Gujarat,Bhavnagar,2026-03-23 00:10,26.1,44,11.4,7,1016,Thunderstorm,predicted
+50615,1026,Gujarat,Bhavnagar,2026-03-22 23:10,32.2,79,12.9,20,1009,Rain,predicted
+50616,1026,Gujarat,Bhavnagar,2026-03-22 22:10,28.1,38,3.9,11,1002,Sunny,actual
+50617,1026,Gujarat,Bhavnagar,2026-03-22 21:10,27.6,56,12.8,6,994,Sunny,predicted
+50618,1026,Gujarat,Bhavnagar,2026-03-22 20:10,41.2,44,22.5,11,991,Cloudy,actual
+50619,1026,Gujarat,Bhavnagar,2026-03-22 19:10,21.2,38,12.9,14,991,Thunderstorm,predicted
+50620,1026,Gujarat,Bhavnagar,2026-03-22 18:10,30.7,39,13.3,9,1017,Fog,actual
+50621,1026,Gujarat,Bhavnagar,2026-03-22 17:10,41.2,50,8.5,13,1011,Rain,predicted
+50622,1026,Gujarat,Bhavnagar,2026-03-22 16:10,22.8,31,21.7,9,1002,Rain,predicted
+50623,1026,Gujarat,Bhavnagar,2026-03-22 15:10,21.7,72,11.4,23,1002,Cloudy,predicted
+50624,1026,Gujarat,Bhavnagar,2026-03-22 14:10,30.8,54,4.7,23,1010,Cloudy,actual
+50625,1027,Rajasthan,Jaipur,2026-03-23 13:10,41.6,68,23.9,11,1012,Fog,predicted
+50626,1027,Rajasthan,Jaipur,2026-03-23 12:10,34.6,52,20.2,23,1002,Cloudy,predicted
+50627,1027,Rajasthan,Jaipur,2026-03-23 11:10,37.2,87,21.5,10,997,Thunderstorm,actual
+50628,1027,Rajasthan,Jaipur,2026-03-23 10:10,34.8,33,9.3,5,994,Cloudy,predicted
+50629,1027,Rajasthan,Jaipur,2026-03-23 09:10,38.4,36,12.5,10,1018,Fog,actual
+50630,1027,Rajasthan,Jaipur,2026-03-23 08:10,39.1,73,18.0,14,1007,Thunderstorm,predicted
+50631,1027,Rajasthan,Jaipur,2026-03-23 07:10,20.7,74,17.9,13,997,Thunderstorm,actual
+50632,1027,Rajasthan,Jaipur,2026-03-23 06:10,28.1,91,0.8,26,997,Rain,predicted
+50633,1027,Rajasthan,Jaipur,2026-03-23 05:10,41.3,87,18.7,16,1012,Sunny,predicted
+50634,1027,Rajasthan,Jaipur,2026-03-23 04:10,37.7,91,24.9,6,1020,Fog,predicted
+50635,1027,Rajasthan,Jaipur,2026-03-23 03:10,29.9,90,14.3,16,1013,Cloudy,predicted
+50636,1027,Rajasthan,Jaipur,2026-03-23 02:10,35.5,89,15.8,28,1008,Cloudy,predicted
+50637,1027,Rajasthan,Jaipur,2026-03-23 01:10,22.7,82,24.6,30,1006,Rain,predicted
+50638,1027,Rajasthan,Jaipur,2026-03-23 00:10,29.6,93,5.9,27,998,Cloudy,actual
+50639,1027,Rajasthan,Jaipur,2026-03-22 23:10,24.4,34,0.5,25,1001,Sunny,predicted
+50640,1027,Rajasthan,Jaipur,2026-03-22 22:10,20.6,70,14.8,25,1023,Rain,predicted
+50641,1027,Rajasthan,Jaipur,2026-03-22 21:10,24.7,67,14.7,25,993,Sunny,actual
+50642,1027,Rajasthan,Jaipur,2026-03-22 20:10,25.8,30,9.1,18,990,Cloudy,predicted
+50643,1027,Rajasthan,Jaipur,2026-03-22 19:10,24.6,54,15.2,10,996,Cloudy,actual
+50644,1027,Rajasthan,Jaipur,2026-03-22 18:10,22.1,76,25.0,5,990,Thunderstorm,predicted
+50645,1027,Rajasthan,Jaipur,2026-03-22 17:10,27.2,91,11.0,28,1025,Rain,predicted
+50646,1027,Rajasthan,Jaipur,2026-03-22 16:10,24.4,76,6.0,23,1019,Sunny,predicted
+50647,1027,Rajasthan,Jaipur,2026-03-22 15:10,28.2,37,20.3,8,993,Fog,predicted
+50648,1027,Rajasthan,Jaipur,2026-03-22 14:10,29.2,70,4.7,17,1021,Cloudy,actual
+50649,1028,Rajasthan,Udaipur,2026-03-23 13:10,35.0,84,23.2,14,997,Cloudy,actual
+50650,1028,Rajasthan,Udaipur,2026-03-23 12:10,31.1,60,23.6,17,1023,Cloudy,predicted
+50651,1028,Rajasthan,Udaipur,2026-03-23 11:10,34.2,55,9.8,10,1021,Sunny,actual
+50652,1028,Rajasthan,Udaipur,2026-03-23 10:10,27.8,69,21.7,26,1008,Cloudy,actual
+50653,1028,Rajasthan,Udaipur,2026-03-23 09:10,36.0,50,4.9,21,1021,Thunderstorm,actual
+50654,1028,Rajasthan,Udaipur,2026-03-23 08:10,24.8,31,15.6,9,1001,Thunderstorm,actual
+50655,1028,Rajasthan,Udaipur,2026-03-23 07:10,26.5,33,8.2,10,1004,Thunderstorm,actual
+50656,1028,Rajasthan,Udaipur,2026-03-23 06:10,35.4,44,9.4,27,1006,Thunderstorm,actual
+50657,1028,Rajasthan,Udaipur,2026-03-23 05:10,22.1,64,6.8,6,1007,Thunderstorm,predicted
+50658,1028,Rajasthan,Udaipur,2026-03-23 04:10,27.0,72,21.2,7,994,Thunderstorm,predicted
+50659,1028,Rajasthan,Udaipur,2026-03-23 03:10,29.6,74,17.4,25,998,Cloudy,actual
+50660,1028,Rajasthan,Udaipur,2026-03-23 02:10,20.7,75,23.1,14,1011,Rain,actual
+50661,1028,Rajasthan,Udaipur,2026-03-23 01:10,34.2,35,12.8,18,1022,Fog,predicted
+50662,1028,Rajasthan,Udaipur,2026-03-23 00:10,30.9,53,1.6,16,995,Rain,predicted
+50663,1028,Rajasthan,Udaipur,2026-03-22 23:10,41.1,67,9.1,7,1011,Fog,actual
+50664,1028,Rajasthan,Udaipur,2026-03-22 22:10,29.0,66,20.2,30,1023,Sunny,actual
+50665,1028,Rajasthan,Udaipur,2026-03-22 21:10,27.9,64,17.4,16,1023,Thunderstorm,actual
+50666,1028,Rajasthan,Udaipur,2026-03-22 20:10,32.4,48,24.3,25,1009,Cloudy,predicted
+50667,1028,Rajasthan,Udaipur,2026-03-22 19:10,27.6,85,16.2,23,990,Thunderstorm,predicted
+50668,1028,Rajasthan,Udaipur,2026-03-22 18:10,23.4,65,10.8,24,1025,Cloudy,predicted
+50669,1028,Rajasthan,Udaipur,2026-03-22 17:10,31.1,81,4.7,8,1000,Rain,predicted
+50670,1028,Rajasthan,Udaipur,2026-03-22 16:10,25.6,62,10.8,21,1020,Cloudy,predicted
+50671,1028,Rajasthan,Udaipur,2026-03-22 15:10,26.7,76,12.7,22,1005,Fog,predicted
+50672,1028,Rajasthan,Udaipur,2026-03-22 14:10,37.0,38,18.7,28,1016,Cloudy,actual
+50673,1029,Rajasthan,Jodhpur,2026-03-23 13:10,28.3,63,17.7,17,1021,Cloudy,actual
+50674,1029,Rajasthan,Jodhpur,2026-03-23 12:10,26.8,37,1.5,30,1003,Rain,actual
+50675,1029,Rajasthan,Jodhpur,2026-03-23 11:10,39.8,74,22.4,7,1007,Thunderstorm,predicted
+50676,1029,Rajasthan,Jodhpur,2026-03-23 10:10,39.7,64,17.0,27,1013,Cloudy,predicted
+50677,1029,Rajasthan,Jodhpur,2026-03-23 09:10,25.8,36,4.8,18,995,Thunderstorm,predicted
+50678,1029,Rajasthan,Jodhpur,2026-03-23 08:10,41.7,31,21.8,18,998,Sunny,predicted
+50679,1029,Rajasthan,Jodhpur,2026-03-23 07:10,36.7,70,2.4,15,1015,Fog,predicted
+50680,1029,Rajasthan,Jodhpur,2026-03-23 06:10,21.6,73,13.2,17,1008,Cloudy,actual
+50681,1029,Rajasthan,Jodhpur,2026-03-23 05:10,25.6,65,8.0,22,997,Thunderstorm,predicted
+50682,1029,Rajasthan,Jodhpur,2026-03-23 04:10,23.3,39,9.9,21,1008,Rain,actual
+50683,1029,Rajasthan,Jodhpur,2026-03-23 03:10,23.8,46,9.8,10,1009,Fog,predicted
+50684,1029,Rajasthan,Jodhpur,2026-03-23 02:10,36.2,37,22.2,7,1016,Thunderstorm,predicted
+50685,1029,Rajasthan,Jodhpur,2026-03-23 01:10,36.3,63,1.2,11,1012,Cloudy,predicted
+50686,1029,Rajasthan,Jodhpur,2026-03-23 00:10,23.8,44,6.4,12,1007,Sunny,actual
+50687,1029,Rajasthan,Jodhpur,2026-03-22 23:10,21.4,69,4.8,7,1007,Fog,predicted
+50688,1029,Rajasthan,Jodhpur,2026-03-22 22:10,41.1,62,22.8,9,1002,Sunny,actual
+50689,1029,Rajasthan,Jodhpur,2026-03-22 21:10,33.2,49,14.9,9,1001,Cloudy,predicted
+50690,1029,Rajasthan,Jodhpur,2026-03-22 20:10,30.5,66,14.7,13,998,Rain,actual
+50691,1029,Rajasthan,Jodhpur,2026-03-22 19:10,26.0,81,23.3,22,998,Thunderstorm,predicted
+50692,1029,Rajasthan,Jodhpur,2026-03-22 18:10,22.7,74,23.5,27,1019,Thunderstorm,actual
+50693,1029,Rajasthan,Jodhpur,2026-03-22 17:10,23.5,41,21.0,19,998,Thunderstorm,predicted
+50694,1029,Rajasthan,Jodhpur,2026-03-22 16:10,34.2,87,5.4,12,991,Thunderstorm,predicted
+50695,1029,Rajasthan,Jodhpur,2026-03-22 15:10,33.1,60,8.0,18,996,Sunny,predicted
+50696,1029,Rajasthan,Jodhpur,2026-03-22 14:10,26.8,83,23.0,16,1006,Cloudy,actual
+50697,1030,Rajasthan,Kota,2026-03-23 13:10,21.8,46,20.7,26,1004,Fog,predicted
+50698,1030,Rajasthan,Kota,2026-03-23 12:10,29.5,48,10.4,17,994,Rain,actual
+50699,1030,Rajasthan,Kota,2026-03-23 11:10,23.2,70,17.7,16,994,Sunny,actual
+50700,1030,Rajasthan,Kota,2026-03-23 10:10,28.2,94,20.5,14,998,Sunny,predicted
+50701,1030,Rajasthan,Kota,2026-03-23 09:10,38.1,54,24.4,19,995,Sunny,predicted
+50702,1030,Rajasthan,Kota,2026-03-23 08:10,36.3,95,10.3,11,1011,Rain,actual
+50703,1030,Rajasthan,Kota,2026-03-23 07:10,39.7,60,24.8,23,1002,Fog,actual
+50704,1030,Rajasthan,Kota,2026-03-23 06:10,22.2,43,10.0,7,1003,Thunderstorm,actual
+50705,1030,Rajasthan,Kota,2026-03-23 05:10,23.0,40,10.2,23,998,Rain,predicted
+50706,1030,Rajasthan,Kota,2026-03-23 04:10,32.1,43,21.8,27,1013,Thunderstorm,actual
+50707,1030,Rajasthan,Kota,2026-03-23 03:10,40.9,45,1.0,6,992,Sunny,actual
+50708,1030,Rajasthan,Kota,2026-03-23 02:10,40.9,83,6.6,28,1004,Sunny,actual
+50709,1030,Rajasthan,Kota,2026-03-23 01:10,28.8,44,9.9,8,998,Cloudy,predicted
+50710,1030,Rajasthan,Kota,2026-03-23 00:10,37.8,56,11.7,14,1017,Thunderstorm,predicted
+50711,1030,Rajasthan,Kota,2026-03-22 23:10,24.5,82,15.9,19,1000,Rain,predicted
+50712,1030,Rajasthan,Kota,2026-03-22 22:10,29.2,63,17.5,23,1013,Cloudy,actual
+50713,1030,Rajasthan,Kota,2026-03-22 21:10,21.9,42,0.2,26,1019,Rain,predicted
+50714,1030,Rajasthan,Kota,2026-03-22 20:10,23.1,84,13.3,23,1003,Thunderstorm,actual
+50715,1030,Rajasthan,Kota,2026-03-22 19:10,23.2,66,6.2,9,991,Thunderstorm,actual
+50716,1030,Rajasthan,Kota,2026-03-22 18:10,28.3,43,15.4,7,1024,Thunderstorm,actual
+50717,1030,Rajasthan,Kota,2026-03-22 17:10,28.8,31,2.4,14,1009,Sunny,actual
+50718,1030,Rajasthan,Kota,2026-03-22 16:10,33.1,89,6.6,24,1002,Sunny,predicted
+50719,1030,Rajasthan,Kota,2026-03-22 15:10,35.9,90,13.3,28,1023,Cloudy,predicted
+50720,1030,Rajasthan,Kota,2026-03-22 14:10,20.4,60,9.6,18,994,Thunderstorm,predicted
+50721,1031,Rajasthan,Ajmer,2026-03-23 13:10,29.8,89,19.4,19,1005,Fog,actual
+50722,1031,Rajasthan,Ajmer,2026-03-23 12:10,29.2,80,24.2,17,1012,Thunderstorm,actual
+50723,1031,Rajasthan,Ajmer,2026-03-23 11:10,32.2,60,7.1,18,992,Fog,actual
+50724,1031,Rajasthan,Ajmer,2026-03-23 10:10,30.9,64,23.8,15,997,Fog,predicted
+50725,1031,Rajasthan,Ajmer,2026-03-23 09:10,41.2,34,3.9,26,1019,Thunderstorm,predicted
+50726,1031,Rajasthan,Ajmer,2026-03-23 08:10,27.8,82,5.3,20,1013,Cloudy,actual
+50727,1031,Rajasthan,Ajmer,2026-03-23 07:10,39.2,89,5.9,21,1015,Sunny,predicted
+50728,1031,Rajasthan,Ajmer,2026-03-23 06:10,38.0,78,7.2,15,1017,Cloudy,actual
+50729,1031,Rajasthan,Ajmer,2026-03-23 05:10,40.0,60,18.2,7,1004,Cloudy,actual
+50730,1031,Rajasthan,Ajmer,2026-03-23 04:10,34.9,42,3.9,17,1000,Thunderstorm,actual
+50731,1031,Rajasthan,Ajmer,2026-03-23 03:10,35.3,69,8.9,18,1012,Thunderstorm,actual
+50732,1031,Rajasthan,Ajmer,2026-03-23 02:10,23.3,44,11.1,17,1001,Sunny,actual
+50733,1031,Rajasthan,Ajmer,2026-03-23 01:10,20.8,49,20.5,22,1008,Sunny,predicted
+50734,1031,Rajasthan,Ajmer,2026-03-23 00:10,27.1,64,1.7,28,1008,Rain,predicted
+50735,1031,Rajasthan,Ajmer,2026-03-22 23:10,22.1,37,21.6,8,1001,Fog,predicted
+50736,1031,Rajasthan,Ajmer,2026-03-22 22:10,37.2,40,4.2,16,1012,Rain,predicted
+50737,1031,Rajasthan,Ajmer,2026-03-22 21:10,25.8,92,4.1,10,995,Sunny,actual
+50738,1031,Rajasthan,Ajmer,2026-03-22 20:10,34.9,64,4.4,15,1007,Fog,predicted
+50739,1031,Rajasthan,Ajmer,2026-03-22 19:10,31.2,78,7.3,17,1010,Cloudy,actual
+50740,1031,Rajasthan,Ajmer,2026-03-22 18:10,40.4,91,14.6,8,1022,Rain,predicted
+50741,1031,Rajasthan,Ajmer,2026-03-22 17:10,33.3,41,22.3,8,1020,Fog,actual
+50742,1031,Rajasthan,Ajmer,2026-03-22 16:10,41.3,52,21.1,16,1016,Cloudy,predicted
+50743,1031,Rajasthan,Ajmer,2026-03-22 15:10,33.1,46,21.3,11,999,Sunny,predicted
+50744,1031,Rajasthan,Ajmer,2026-03-22 14:10,24.8,42,7.6,20,1018,Fog,actual
+50745,1032,West Bengal,Kolkata,2026-03-23 13:10,33.1,55,12.3,30,1025,Sunny,actual
+50746,1032,West Bengal,Kolkata,2026-03-23 12:10,30.6,83,8.1,15,1013,Cloudy,predicted
+50747,1032,West Bengal,Kolkata,2026-03-23 11:10,39.3,46,20.4,26,1010,Rain,predicted
+50748,1032,West Bengal,Kolkata,2026-03-23 10:10,29.3,93,12.2,22,1005,Thunderstorm,actual
+50749,1032,West Bengal,Kolkata,2026-03-23 09:10,21.8,47,15.4,13,1001,Sunny,predicted
+50750,1032,West Bengal,Kolkata,2026-03-23 08:10,37.5,65,16.8,13,1013,Rain,actual
+50751,1032,West Bengal,Kolkata,2026-03-23 07:10,20.9,83,22.7,16,1006,Cloudy,actual
+50752,1032,West Bengal,Kolkata,2026-03-23 06:10,24.4,75,18.9,8,1001,Sunny,predicted
+50753,1032,West Bengal,Kolkata,2026-03-23 05:10,39.0,87,1.7,5,1024,Cloudy,actual
+50754,1032,West Bengal,Kolkata,2026-03-23 04:10,20.8,70,12.8,28,1011,Cloudy,actual
+50755,1032,West Bengal,Kolkata,2026-03-23 03:10,26.5,52,3.5,10,1025,Cloudy,actual
+50756,1032,West Bengal,Kolkata,2026-03-23 02:10,31.8,54,9.4,6,1023,Sunny,predicted
+50757,1032,West Bengal,Kolkata,2026-03-23 01:10,41.5,84,18.1,25,992,Rain,actual
+50758,1032,West Bengal,Kolkata,2026-03-23 00:10,32.2,71,1.0,13,998,Sunny,actual
+50759,1032,West Bengal,Kolkata,2026-03-22 23:10,25.1,36,9.9,18,1012,Cloudy,predicted
+50760,1032,West Bengal,Kolkata,2026-03-22 22:10,27.6,60,21.2,15,1007,Cloudy,actual
+50761,1032,West Bengal,Kolkata,2026-03-22 21:10,40.8,33,20.0,16,1002,Rain,predicted
+50762,1032,West Bengal,Kolkata,2026-03-22 20:10,22.4,59,14.5,5,1008,Thunderstorm,actual
+50763,1032,West Bengal,Kolkata,2026-03-22 19:10,23.2,63,2.0,14,996,Fog,predicted
+50764,1032,West Bengal,Kolkata,2026-03-22 18:10,32.2,81,22.1,15,1007,Thunderstorm,actual
+50765,1032,West Bengal,Kolkata,2026-03-22 17:10,40.1,70,13.5,20,1023,Sunny,actual
+50766,1032,West Bengal,Kolkata,2026-03-22 16:10,33.2,45,19.7,14,1005,Sunny,predicted
+50767,1032,West Bengal,Kolkata,2026-03-22 15:10,38.7,94,24.4,22,1008,Cloudy,predicted
+50768,1032,West Bengal,Kolkata,2026-03-22 14:10,31.2,37,5.4,8,1012,Cloudy,actual
+50769,1033,West Bengal,Howrah,2026-03-23 13:10,41.5,80,19.6,10,1003,Rain,actual
+50770,1033,West Bengal,Howrah,2026-03-23 12:10,39.7,51,4.5,29,998,Cloudy,predicted
+50771,1033,West Bengal,Howrah,2026-03-23 11:10,30.7,92,0.2,21,1005,Sunny,actual
+50772,1033,West Bengal,Howrah,2026-03-23 10:10,21.2,79,4.5,13,1003,Sunny,actual
+50773,1033,West Bengal,Howrah,2026-03-23 09:10,20.6,56,9.1,29,1023,Sunny,actual
+50774,1033,West Bengal,Howrah,2026-03-23 08:10,39.5,77,14.1,27,1015,Sunny,predicted
+50775,1033,West Bengal,Howrah,2026-03-23 07:10,41.0,62,3.4,22,1006,Rain,actual
+50776,1033,West Bengal,Howrah,2026-03-23 06:10,24.5,95,17.7,23,999,Thunderstorm,predicted
+50777,1033,West Bengal,Howrah,2026-03-23 05:10,33.7,37,24.1,30,997,Sunny,predicted
+50778,1033,West Bengal,Howrah,2026-03-23 04:10,24.7,51,16.6,16,996,Rain,predicted
+50779,1033,West Bengal,Howrah,2026-03-23 03:10,30.1,82,16.2,23,1010,Sunny,predicted
+50780,1033,West Bengal,Howrah,2026-03-23 02:10,27.8,59,14.1,21,1005,Thunderstorm,actual
+50781,1033,West Bengal,Howrah,2026-03-23 01:10,33.0,51,10.9,5,994,Cloudy,actual
+50782,1033,West Bengal,Howrah,2026-03-23 00:10,27.8,50,11.3,18,991,Rain,actual
+50783,1033,West Bengal,Howrah,2026-03-22 23:10,28.5,95,23.5,7,1007,Fog,actual
+50784,1033,West Bengal,Howrah,2026-03-22 22:10,30.9,58,12.0,12,991,Sunny,actual
+50785,1033,West Bengal,Howrah,2026-03-22 21:10,20.1,84,16.3,12,1016,Rain,actual
+50786,1033,West Bengal,Howrah,2026-03-22 20:10,22.2,70,0.3,11,1009,Sunny,actual
+50787,1033,West Bengal,Howrah,2026-03-22 19:10,39.1,76,18.7,26,1012,Sunny,predicted
+50788,1033,West Bengal,Howrah,2026-03-22 18:10,23.2,65,20.2,10,998,Sunny,predicted
+50789,1033,West Bengal,Howrah,2026-03-22 17:10,33.2,78,11.0,20,991,Sunny,actual
+50790,1033,West Bengal,Howrah,2026-03-22 16:10,35.2,79,9.2,20,1004,Thunderstorm,actual
+50791,1033,West Bengal,Howrah,2026-03-22 15:10,31.1,92,4.0,16,1022,Sunny,actual
+50792,1033,West Bengal,Howrah,2026-03-22 14:10,28.9,47,2.4,29,1017,Fog,actual
+50793,1034,West Bengal,Durgapur,2026-03-23 13:10,36.6,70,1.2,28,1008,Rain,actual
+50794,1034,West Bengal,Durgapur,2026-03-23 12:10,39.9,87,21.8,29,999,Rain,predicted
+50795,1034,West Bengal,Durgapur,2026-03-23 11:10,29.9,58,13.1,14,993,Cloudy,actual
+50796,1034,West Bengal,Durgapur,2026-03-23 10:10,39.3,90,5.6,13,1002,Fog,actual
+50797,1034,West Bengal,Durgapur,2026-03-23 09:10,30.6,46,22.1,7,1020,Thunderstorm,predicted
+50798,1034,West Bengal,Durgapur,2026-03-23 08:10,29.5,84,11.3,16,1016,Cloudy,predicted
+50799,1034,West Bengal,Durgapur,2026-03-23 07:10,36.7,41,7.5,24,1013,Fog,actual
+50800,1034,West Bengal,Durgapur,2026-03-23 06:10,33.6,75,18.2,10,1005,Cloudy,actual
+50801,1034,West Bengal,Durgapur,2026-03-23 05:10,35.6,38,12.5,13,1025,Rain,predicted
+50802,1034,West Bengal,Durgapur,2026-03-23 04:10,26.3,32,6.4,25,994,Fog,predicted
+50803,1034,West Bengal,Durgapur,2026-03-23 03:10,28.7,37,9.9,24,1009,Thunderstorm,actual
+50804,1034,West Bengal,Durgapur,2026-03-23 02:10,32.3,69,17.1,20,1005,Cloudy,predicted
+50805,1034,West Bengal,Durgapur,2026-03-23 01:10,40.0,84,22.0,8,1008,Sunny,actual
+50806,1034,West Bengal,Durgapur,2026-03-23 00:10,21.5,74,2.9,10,1023,Fog,actual
+50807,1034,West Bengal,Durgapur,2026-03-22 23:10,36.7,72,20.1,5,1010,Cloudy,predicted
+50808,1034,West Bengal,Durgapur,2026-03-22 22:10,32.4,35,17.7,20,1007,Rain,actual
+50809,1034,West Bengal,Durgapur,2026-03-22 21:10,25.0,67,10.2,25,1014,Cloudy,predicted
+50810,1034,West Bengal,Durgapur,2026-03-22 20:10,24.0,55,9.3,12,996,Sunny,actual
+50811,1034,West Bengal,Durgapur,2026-03-22 19:10,29.5,92,21.7,20,1011,Rain,predicted
+50812,1034,West Bengal,Durgapur,2026-03-22 18:10,33.9,45,24.7,16,1016,Cloudy,predicted
+50813,1034,West Bengal,Durgapur,2026-03-22 17:10,22.5,40,18.2,11,998,Sunny,actual
+50814,1034,West Bengal,Durgapur,2026-03-22 16:10,41.0,61,6.9,18,1018,Thunderstorm,predicted
+50815,1034,West Bengal,Durgapur,2026-03-22 15:10,34.8,40,22.6,25,1009,Rain,actual
+50816,1034,West Bengal,Durgapur,2026-03-22 14:10,29.1,68,13.4,22,994,Sunny,predicted
+50817,1035,West Bengal,Siliguri,2026-03-23 13:10,39.6,69,12.9,29,1023,Sunny,predicted
+50818,1035,West Bengal,Siliguri,2026-03-23 12:10,22.7,77,2.6,26,1005,Thunderstorm,predicted
+50819,1035,West Bengal,Siliguri,2026-03-23 11:10,23.6,88,13.9,7,1023,Fog,predicted
+50820,1035,West Bengal,Siliguri,2026-03-23 10:10,33.1,71,23.1,19,1018,Fog,predicted
+50821,1035,West Bengal,Siliguri,2026-03-23 09:10,31.9,46,14.4,18,1022,Rain,predicted
+50822,1035,West Bengal,Siliguri,2026-03-23 08:10,35.2,49,9.9,27,1019,Fog,actual
+50823,1035,West Bengal,Siliguri,2026-03-23 07:10,39.0,56,22.0,27,1020,Rain,actual
+50824,1035,West Bengal,Siliguri,2026-03-23 06:10,28.3,61,7.1,11,1013,Sunny,predicted
+50825,1035,West Bengal,Siliguri,2026-03-23 05:10,32.1,38,1.3,23,1009,Fog,actual
+50826,1035,West Bengal,Siliguri,2026-03-23 04:10,41.8,44,5.0,16,1002,Sunny,actual
+50827,1035,West Bengal,Siliguri,2026-03-23 03:10,35.2,31,6.6,16,1007,Fog,predicted
+50828,1035,West Bengal,Siliguri,2026-03-23 02:10,20.0,64,5.0,9,1000,Fog,actual
+50829,1035,West Bengal,Siliguri,2026-03-23 01:10,39.6,56,22.8,9,993,Sunny,actual
+50830,1035,West Bengal,Siliguri,2026-03-23 00:10,32.3,48,15.9,8,1017,Thunderstorm,actual
+50831,1035,West Bengal,Siliguri,2026-03-22 23:10,37.7,77,20.0,19,1018,Fog,actual
+50832,1035,West Bengal,Siliguri,2026-03-22 22:10,22.6,62,23.7,10,992,Rain,actual
+50833,1035,West Bengal,Siliguri,2026-03-22 21:10,32.5,87,8.1,8,1000,Thunderstorm,predicted
+50834,1035,West Bengal,Siliguri,2026-03-22 20:10,40.1,82,11.2,27,1001,Rain,predicted
+50835,1035,West Bengal,Siliguri,2026-03-22 19:10,30.3,93,14.1,5,1025,Fog,actual
+50836,1035,West Bengal,Siliguri,2026-03-22 18:10,23.9,62,3.7,13,1021,Rain,predicted
+50837,1035,West Bengal,Siliguri,2026-03-22 17:10,24.6,77,24.5,8,1006,Thunderstorm,actual
+50838,1035,West Bengal,Siliguri,2026-03-22 16:10,24.2,89,0.5,19,999,Fog,actual
+50839,1035,West Bengal,Siliguri,2026-03-22 15:10,25.4,76,23.9,27,1002,Sunny,predicted
+50840,1035,West Bengal,Siliguri,2026-03-22 14:10,21.4,92,7.3,7,1022,Sunny,predicted
+50841,1036,Madhya Pradesh,Bhopal,2026-03-23 13:10,29.3,45,17.3,26,1020,Sunny,predicted
+50842,1036,Madhya Pradesh,Bhopal,2026-03-23 12:10,37.1,66,11.7,10,998,Fog,actual
+50843,1036,Madhya Pradesh,Bhopal,2026-03-23 11:10,36.2,91,19.9,18,1015,Sunny,actual
+50844,1036,Madhya Pradesh,Bhopal,2026-03-23 10:10,41.3,82,23.3,19,1018,Cloudy,actual
+50845,1036,Madhya Pradesh,Bhopal,2026-03-23 09:10,22.3,49,20.2,7,1025,Fog,actual
+50846,1036,Madhya Pradesh,Bhopal,2026-03-23 08:10,38.2,35,10.8,16,998,Cloudy,actual
+50847,1036,Madhya Pradesh,Bhopal,2026-03-23 07:10,37.2,86,23.0,6,1016,Rain,actual
+50848,1036,Madhya Pradesh,Bhopal,2026-03-23 06:10,25.8,60,6.0,5,1010,Cloudy,predicted
+50849,1036,Madhya Pradesh,Bhopal,2026-03-23 05:10,34.2,33,20.8,27,991,Fog,actual
+50850,1036,Madhya Pradesh,Bhopal,2026-03-23 04:10,29.2,71,12.2,13,1000,Thunderstorm,actual
+50851,1036,Madhya Pradesh,Bhopal,2026-03-23 03:10,25.7,91,20.1,20,1008,Cloudy,actual
+50852,1036,Madhya Pradesh,Bhopal,2026-03-23 02:10,28.2,52,2.0,9,1000,Sunny,predicted
+50853,1036,Madhya Pradesh,Bhopal,2026-03-23 01:10,23.2,68,2.0,7,1006,Thunderstorm,actual
+50854,1036,Madhya Pradesh,Bhopal,2026-03-23 00:10,33.2,74,5.3,26,1024,Thunderstorm,predicted
+50855,1036,Madhya Pradesh,Bhopal,2026-03-22 23:10,38.3,50,16.5,30,1003,Fog,actual
+50856,1036,Madhya Pradesh,Bhopal,2026-03-22 22:10,24.8,58,0.2,21,1021,Rain,actual
+50857,1036,Madhya Pradesh,Bhopal,2026-03-22 21:10,38.5,81,22.1,24,1018,Cloudy,predicted
+50858,1036,Madhya Pradesh,Bhopal,2026-03-22 20:10,41.1,92,8.5,10,1012,Thunderstorm,actual
+50859,1036,Madhya Pradesh,Bhopal,2026-03-22 19:10,34.2,75,8.9,22,1005,Fog,predicted
+50860,1036,Madhya Pradesh,Bhopal,2026-03-22 18:10,30.3,41,5.6,11,997,Sunny,predicted
+50861,1036,Madhya Pradesh,Bhopal,2026-03-22 17:10,33.4,44,24.4,15,1009,Fog,predicted
+50862,1036,Madhya Pradesh,Bhopal,2026-03-22 16:10,30.3,66,24.5,19,1012,Cloudy,actual
+50863,1036,Madhya Pradesh,Bhopal,2026-03-22 15:10,26.4,85,7.7,15,1007,Thunderstorm,actual
+50864,1036,Madhya Pradesh,Bhopal,2026-03-22 14:10,27.2,38,23.3,13,1003,Cloudy,predicted
+50865,1037,Madhya Pradesh,Indore,2026-03-23 13:10,39.4,48,24.4,30,1010,Thunderstorm,predicted
+50866,1037,Madhya Pradesh,Indore,2026-03-23 12:10,34.9,87,19.9,25,1012,Cloudy,actual
+50867,1037,Madhya Pradesh,Indore,2026-03-23 11:10,21.1,36,11.9,14,1018,Fog,predicted
+50868,1037,Madhya Pradesh,Indore,2026-03-23 10:10,25.3,56,22.8,7,999,Thunderstorm,predicted
+50869,1037,Madhya Pradesh,Indore,2026-03-23 09:10,25.1,52,13.9,26,1011,Thunderstorm,predicted
+50870,1037,Madhya Pradesh,Indore,2026-03-23 08:10,34.5,92,15.3,23,1023,Sunny,actual
+50871,1037,Madhya Pradesh,Indore,2026-03-23 07:10,36.1,73,14.8,7,995,Fog,predicted
+50872,1037,Madhya Pradesh,Indore,2026-03-23 06:10,35.3,81,22.9,16,1020,Rain,actual
+50873,1037,Madhya Pradesh,Indore,2026-03-23 05:10,22.8,42,11.4,16,993,Fog,predicted
+50874,1037,Madhya Pradesh,Indore,2026-03-23 04:10,37.9,47,6.3,11,1004,Fog,actual
+50875,1037,Madhya Pradesh,Indore,2026-03-23 03:10,40.8,89,10.8,29,1022,Thunderstorm,predicted
+50876,1037,Madhya Pradesh,Indore,2026-03-23 02:10,29.6,43,4.6,23,994,Fog,predicted
+50877,1037,Madhya Pradesh,Indore,2026-03-23 01:10,40.3,53,4.9,27,1013,Fog,actual
+50878,1037,Madhya Pradesh,Indore,2026-03-23 00:10,34.6,47,11.5,25,994,Rain,actual
+50879,1037,Madhya Pradesh,Indore,2026-03-22 23:10,38.9,82,22.5,14,1015,Cloudy,actual
+50880,1037,Madhya Pradesh,Indore,2026-03-22 22:10,22.5,91,16.3,21,1025,Sunny,actual
+50881,1037,Madhya Pradesh,Indore,2026-03-22 21:10,34.0,42,24.9,21,1006,Rain,actual
+50882,1037,Madhya Pradesh,Indore,2026-03-22 20:10,38.0,73,9.4,16,1021,Fog,predicted
+50883,1037,Madhya Pradesh,Indore,2026-03-22 19:10,24.6,68,22.0,27,1007,Sunny,predicted
+50884,1037,Madhya Pradesh,Indore,2026-03-22 18:10,35.7,82,21.3,16,1025,Cloudy,actual
+50885,1037,Madhya Pradesh,Indore,2026-03-22 17:10,26.0,86,7.2,9,992,Sunny,predicted
+50886,1037,Madhya Pradesh,Indore,2026-03-22 16:10,26.7,90,9.3,9,999,Rain,actual
+50887,1037,Madhya Pradesh,Indore,2026-03-22 15:10,20.2,50,0.5,14,1002,Sunny,actual
+50888,1037,Madhya Pradesh,Indore,2026-03-22 14:10,36.7,82,12.2,22,1020,Cloudy,predicted
+50889,1038,Madhya Pradesh,Gwalior,2026-03-23 13:10,41.6,40,1.0,28,1024,Cloudy,actual
+50890,1038,Madhya Pradesh,Gwalior,2026-03-23 12:10,38.9,78,17.0,30,1019,Thunderstorm,actual
+50891,1038,Madhya Pradesh,Gwalior,2026-03-23 11:10,23.8,81,0.2,9,991,Thunderstorm,actual
+50892,1038,Madhya Pradesh,Gwalior,2026-03-23 10:10,38.3,37,13.6,10,1012,Thunderstorm,predicted
+50893,1038,Madhya Pradesh,Gwalior,2026-03-23 09:10,33.9,47,11.2,13,1007,Cloudy,predicted
+50894,1038,Madhya Pradesh,Gwalior,2026-03-23 08:10,41.6,30,18.1,12,990,Fog,predicted
+50895,1038,Madhya Pradesh,Gwalior,2026-03-23 07:10,37.1,33,17.3,21,997,Sunny,predicted
+50896,1038,Madhya Pradesh,Gwalior,2026-03-23 06:10,24.6,90,15.7,18,994,Thunderstorm,predicted
+50897,1038,Madhya Pradesh,Gwalior,2026-03-23 05:10,30.8,69,21.1,8,1019,Cloudy,predicted
+50898,1038,Madhya Pradesh,Gwalior,2026-03-23 04:10,22.8,77,23.1,19,991,Cloudy,actual
+50899,1038,Madhya Pradesh,Gwalior,2026-03-23 03:10,40.1,67,11.2,25,1025,Cloudy,actual
+50900,1038,Madhya Pradesh,Gwalior,2026-03-23 02:10,39.0,53,15.4,30,1009,Cloudy,predicted
+50901,1038,Madhya Pradesh,Gwalior,2026-03-23 01:10,21.1,53,5.8,23,992,Cloudy,predicted
+50902,1038,Madhya Pradesh,Gwalior,2026-03-23 00:10,25.1,72,2.7,14,1010,Sunny,predicted
+50903,1038,Madhya Pradesh,Gwalior,2026-03-22 23:10,36.3,36,11.4,16,992,Cloudy,predicted
+50904,1038,Madhya Pradesh,Gwalior,2026-03-22 22:10,27.4,44,6.6,11,1011,Rain,actual
+50905,1038,Madhya Pradesh,Gwalior,2026-03-22 21:10,40.5,52,20.7,10,1002,Rain,actual
+50906,1038,Madhya Pradesh,Gwalior,2026-03-22 20:10,23.0,95,5.4,15,1008,Rain,actual
+50907,1038,Madhya Pradesh,Gwalior,2026-03-22 19:10,24.4,67,4.2,5,1024,Fog,predicted
+50908,1038,Madhya Pradesh,Gwalior,2026-03-22 18:10,38.7,62,13.1,22,1002,Rain,actual
+50909,1038,Madhya Pradesh,Gwalior,2026-03-22 17:10,35.2,57,1.6,14,992,Thunderstorm,actual
+50910,1038,Madhya Pradesh,Gwalior,2026-03-22 16:10,23.3,56,16.3,29,1021,Sunny,actual
+50911,1038,Madhya Pradesh,Gwalior,2026-03-22 15:10,33.2,82,9.1,17,1022,Thunderstorm,predicted
+50912,1038,Madhya Pradesh,Gwalior,2026-03-22 14:10,39.8,89,7.6,14,1001,Thunderstorm,actual
+50913,1039,Madhya Pradesh,Jabalpur,2026-03-23 13:10,23.7,86,19.7,24,1005,Fog,actual
+50914,1039,Madhya Pradesh,Jabalpur,2026-03-23 12:10,22.2,89,19.9,26,1007,Sunny,actual
+50915,1039,Madhya Pradesh,Jabalpur,2026-03-23 11:10,25.4,79,20.6,5,1012,Thunderstorm,predicted
+50916,1039,Madhya Pradesh,Jabalpur,2026-03-23 10:10,24.6,56,22.9,30,1007,Fog,predicted
+50917,1039,Madhya Pradesh,Jabalpur,2026-03-23 09:10,34.0,75,21.3,12,1017,Cloudy,actual
+50918,1039,Madhya Pradesh,Jabalpur,2026-03-23 08:10,40.6,42,13.9,10,1013,Sunny,predicted
+50919,1039,Madhya Pradesh,Jabalpur,2026-03-23 07:10,29.9,40,9.5,21,1011,Thunderstorm,predicted
+50920,1039,Madhya Pradesh,Jabalpur,2026-03-23 06:10,20.5,54,1.4,12,1017,Rain,actual
+50921,1039,Madhya Pradesh,Jabalpur,2026-03-23 05:10,29.5,92,11.3,14,1007,Sunny,actual
+50922,1039,Madhya Pradesh,Jabalpur,2026-03-23 04:10,21.7,32,20.9,27,1022,Rain,predicted
+50923,1039,Madhya Pradesh,Jabalpur,2026-03-23 03:10,20.7,95,9.7,27,1013,Sunny,predicted
+50924,1039,Madhya Pradesh,Jabalpur,2026-03-23 02:10,28.2,55,19.3,15,1013,Cloudy,actual
+50925,1039,Madhya Pradesh,Jabalpur,2026-03-23 01:10,23.7,66,20.3,12,1018,Rain,predicted
+50926,1039,Madhya Pradesh,Jabalpur,2026-03-23 00:10,37.2,54,5.3,30,1013,Rain,predicted
+50927,1039,Madhya Pradesh,Jabalpur,2026-03-22 23:10,22.9,63,16.7,5,998,Rain,actual
+50928,1039,Madhya Pradesh,Jabalpur,2026-03-22 22:10,32.0,53,1.7,18,1007,Cloudy,predicted
+50929,1039,Madhya Pradesh,Jabalpur,2026-03-22 21:10,30.1,81,17.0,8,1013,Sunny,actual
+50930,1039,Madhya Pradesh,Jabalpur,2026-03-22 20:10,36.2,51,1.9,25,994,Sunny,actual
+50931,1039,Madhya Pradesh,Jabalpur,2026-03-22 19:10,32.8,57,11.9,28,1014,Fog,actual
+50932,1039,Madhya Pradesh,Jabalpur,2026-03-22 18:10,34.3,63,10.0,26,1023,Cloudy,actual
+50933,1039,Madhya Pradesh,Jabalpur,2026-03-22 17:10,27.6,70,14.8,10,1007,Cloudy,actual
+50934,1039,Madhya Pradesh,Jabalpur,2026-03-22 16:10,30.0,57,1.1,6,1004,Thunderstorm,actual
+50935,1039,Madhya Pradesh,Jabalpur,2026-03-22 15:10,30.8,44,11.5,5,990,Fog,actual
+50936,1039,Madhya Pradesh,Jabalpur,2026-03-22 14:10,39.8,38,14.2,30,1005,Thunderstorm,predicted
+50937,1040,Telangana,Hyderabad,2026-03-23 13:10,32.2,54,15.7,5,1001,Cloudy,predicted
+50938,1040,Telangana,Hyderabad,2026-03-23 12:10,36.3,50,14.0,20,1010,Thunderstorm,predicted
+50939,1040,Telangana,Hyderabad,2026-03-23 11:10,34.5,44,10.7,26,1011,Rain,predicted
+50940,1040,Telangana,Hyderabad,2026-03-23 10:10,21.5,75,11.3,7,1008,Sunny,actual
+50941,1040,Telangana,Hyderabad,2026-03-23 09:10,31.5,93,4.0,28,1010,Rain,predicted
+50942,1040,Telangana,Hyderabad,2026-03-23 08:10,23.0,92,3.6,25,1003,Thunderstorm,predicted
+50943,1040,Telangana,Hyderabad,2026-03-23 07:10,23.2,32,19.6,8,1013,Fog,actual
+50944,1040,Telangana,Hyderabad,2026-03-23 06:10,25.3,89,21.1,5,993,Fog,actual
+50945,1040,Telangana,Hyderabad,2026-03-23 05:10,32.6,73,13.2,8,996,Cloudy,actual
+50946,1040,Telangana,Hyderabad,2026-03-23 04:10,31.7,69,6.1,11,1004,Thunderstorm,actual
+50947,1040,Telangana,Hyderabad,2026-03-23 03:10,26.4,75,9.7,30,1005,Fog,predicted
+50948,1040,Telangana,Hyderabad,2026-03-23 02:10,28.8,69,4.3,15,998,Sunny,actual
+50949,1040,Telangana,Hyderabad,2026-03-23 01:10,35.3,81,17.5,5,998,Sunny,actual
+50950,1040,Telangana,Hyderabad,2026-03-23 00:10,26.5,59,7.3,27,1025,Thunderstorm,actual
+50951,1040,Telangana,Hyderabad,2026-03-22 23:10,38.2,70,16.1,19,1015,Sunny,actual
+50952,1040,Telangana,Hyderabad,2026-03-22 22:10,32.2,83,1.6,6,1007,Thunderstorm,actual
+50953,1040,Telangana,Hyderabad,2026-03-22 21:10,20.9,75,2.9,21,1025,Cloudy,actual
+50954,1040,Telangana,Hyderabad,2026-03-22 20:10,41.3,30,16.5,5,1004,Thunderstorm,actual
+50955,1040,Telangana,Hyderabad,2026-03-22 19:10,39.5,39,24.5,6,996,Fog,predicted
+50956,1040,Telangana,Hyderabad,2026-03-22 18:10,21.6,78,20.4,15,1020,Cloudy,predicted
+50957,1040,Telangana,Hyderabad,2026-03-22 17:10,29.2,44,2.4,7,1002,Fog,predicted
+50958,1040,Telangana,Hyderabad,2026-03-22 16:10,39.7,77,19.7,11,1001,Sunny,predicted
+50959,1040,Telangana,Hyderabad,2026-03-22 15:10,34.8,44,7.1,29,1008,Thunderstorm,actual
+50960,1040,Telangana,Hyderabad,2026-03-22 14:10,29.8,91,4.6,19,1017,Fog,actual
+50961,1041,Telangana,Warangal,2026-03-23 13:10,41.0,52,15.0,27,1005,Cloudy,actual
+50962,1041,Telangana,Warangal,2026-03-23 12:10,40.0,94,5.8,29,997,Rain,actual
+50963,1041,Telangana,Warangal,2026-03-23 11:10,21.2,31,9.4,8,1004,Thunderstorm,predicted
+50964,1041,Telangana,Warangal,2026-03-23 10:10,29.3,50,15.5,6,998,Sunny,actual
+50965,1041,Telangana,Warangal,2026-03-23 09:10,26.0,83,16.1,5,991,Thunderstorm,actual
+50966,1041,Telangana,Warangal,2026-03-23 08:10,27.1,55,16.2,11,1012,Rain,predicted
+50967,1041,Telangana,Warangal,2026-03-23 07:10,38.0,45,3.8,23,1003,Thunderstorm,predicted
+50968,1041,Telangana,Warangal,2026-03-23 06:10,34.1,50,4.4,6,1021,Rain,predicted
+50969,1041,Telangana,Warangal,2026-03-23 05:10,27.2,53,7.4,26,1016,Cloudy,actual
+50970,1041,Telangana,Warangal,2026-03-23 04:10,25.2,42,3.8,19,990,Fog,predicted
+50971,1041,Telangana,Warangal,2026-03-23 03:10,29.2,71,3.6,18,1025,Cloudy,predicted
+50972,1041,Telangana,Warangal,2026-03-23 02:10,31.2,34,12.0,29,1004,Thunderstorm,predicted
+50973,1041,Telangana,Warangal,2026-03-23 01:10,32.9,44,3.6,16,1022,Cloudy,actual
+50974,1041,Telangana,Warangal,2026-03-23 00:10,28.1,41,1.2,30,1025,Rain,actual
+50975,1041,Telangana,Warangal,2026-03-22 23:10,35.2,78,13.6,16,1022,Cloudy,actual
+50976,1041,Telangana,Warangal,2026-03-22 22:10,41.8,74,8.9,13,1008,Rain,actual
+50977,1041,Telangana,Warangal,2026-03-22 21:10,29.1,65,12.1,7,990,Fog,actual
+50978,1041,Telangana,Warangal,2026-03-22 20:10,36.2,92,22.7,24,1005,Thunderstorm,predicted
+50979,1041,Telangana,Warangal,2026-03-22 19:10,25.6,81,18.8,24,1008,Fog,predicted
+50980,1041,Telangana,Warangal,2026-03-22 18:10,21.0,94,1.8,28,1002,Thunderstorm,predicted
+50981,1041,Telangana,Warangal,2026-03-22 17:10,22.7,68,0.6,30,1009,Thunderstorm,actual
+50982,1041,Telangana,Warangal,2026-03-22 16:10,33.5,69,12.8,23,1007,Fog,actual
+50983,1041,Telangana,Warangal,2026-03-22 15:10,36.9,84,11.3,21,1012,Sunny,predicted
+50984,1041,Telangana,Warangal,2026-03-22 14:10,36.1,41,4.4,30,1016,Thunderstorm,predicted
+50985,1042,Telangana,Nizamabad,2026-03-23 13:10,24.0,69,8.3,11,1024,Fog,actual
+50986,1042,Telangana,Nizamabad,2026-03-23 12:10,24.7,51,22.9,8,1016,Cloudy,actual
+50987,1042,Telangana,Nizamabad,2026-03-23 11:10,24.7,35,17.4,13,999,Rain,predicted
+50988,1042,Telangana,Nizamabad,2026-03-23 10:10,20.2,94,18.1,12,996,Sunny,actual
+50989,1042,Telangana,Nizamabad,2026-03-23 09:10,36.1,58,9.5,18,1016,Sunny,predicted
+50990,1042,Telangana,Nizamabad,2026-03-23 08:10,28.3,75,16.8,17,1006,Cloudy,actual
+50991,1042,Telangana,Nizamabad,2026-03-23 07:10,30.6,88,16.9,6,1019,Thunderstorm,actual
+50992,1042,Telangana,Nizamabad,2026-03-23 06:10,25.4,69,8.9,19,991,Sunny,predicted
+50993,1042,Telangana,Nizamabad,2026-03-23 05:10,27.1,54,18.7,16,1021,Cloudy,actual
+50994,1042,Telangana,Nizamabad,2026-03-23 04:10,40.5,48,13.1,21,1005,Cloudy,actual
+50995,1042,Telangana,Nizamabad,2026-03-23 03:10,30.6,57,13.7,25,990,Sunny,predicted
+50996,1042,Telangana,Nizamabad,2026-03-23 02:10,33.7,74,11.9,12,1004,Thunderstorm,predicted
+50997,1042,Telangana,Nizamabad,2026-03-23 01:10,30.4,83,16.6,6,994,Cloudy,predicted
+50998,1042,Telangana,Nizamabad,2026-03-23 00:10,33.8,37,10.1,14,1003,Thunderstorm,predicted
+50999,1042,Telangana,Nizamabad,2026-03-22 23:10,24.0,87,2.1,5,1020,Fog,actual
+51000,1042,Telangana,Nizamabad,2026-03-22 22:10,36.3,95,17.4,7,1024,Cloudy,predicted
+51001,1042,Telangana,Nizamabad,2026-03-22 21:10,32.3,55,22.4,24,1000,Thunderstorm,actual
+51002,1042,Telangana,Nizamabad,2026-03-22 20:10,30.5,75,15.2,29,995,Thunderstorm,predicted
+51003,1042,Telangana,Nizamabad,2026-03-22 19:10,31.7,77,22.7,5,1012,Thunderstorm,predicted
+51004,1042,Telangana,Nizamabad,2026-03-22 18:10,28.3,79,12.4,30,1025,Cloudy,actual
+51005,1042,Telangana,Nizamabad,2026-03-22 17:10,33.0,67,21.1,8,990,Rain,predicted
+51006,1042,Telangana,Nizamabad,2026-03-22 16:10,34.2,91,21.3,24,1025,Sunny,actual
+51007,1042,Telangana,Nizamabad,2026-03-22 15:10,21.9,61,0.9,8,992,Sunny,predicted
+51008,1042,Telangana,Nizamabad,2026-03-22 14:10,34.0,41,10.5,6,1002,Fog,predicted
+51009,1043,Andhra Pradesh,Vijayawada,2026-03-23 13:10,41.8,88,19.1,23,1004,Cloudy,actual
+51010,1043,Andhra Pradesh,Vijayawada,2026-03-23 12:10,21.9,79,20.5,12,1020,Thunderstorm,predicted
+51011,1043,Andhra Pradesh,Vijayawada,2026-03-23 11:10,23.4,91,11.6,21,991,Sunny,actual
+51012,1043,Andhra Pradesh,Vijayawada,2026-03-23 10:10,33.0,47,19.2,27,1011,Thunderstorm,actual
+51013,1043,Andhra Pradesh,Vijayawada,2026-03-23 09:10,23.5,95,5.5,6,1021,Rain,actual
+51014,1043,Andhra Pradesh,Vijayawada,2026-03-23 08:10,21.5,72,4.8,7,1016,Rain,actual
+51015,1043,Andhra Pradesh,Vijayawada,2026-03-23 07:10,30.2,78,15.4,12,1014,Rain,actual
+51016,1043,Andhra Pradesh,Vijayawada,2026-03-23 06:10,32.4,40,7.0,8,993,Thunderstorm,predicted
+51017,1043,Andhra Pradesh,Vijayawada,2026-03-23 05:10,30.0,90,18.9,5,1003,Sunny,predicted
+51018,1043,Andhra Pradesh,Vijayawada,2026-03-23 04:10,23.6,44,14.2,12,992,Rain,actual
+51019,1043,Andhra Pradesh,Vijayawada,2026-03-23 03:10,24.8,48,14.5,15,1002,Sunny,predicted
+51020,1043,Andhra Pradesh,Vijayawada,2026-03-23 02:10,37.3,63,7.0,24,1017,Fog,predicted
+51021,1043,Andhra Pradesh,Vijayawada,2026-03-23 01:10,38.7,91,0.1,29,1008,Thunderstorm,actual
+51022,1043,Andhra Pradesh,Vijayawada,2026-03-23 00:10,38.2,62,4.8,10,998,Fog,actual
+51023,1043,Andhra Pradesh,Vijayawada,2026-03-22 23:10,35.4,35,21.6,10,1021,Sunny,predicted
+51024,1043,Andhra Pradesh,Vijayawada,2026-03-22 22:10,33.4,40,9.0,27,994,Fog,actual
+51025,1043,Andhra Pradesh,Vijayawada,2026-03-22 21:10,35.3,36,15.7,26,1015,Rain,predicted
+51026,1043,Andhra Pradesh,Vijayawada,2026-03-22 20:10,41.1,57,19.4,6,1000,Cloudy,predicted
+51027,1043,Andhra Pradesh,Vijayawada,2026-03-22 19:10,34.1,37,24.4,11,1016,Fog,actual
+51028,1043,Andhra Pradesh,Vijayawada,2026-03-22 18:10,41.9,58,0.9,26,1022,Cloudy,actual
+51029,1043,Andhra Pradesh,Vijayawada,2026-03-22 17:10,38.7,62,23.0,9,991,Sunny,predicted
+51030,1043,Andhra Pradesh,Vijayawada,2026-03-22 16:10,41.6,78,15.0,9,1019,Cloudy,predicted
+51031,1043,Andhra Pradesh,Vijayawada,2026-03-22 15:10,37.6,42,19.9,14,996,Cloudy,actual
+51032,1043,Andhra Pradesh,Vijayawada,2026-03-22 14:10,20.5,74,14.6,19,1015,Sunny,predicted
+51033,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 13:10,34.5,64,5.7,13,1025,Sunny,predicted
+51034,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 12:10,26.1,65,17.1,22,1019,Cloudy,predicted
+51035,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 11:10,26.1,43,23.4,30,999,Cloudy,predicted
+51036,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 10:10,37.4,50,9.0,29,1004,Rain,actual
+51037,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 09:10,41.5,70,6.2,6,1020,Cloudy,predicted
+51038,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 08:10,32.7,65,12.4,10,992,Rain,predicted
+51039,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 07:10,36.0,47,3.6,7,1017,Thunderstorm,actual
+51040,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 06:10,34.6,30,10.5,29,1016,Thunderstorm,predicted
+51041,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 05:10,27.8,80,5.2,29,1001,Sunny,actual
+51042,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 04:10,23.9,61,9.1,20,1008,Rain,actual
+51043,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 03:10,36.3,81,13.1,10,1004,Cloudy,predicted
+51044,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 02:10,40.5,77,23.0,27,990,Rain,actual
+51045,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 01:10,34.9,82,10.2,22,1001,Thunderstorm,predicted
+51046,1044,Andhra Pradesh,Visakhapatnam,2026-03-23 00:10,29.3,63,14.1,16,998,Rain,actual
+51047,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 23:10,32.1,80,18.0,11,1000,Sunny,predicted
+51048,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 22:10,29.9,63,9.2,15,995,Cloudy,predicted
+51049,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 21:10,36.1,63,5.0,19,1021,Sunny,actual
+51050,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 20:10,20.2,62,9.3,10,1022,Sunny,actual
+51051,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 19:10,30.0,87,4.0,7,992,Thunderstorm,actual
+51052,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 18:10,20.3,39,16.6,15,994,Rain,predicted
+51053,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 17:10,30.4,67,20.3,23,1022,Sunny,predicted
+51054,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 16:10,38.3,35,2.5,29,1000,Fog,predicted
+51055,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 15:10,25.9,73,7.4,28,1017,Sunny,predicted
+51056,1044,Andhra Pradesh,Visakhapatnam,2026-03-22 14:10,38.9,54,1.8,18,991,Thunderstorm,predicted
+51057,1045,Andhra Pradesh,Guntur,2026-03-23 13:10,40.8,37,19.8,10,1023,Fog,actual
+51058,1045,Andhra Pradesh,Guntur,2026-03-23 12:10,39.7,49,13.0,27,992,Rain,actual
+51059,1045,Andhra Pradesh,Guntur,2026-03-23 11:10,31.6,74,1.2,21,992,Thunderstorm,actual
+51060,1045,Andhra Pradesh,Guntur,2026-03-23 10:10,30.7,42,17.3,8,995,Rain,predicted
+51061,1045,Andhra Pradesh,Guntur,2026-03-23 09:10,28.5,32,4.7,5,1023,Sunny,actual
+51062,1045,Andhra Pradesh,Guntur,2026-03-23 08:10,27.6,81,4.1,15,999,Rain,actual
+51063,1045,Andhra Pradesh,Guntur,2026-03-23 07:10,28.5,69,8.5,28,1015,Fog,actual
+51064,1045,Andhra Pradesh,Guntur,2026-03-23 06:10,37.6,59,9.0,30,1021,Cloudy,actual
+51065,1045,Andhra Pradesh,Guntur,2026-03-23 05:10,28.2,69,24.6,22,997,Sunny,actual
+51066,1045,Andhra Pradesh,Guntur,2026-03-23 04:10,31.9,86,8.1,27,1019,Sunny,predicted
+51067,1045,Andhra Pradesh,Guntur,2026-03-23 03:10,36.7,64,24.6,29,992,Cloudy,actual
+51068,1045,Andhra Pradesh,Guntur,2026-03-23 02:10,41.2,68,22.3,11,1005,Sunny,actual
+51069,1045,Andhra Pradesh,Guntur,2026-03-23 01:10,26.4,32,20.5,26,998,Rain,predicted
+51070,1045,Andhra Pradesh,Guntur,2026-03-23 00:10,37.7,93,22.2,20,1019,Cloudy,actual
+51071,1045,Andhra Pradesh,Guntur,2026-03-22 23:10,20.8,35,16.8,27,1012,Fog,predicted
+51072,1045,Andhra Pradesh,Guntur,2026-03-22 22:10,35.7,54,9.6,10,1003,Rain,actual
+51073,1045,Andhra Pradesh,Guntur,2026-03-22 21:10,33.3,65,9.0,22,1015,Sunny,predicted
+51074,1045,Andhra Pradesh,Guntur,2026-03-22 20:10,29.3,74,21.6,21,994,Fog,predicted
+51075,1045,Andhra Pradesh,Guntur,2026-03-22 19:10,34.1,42,5.4,8,1003,Cloudy,predicted
+51076,1045,Andhra Pradesh,Guntur,2026-03-22 18:10,21.5,69,15.4,25,1017,Cloudy,actual
+51077,1045,Andhra Pradesh,Guntur,2026-03-22 17:10,39.4,31,6.6,21,1007,Thunderstorm,predicted
+51078,1045,Andhra Pradesh,Guntur,2026-03-22 16:10,29.0,66,7.5,27,1008,Rain,predicted
+51079,1045,Andhra Pradesh,Guntur,2026-03-22 15:10,28.5,40,19.7,9,998,Sunny,predicted
+51080,1045,Andhra Pradesh,Guntur,2026-03-22 14:10,33.8,42,12.6,19,1021,Cloudy,actual
