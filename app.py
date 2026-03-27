@@ -12,9 +12,11 @@ model = pickle.load(open("model.pkl", "rb"))
 API_KEY = "67fbc660a76d6f900ba528b6a419186a"
 
 
+from flask import render_template
+
 @app.route("/")
 def home():
-    return "Smart Farm Assistant Running 🚜"
+    return render_template("index.html")
 
 
 @app.route("/predict/<city>")
