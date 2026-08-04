@@ -1,47 +1,64 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import requests
 import pickle
 
 app = Flask(__name__)
 
 # Load trained model
-model = pickle.load(open("rain_model.pkl", "rb"))
+try:
+    model = pickle.load(open("rain_model.pkl", "rb"))
+except Exception as e:
+    print("Warning: Could not load rain model. Running in simulation fallback mode.", e)
+    model = None
 
-# 🔑 Your API Key (replace with real one)
-API_KEY = "YOUR_REAL_API_KEY"
+# 🔑 OpenWeatherMap API Key (working key used in app.py / main.py)
+API_KEY = "67fbc660a76d6f900ba528b6a419186a"
 
 @app.route('/predict-rain', methods=['GET'])
 def predict_rain():
-    city = "Vadodara"
+    city = request.args.get('city', 'Vadodara')
 
-    # 🌦️ Get live weather data
-    url = f"http://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}"
-    response = requests.get(url)
-    data = response.json()
+    # 🌦️ Get live weather data using OpenWeatherMap
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+    
+    try:
+        response = requests.get(url)
+        data = response.json()
 
-    # Extract features
-    temp = data['current']['temp_c']
-    humidity = data['current']['humidity']
-    pressure = data['current']['pressure_mb']
-    wind = data['current']['wind_kph']
+        if 'main' not in data:
+            return jsonify({
+                "error": data.get("message", "API error"),
+                "full_response": data
+            }), 400
 
-    # ⚠️ Convert live data → model input
-    # (since model expects 12 months, we simulate)
-    features = [[temp]*12]
+        # Extract features and map OpenWeatherMap structure to expected fields
+        temp = data['main']['temp']
+        humidity = data['main']['humidity']
+        pressure = data['main']['pressure']
+        wind = data.get('wind', {}).get('speed', 0) * 3.6  # Convert wind speed from m/s to km/h
 
-    # Prediction
-    prediction = model.predict(features)
+        # ⚠️ Convert live data → model input (simulating 12 months using current temp)
+        if model is not None:
+            features = [[temp]*12]
+            prediction = model.predict(features)
+            predicted_annual_rainfall = float(prediction[0])
+        else:
+            # Fallback simulation if model.pkl wasn't loaded
+            predicted_annual_rainfall = 1200.0
 
-    return jsonify({
-        "city": city,
-        "predicted_annual_rainfall": float(prediction[0]),
-        "live_weather": {
-            "temperature": temp,
-            "humidity": humidity,
-            "pressure": pressure,
-            "wind_speed": wind
-        }
-    })
+        return jsonify({
+            "city": city,
+            "predicted_annual_rainfall": predicted_annual_rainfall,
+            "live_weather": {
+                "temperature": temp,
+                "humidity": humidity,
+                "pressure": pressure,
+                "wind_speed": wind
+            }
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

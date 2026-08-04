@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const connectDB = require('./db');
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Mock routes based on requirements
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', require('./auth'));
 
 app.get('/api/marketplace/products', (req, res) => {
     res.json([{ id: 1, name: 'Tractor', price: 500000 }, { id: 2, name: 'Fertilizer', price: 1200 }]);

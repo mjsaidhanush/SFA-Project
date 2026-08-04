@@ -136,7 +136,7 @@ export default function AdminPortal() {
                                         <span className={`font-bold ${ds.accuracy.startsWith('9') ? 'text-green-400' : 'text-gray-400'}`}>{ds.accuracy}</span>
                                     </td>
                                     <td className="p-4">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${ds.status === 'Active' ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-gray-8000/10 text-gray-400 border-gray-500/20'}`}>
+                                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${ds.status === 'Active' ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-gray-800/10 text-gray-400 border-gray-500/20'}`}>
                                             {ds.status}
                                         </span>
                                     </td>
