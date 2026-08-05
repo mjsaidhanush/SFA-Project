@@ -78,18 +78,35 @@ def predict_crop(data: CropPredictionRequest):
         return {"predicted_crop": prediction, "confidence": round(random.uniform(0.7, 0.99), 2)}
 
     try:
-        # Fuzzy match inputs
-        from fuzzywuzzy import process
+        # Clean up input string whitespaces
+        state = data.state_name.strip() if data.state_name else ""
+        district = data.district_name.strip() if data.district_name else ""
+        season = data.season.strip() if data.season else ""
         
-        # simple substring/fuzzy match
-        state = data.state_name
-        district = data.district_name
-        season = data.season
-        
-        # We try to use the encoder's classes directly or fallback if not seen
-        state_match = state if state in le_state.classes_ else le_state.classes_[0]
-        district_match = district if district in le_district.classes_ else le_district.classes_[0]
-        season_match = season if season in le_season.classes_ else le_season.classes_[0]
+        # Robust case-insensitive class lookups
+        state_match = None
+        for c in le_state.classes_:
+            if c.lower() == state.lower():
+                state_match = c
+                break
+        if not state_match:
+            state_match = le_state.classes_[0]
+
+        district_match = None
+        for c in le_district.classes_:
+            if c.lower() == district.lower():
+                district_match = c
+                break
+        if not district_match:
+            district_match = le_district.classes_[0]
+
+        season_match = None
+        for c in le_season.classes_:
+            if c.lower() == season.lower():
+                season_match = c
+                break
+        if not season_match:
+            season_match = le_season.classes_[0]
 
         s_enc = le_state.transform([state_match])[0]
         d_enc = le_district.transform([district_match])[0]
@@ -104,6 +121,7 @@ def predict_crop(data: CropPredictionRequest):
         
         return {"predicted_crop": crop_name, "confidence": round(confidence, 2)}
     except Exception as e:
+        print("Model prediction error: ", e)
         crops = ["Rice", "Wheat", "Maize", "Cotton", "Sugarcane"]
         return {"predicted_crop": random.choice(crops), "confidence": 0.5}
 

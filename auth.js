@@ -22,11 +22,17 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
+        // Normalize role capitalization to match Mongoose Schema enums: Farmer, Buyer, Admin
+        let normalizedRole = 'Farmer';
+        if (role) {
+            normalizedRole = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
+        }
+
         const user = await User.create({
             name,
             email,
             password,
-            role,
+            role: normalizedRole,
         });
 
         if (user) {
