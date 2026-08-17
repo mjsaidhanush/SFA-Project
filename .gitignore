@@ -2,3 +2,8 @@ crop_model.pkl
 node_modules/
 __pycache__/
 .vscode/settings.json
+.next/
+*.log
+.env.local
+.env
+
