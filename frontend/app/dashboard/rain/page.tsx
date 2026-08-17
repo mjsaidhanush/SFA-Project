@@ -19,7 +19,8 @@ export default function RainForecast() {
         setLoading(true);
 
         try {
-            const res = await fetch(`http://localhost:8000/api/weather/predict?city=${encodeURIComponent(location)}`, {
+            const mlUrl = process.env.NEXT_PUBLIC_ML_URL || 'http://localhost:8000';
+            const res = await fetch(`${mlUrl}/api/weather/predict?city=${encodeURIComponent(location)}`, {
                 method: "GET",
             });
 

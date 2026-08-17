@@ -25,7 +25,8 @@ export default function CropPrediction() {
         setLoading(true);
 
         try {
-            const res = await fetch("http://localhost:8000/api/crop/predict", {
+            const mlUrl = process.env.NEXT_PUBLIC_ML_URL || 'http://localhost:8000';
+            const res = await fetch(`${mlUrl}/api/crop/predict`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

@@ -25,7 +25,8 @@ export default function Marketplace() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/marketplace/products");
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const res = await fetch(`${apiUrl}/api/marketplace/products`);
                 let data = [];
                 if (res.ok) {
                     data = await res.json();

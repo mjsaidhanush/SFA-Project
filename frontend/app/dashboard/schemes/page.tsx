@@ -18,7 +18,8 @@ export default function GovtSchemes() {
     useEffect(() => {
         const fetchSchemes = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/govt-schemes");
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const res = await fetch(`${apiUrl}/api/govt-schemes`);
                 if (res.ok) {
                     await res.json();
                 }
