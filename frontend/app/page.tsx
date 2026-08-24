@@ -386,6 +386,8 @@ export default function Home() {
         }, 800);
     };
 
+    const isUserAdmin = authenticatedUser?.role === 'Admin' || isAdminAccount(authenticatedUser?.email);
+
     // Step 1: When user clicks ENTER TO HOLLYLAND / ADMIN CONSOLE arrow -> Open Mandatory Music Preference Modal
     const handleHollylandArrowClick = () => {
         setSelectedMusicPreference(null);
@@ -428,7 +430,39 @@ export default function Home() {
         }, 850);
     };
 
-    const isUserAdmin = authenticatedUser?.role === 'Admin' || isAdminAccount(authenticatedUser?.email);
+    // Global Keyboard Handler for Enter Key & Keyboard Navigation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Ignore keystrokes inside input / textarea fields
+            const target = e.target as HTMLElement;
+            if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+                return;
+            }
+
+            // If on Hollyland welcome screen and modal is NOT open:
+            if (currentStep === 'hollyland' && !showMusicPreferenceModal && !isSlidingOut) {
+                if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    handleHollylandArrowClick();
+                }
+            } else if (currentStep === 'hollyland' && showMusicPreferenceModal && !isSlidingOut) {
+                // Inside music preference modal:
+                if (e.key === '1' || e.key === 'm' || e.key === 'M') {
+                    setSelectedMusicPreference('needed');
+                    setPreferenceErrorMessage(null);
+                } else if (e.key === '2' || e.key === 's' || e.key === 'S' || e.key === 'd' || e.key === 'D') {
+                    setSelectedMusicPreference('not-needed');
+                    setPreferenceErrorMessage(null);
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleConfirmMusicPreferenceAndEnter();
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [currentStep, showMusicPreferenceModal, selectedMusicPreference, isSlidingOut, isUserAdmin]);
 
     return (
         <div className="min-h-screen w-screen h-screen relative overflow-hidden font-sans bg-[#0B1118] select-none text-white">
@@ -1221,14 +1255,15 @@ export default function Home() {
 
                         {/* Destination Heading */}
                         <div 
-                            className="pt-2 pb-1 animate-entry-fade-up"
+                            onClick={handleHollylandArrowClick}
+                            className="pt-2 pb-1 animate-entry-fade-up cursor-pointer group select-none"
                             style={{ animationDelay: '600ms' }}
                         >
                             <div className="relative inline-block">
-                                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan to-teal-100 filter drop-shadow-[0_0_25px_rgba(24,213,208,0.6)]">
+                                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan to-teal-100 filter drop-shadow-[0_0_25px_rgba(24,213,208,0.6)] group-hover:scale-102 transition-transform">
                                     {isUserAdmin ? "ENTER ADMIN CONSOLE" : "ENTER TO HOLLYLAND"}
                                 </h2>
-                                <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan to-transparent mt-2 opacity-80"></div>
+                                <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan to-transparent mt-2 opacity-80 group-hover:opacity-100"></div>
                             </div>
                         </div>
 
