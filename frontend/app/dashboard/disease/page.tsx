@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Sparkles, ShieldAlert, CheckCircle2, AlertTriangle, UploadCloud, Camera, ArrowRight } from "lucide-react";
 
 interface AnalysisResult {
     isAgriculture: boolean;
@@ -70,7 +71,6 @@ export default function DiseaseDetection() {
                     const min = Math.min(rNorm, gNorm, bNorm);
                     const delta = max - min;
 
-                    // Check for monochrome / grayscale / paper / gray walls / metals
                     const diffRG = Math.abs(r - g);
                     const diffGB = Math.abs(g - b);
                     const diffRB = Math.abs(r - b);
@@ -92,34 +92,18 @@ export default function DiseaseDetection() {
                     const brightness = max;
                     const exG = 2 * g - r - b;
 
-                    // Artificial / Non-Agricultural Color Detection:
-                    // 1. Blue / Cyan (Sky, Vehicles, Clothes, Water, Electronics): Hue 175° to 275°
                     const isBlueSkyOrObject = hue >= 175 && hue <= 275 && saturation > 0.15;
-
-                    // 2. Red / Pink / Magenta (Red Cars, Clothes, Artificial Objects): Hue 345°-360° or 0°-16°
                     const isRedOrPinkObject = (hue >= 345 || hue <= 16) && saturation > 0.25;
-
-                    // 3. Purple / Violet: Hue 275° to 345°
                     const isPurpleObject = hue > 275 && hue < 345 && saturation > 0.15;
-
-                    // 4. Skin Tones / Faces / Leather / Brick (high red, Hue 10°-30°, R > G > B)
                     const isSkinOrBrick = hue >= 10 && hue <= 30 && r > g && g > b && (r - b) > 40 && saturation > 0.20;
 
                     if (isBlueSkyOrObject || isRedOrPinkObject || isPurpleObject || isSkinOrBrick) {
                         nonAgriArtificialCount++;
                     }
 
-                    // Genuine Agricultural Plant Tissue Criteria:
-                    // Green Foliage: Hue 65° to 160°, saturation > 0.14, exG > 5, g > r and g > b
                     const isGreenFoliage = hue >= 65 && hue <= 160 && saturation > 0.14 && exG > 5 && g > r && g > b;
-                    
-                    // Diseased Yellow Leaf Chlorosis: Hue 35° to 65°, saturation > 0.20, g > b
                     const isYellowFoliage = hue >= 35 && hue < 65 && saturation > 0.20 && g > b;
-
-                    // Diseased Brown Blight / Rust Spot: Hue 15° to 38°, brightness 0.12-0.70, r > b
                     const isBrownBlight = hue >= 15 && hue < 38 && brightness > 0.12 && brightness < 0.70 && r > b && g > b * 0.7;
-
-                    // White Powdery Mildew: High brightness (>0.82), low saturation (<0.22)
                     const isWhiteMildew = brightness > 0.82 && saturation < 0.22 && g >= r && g >= b;
 
                     if (isGreenFoliage) {
@@ -141,7 +125,6 @@ export default function DiseaseDetection() {
                 const monochromeRatio = monochromeCount / totalPixels;
                 const nonAgriRatio = nonAgriArtificialCount / totalPixels;
 
-                // Strict Non-Agriculture Rejection:
                 if (monochromeRatio > 0.40 || nonAgriRatio > 0.25 || plantRatio < 0.18) {
                     resolve({
                         isAgriculture: false,
@@ -150,7 +133,6 @@ export default function DiseaseDetection() {
                     return;
                 }
 
-                // Disease categorization for valid plant images
                 let disease = "Leaf Blight (Alternaria spp.)";
                 let recommendation = "Apply copper-based fungicides immediately. Remove severely damaged leaves. Ensure plants have adequate airflow to prevent moisture buildup.";
                 let confidence = 94.2;
@@ -224,34 +206,46 @@ export default function DiseaseDetection() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 text-gray-200">
-            <header className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-3xl shadow-xl border border-rose-500/20 relative overflow-hidden">
-                <div className="absolute top-[-50%] left-[-10%] w-64 h-64 bg-rose-500/20 rounded-full mix-blend-screen opacity-20 blur-[80px]"></div>
-                <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center mb-2 relative z-10">
-                    <span className="text-4xl mr-3 drop-shadow-md">🌿</span> Disease Detection
-                </h1>
-                <p className="text-rose-300 font-medium relative z-10">
-                    Upload an image of your crop leaf for instant neural-network analysis. Only agricultural plant images are analyzed; non-agricultural images are automatically rejected.
-                </p>
+        <div className="max-w-5xl mx-auto space-y-6 text-navy-900 animate-fade-in pb-10">
+            {/* Header Banner */}
+            <header className="glass-card-dark text-white p-8 rounded-3xl shadow-xl relative overflow-hidden border border-cyan/30">
+                <div className="relative z-10 flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-2xl bg-navy-900 text-cyan flex items-center justify-center font-bold shadow-lg border border-cyan/40">
+                        <ShieldAlert className="w-7 h-7" />
+                    </div>
+                    <div>
+                        <div className="inline-flex items-center space-x-1.5 px-3 py-0.5 bg-cyan/15 rounded-full text-[11px] font-bold text-cyan mb-1 border border-cyan/30">
+                            <Sparkles className="w-3 h-3" />
+                            <span>Pathology CNN Diagnosis</span>
+                        </div>
+                        <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">AI Crop Disease Detection</h1>
+                        <p className="text-xs text-slate-300 mt-0.5">Upload a photo of your crop leaf for instantaneous plant pathology inspection.</p>
+                    </div>
+                </div>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-gray-900 p-6 rounded-3xl shadow-xl border border-gray-800 flex flex-col items-center justify-center min-h-[400px]">
-                    <h2 className="text-xl font-bold tracking-tight text-white mb-6 w-full text-left">Upload Leaf Image</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Upload Card */}
+                <div className="glass-panel p-6 sm:p-8 rounded-3xl shadow-sm flex flex-col items-center justify-between min-h-[420px]">
+                    <div className="w-full mb-4">
+                        <h2 className="text-base font-extrabold text-navy-900 mb-1">Upload Leaf Image</h2>
+                        <p className="text-xs text-slate-500">Only genuine agricultural plant foliage is analyzed.</p>
+                    </div>
 
                     <form onSubmit={handleUpload} className="w-full flex-1 flex flex-col justify-between">
-                        <label className={`flex flex-col items-center justify-center flex-1 w-full border-2 border-dashed rounded-2xl cursor-pointer transition-all mb-4 ${preview ? 'border-green-500/50 bg-gray-950 hover:bg-gray-900' : 'border-gray-700 bg-gray-950 hover:border-gray-500 hover:bg-gray-900'
+                        <label className={`flex flex-col items-center justify-center flex-1 w-full border-2 border-dashed rounded-2xl cursor-pointer transition-all mb-4 relative overflow-hidden ${preview ? 'border-cyan bg-slate-50' : 'border-slate-300 bg-slate-50 hover:border-cyan hover:bg-white'
                             }`}>
-                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                            {loading && <div className="animate-scan"></div>}
+                            <div className="flex flex-col items-center justify-center p-6 text-center">
                                 {preview ? (
-                                    <img src={preview} alt="Leaf Preview" className="h-48 object-contain rounded-xl drop-shadow-lg" />
+                                    <img src={preview} alt="Leaf Preview" className="h-44 object-contain rounded-xl shadow-md" />
                                 ) : (
                                     <>
-                                        <svg className="w-12 h-12 mb-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                        </svg>
-                                        <p className="mb-2 text-sm text-gray-400 font-bold"><span className="font-extrabold text-rose-400">Click to upload</span> or drag and drop</p>
-                                        <p className="text-xs text-gray-300 font-medium uppercase tracking-widest">SVG, PNG, JPG or WEBP</p>
+                                        <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 text-teal-800 flex items-center justify-center mb-3 shadow-xs">
+                                            <UploadCloud className="w-7 h-7" />
+                                        </div>
+                                        <p className="mb-1 text-xs text-navy-900 font-extrabold"><span className="text-cyan">Click to upload</span> or drag and drop</p>
+                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">PNG, JPG, JPEG or WEBP</p>
                                     </>
                                 )}
                             </div>
@@ -261,74 +255,70 @@ export default function DiseaseDetection() {
                         <button
                             type="submit"
                             disabled={!file || loading}
-                            className="w-full px-8 py-4 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl shadow-[0_0_15px_rgba(225,29,72,0.3)] transition-all border border-rose-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-3.5 bg-navy-900 hover:bg-teal-800 text-white font-extrabold rounded-2xl shadow-lg shadow-navy-900/15 hover:shadow-glow-cyan transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 border border-cyan/30 disabled:opacity-50"
                         >
-                            {loading ? "Scanning via Neural Network..." : "Analyze Image"}
+                            <span>{loading ? "Scanning via Neural Network..." : "Analyze Crop Leaf"}</span>
+                            <ArrowRight className="w-4 h-4 text-cyan" />
                         </button>
                     </form>
                 </div>
 
-                <div className="bg-gray-900 p-8 rounded-3xl shadow-xl border border-gray-800 flex flex-col justify-center items-center text-center relative overflow-hidden">
+                {/* Results Card */}
+                <div className="glass-panel p-6 sm:p-8 rounded-3xl shadow-sm flex flex-col justify-center items-center text-center relative overflow-hidden">
                     {loading && (
-                        <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center font-bold text-rose-400 tracking-widest uppercase">
-                            <div className="w-12 h-12 border-4 border-rose-500/30 border-t-rose-500 rounded-full animate-spin mb-4 shadow-[0_0_15px_rgba(225,29,72,0.5)]"></div>
-                            Processing...
+                        <div className="space-y-3 py-12">
+                            <div className="w-12 h-12 border-4 border-cyan/20 border-t-cyan rounded-full animate-spin mx-auto"></div>
+                            <p className="text-xs font-bold text-teal-800 uppercase tracking-wider">Evaluating plant pathology...</p>
                         </div>
                     )}
 
-                    {analysis ? (
+                    {!loading && analysis && (
                         analysis.isAgriculture ? (
-                            <div className="animate-fade-in relative z-10 w-full space-y-6">
-                                <span className="text-6xl mb-4 block drop-shadow-[0_0_15px_rgba(225,29,72,0.4)]">🔬</span>
-                                <div className="bg-gray-950 border border-gray-800 p-6 rounded-2xl shadow-inner">
-                                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">Detected Issue</h3>
-                                    <p className="text-2xl font-extrabold text-white mb-4">
+                            <div className="animate-fade-in w-full space-y-4 text-left">
+                                <div className="p-5 bg-amber-50 rounded-2xl border border-amber-200">
+                                    <span className="text-[10px] font-extrabold uppercase text-amber-800 tracking-wider">Detected Pathogen</span>
+                                    <h3 className="text-xl font-extrabold text-navy-900 mt-1">
                                         {analysis.disease}
-                                    </p>
-                                    <div className="inline-flex items-center px-4 py-2 bg-rose-500/10 text-rose-400 font-bold rounded-full text-sm outline border border-rose-500/30">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                        {analysis.confidence?.toFixed(1)}% Match
+                                    </h3>
+                                    <div className="mt-3 inline-flex items-center space-x-1.5 px-3 py-1 bg-amber-100/80 text-amber-900 font-bold rounded-full text-xs">
+                                        <CheckCircle2 className="w-3.5 h-3.5" />
+                                        <span>{analysis.confidence?.toFixed(1)}% AI Confidence Match</span>
                                     </div>
                                 </div>
 
-                                <div className="bg-gray-950 border border-gray-800 p-6 rounded-2xl shadow-inner text-left">
-                                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-800 pb-2">Recommended Action</h3>
-                                    <p className="text-sm text-gray-400 leading-relaxed font-medium">
+                                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                                    <h4 className="text-xs font-extrabold text-teal-800 uppercase tracking-wider">Recommended Treatment</h4>
+                                    <p className="text-xs text-slate-700 leading-relaxed font-medium">
                                         {analysis.recommendation}
                                     </p>
                                 </div>
                             </div>
                         ) : (
-                            <div className="animate-fade-in relative z-10 w-full space-y-6 text-left">
-                                <div className="bg-amber-500/10 border border-amber-500/30 p-6 rounded-2xl shadow-inner space-y-3">
-                                    <div className="flex items-center space-x-3">
-                                        <span className="text-3xl">🚫</span>
-                                        <div>
-                                            <h3 className="text-lg font-extrabold text-amber-400">Not Related to Agriculture</h3>
-                                            <span className="text-xs text-amber-300/80 font-semibold uppercase tracking-wider">Invalid Image Warning</span>
-                                        </div>
+                            <div className="animate-fade-in w-full space-y-4 text-left">
+                                <div className="p-5 bg-red-50 rounded-2xl border border-red-200 space-y-2">
+                                    <div className="flex items-center space-x-2 text-red-600 font-extrabold text-sm">
+                                        <AlertTriangle className="w-5 h-5" />
+                                        <span>Not Related to Agriculture</span>
                                     </div>
-                                    <div className="p-3 bg-amber-500/20 border border-amber-500/40 rounded-xl text-amber-200 font-extrabold text-sm flex items-center">
-                                        <span>⚠️ This image is not related to agriculture and is not helpful for farmers.</span>
-                                    </div>
-                                    <p className="text-xs text-gray-300 leading-relaxed font-medium">
+                                    <p className="text-xs text-red-700 font-semibold leading-relaxed">
                                         {analysis.reason}
                                     </p>
                                 </div>
 
-                                <div className="bg-gray-950 border border-gray-800 p-6 rounded-2xl text-center space-y-3">
-                                    <span className="text-4xl block opacity-80">🌱</span>
-                                    <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Agricultural Leaf Guidelines</h4>
-                                    <p className="text-xs text-gray-400 leading-normal">
-                                        Please upload clear, well-lit photos of crop leaves, plant foliage, or stems showing visible plant health or disease symptoms.
-                                    </p>
+                                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center space-y-1">
+                                    <span className="text-2xl block">🌱</span>
+                                    <h4 className="text-xs font-bold text-navy-900">Crop Photo Guidelines</h4>
+                                    <p className="text-[11px] text-slate-500">Please upload clear photos of crop leaves, plants, or foliage showing plant health symptoms.</p>
                                 </div>
                             </div>
                         )
-                    ) : (
-                        <div className="text-gray-400 font-medium">
-                            <span className="text-6xl mb-4 block opacity-30 drop-shadow-md">📷</span>
-                            <p>Upload a photograph to view AI diagnostics.</p>
+                    )}
+
+                    {!loading && !analysis && (
+                        <div className="text-slate-400 py-12 space-y-2">
+                            <Camera className="w-12 h-12 mx-auto text-slate-300" />
+                            <p className="text-xs font-bold text-slate-600">Awaiting Crop Leaf Upload</p>
+                            <p className="text-[11px] text-slate-400 max-w-xs">Upload a photograph on the left to view instantaneous neural diagnostics.</p>
                         </div>
                     )}
                 </div>
@@ -336,4 +326,5 @@ export default function DiseaseDetection() {
         </div>
     );
 }
+
 

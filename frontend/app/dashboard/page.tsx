@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import {
     Sun,
@@ -32,17 +32,56 @@ import {
     ArrowUpRight,
     LineChart,
     BarChart3,
-    ShieldAlert
+    ShieldAlert,
+    Clock,
+    Layers,
+    Compass,
+    Cpu,
+    ExternalLink,
+    Star,
+    Plus,
+    Filter,
+    RefreshCw,
+    Award
 } from "lucide-react";
 
 export default function Dashboard() {
     const [user, setUser] = useState<{ name: string; role: string } | null>(null);
-    const [showProjectInfo, setShowProjectInfo] = useState(false);
-    const [showDailyUpdate, setShowDailyUpdate] = useState(false);
     const [selectedUpdate, setSelectedUpdate] = useState<any>(null);
-    const [acknowledgedAlerts, setAcknowledgedAlerts] = useState<string[]>([]);
-    const [calendarDate, setCalendarDate] = useState(new Date());
+    const [activeCropFilter, setActiveCropFilter] = useState("all");
+    const [activeMarketCategory, setActiveMarketCategory] = useState("all");
+    const [cartCount, setCartCount] = useState(0);
+    const [cartToast, setCartToast] = useState<string | null>(null);
     const [currentTime, setCurrentTime] = useState<Date | null>(null);
+
+    // Scanner state
+    const [scannedImage, setScannedImage] = useState<string | null>(null);
+    const [isScanning, setIsScanning] = useState(false);
+    const [scanResult, setScanResult] = useState<{
+        disease: string;
+        confidence: number;
+        severity: string;
+        treatment: string;
+    } | null>(null);
+    const [scanError, setScanError] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Custom Crop Prediction Simulation Modal
+    const [showPredictModal, setShowPredictModal] = useState(false);
+    const [predictFormData, setPredictFormData] = useState({
+        state: "Andhra Pradesh",
+        soilType: "Loamy",
+        nitrogen: 40,
+        phosphorus: 50,
+        potassium: 50,
+        rainfall: 150
+    });
+    const [modalPrediction, setModalPrediction] = useState<{ crop: string; suitability: number } | null>(null);
+    const [isPredicting, setIsPredicting] = useState(false);
+
+    // Scheme Checker Modal
+    const [showSchemeModal, setShowSchemeModal] = useState(false);
+    const [schemeCheckResult, setSchemeCheckResult] = useState<string | null>(null);
 
     useEffect(() => {
         setCurrentTime(new Date());
@@ -52,618 +91,1153 @@ export default function Dashboard() {
         return () => clearInterval(timer);
     }, []);
 
-    const getTimeShift = (date: Date | null) => {
-        if (!date) return { label: "Daily Telemetry", icon: "🌾", tag: "Daily Update", badgeClass: "bg-blue-500/20 text-blue-300 border-blue-400/30" };
-        const hour = date.getHours();
-        if (hour >= 5 && hour < 12) {
-            return { label: "Morning Farm Update", icon: "🌅", tag: "Morning Shift", badgeClass: "bg-amber-500/20 text-amber-300 border-amber-500/30" };
-        } else if (hour >= 12 && hour < 17) {
-            return { label: "Afternoon Farm Update", icon: "☀️", tag: "Afternoon Shift", badgeClass: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30" };
-        } else if (hour >= 17 && hour < 21) {
-            return { label: "Evening Farm Update", icon: "🌆", tag: "Evening Shift", badgeClass: "bg-indigo-500/20 text-indigo-300 border-indigo-500/30" };
-        } else {
-            return { label: "Night Telemetry Shift", icon: "🌙", tag: "Night Shift", badgeClass: "bg-purple-500/20 text-purple-300 border-purple-500/30" };
-        }
-    };
-
-    const timeShift = getTimeShift(currentTime);
-
-    // Scanner state
-    const [scannedImage, setScannedImage] = useState<string | null>(null);
-    const [isScanning, setIsScanning] = useState(false);
-
-    const prevMonth = () => setCalendarDate(new Date(calendarDate.getFullYear(), calendarDate.getMonth() - 1, 1));
-    const nextMonth = () => setCalendarDate(new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 1));
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const dayNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-    const currentYear = calendarDate.getFullYear();
-    const currentMonth = calendarDate.getMonth();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const today = new Date();
-
-    const handleUpdateClick = (update: any) => {
-        setSelectedUpdate(update);
-        if (['red', 'orange', 'yellow'].includes(update.alertColor)) {
-            try {
-                const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-                const ctx = new AudioContextClass();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                if (update.alertColor === 'red') {
-                    osc.type = 'square';
-                    osc.frequency.setValueAtTime(800, ctx.currentTime);
-                    osc.frequency.setValueAtTime(1200, ctx.currentTime + 0.3);
-                    osc.frequency.setValueAtTime(800, ctx.currentTime + 0.6);
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 1.5);
-                } else if (update.alertColor === 'orange') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(600, ctx.currentTime);
-                    osc.frequency.setValueAtTime(400, ctx.currentTime + 0.3);
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 1);
-                } else {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(500, ctx.currentTime);
-                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.5);
-                }
-
-                osc.start();
-                osc.stop(ctx.currentTime + 1.5);
-            } catch (e) {
-                console.error('Audio play failed', e);
-            }
-        }
-    };
-
-    const handleDateClick = (day: number) => {
-        const historicUpdate = {
-            state: "Farm",
-            title: `Farm Log: ${monthNames[currentMonth]} ${day}, ${currentYear}`,
-            desc: "Historical telemetry: Soil moisture at 45%. NPK levels optimal. No leaf rust detected. Scheduled irrigation recommended in 2 days.",
-            time: "End of Day Telemetry",
-            alertColor: "blue",
-            bg: "bg-blue-500/10",
-            text: "text-blue-400",
-            border: "border-blue-500/20"
-        };
-        handleUpdateClick(historicUpdate);
-    };
-
-    const dailyUpdatesList = [
-        { state: "AP", title: "Cyclone Warning", desc: "Red Alert! Severe cyclone storm approaching coastal districts. Evacuate low-lying areas immediately and halt all farming activities.", time: "5 mins ago", alertColor: "red", bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/20" },
-        { state: "MH", title: "Heavy Rainfall", desc: "Orange Alert! Heavy rainfall expected tomorrow. Delay sowing and protect harvested crops.", time: "15 mins ago", alertColor: "orange", bg: "bg-orange-500/10", text: "text-orange-400", border: "border-orange-500/20" },
-        { state: "WB", title: "Strong Winds", desc: "Yellow Alert! High velocity winds predicted. Secure greenhouse covers and temporary structures.", time: "1 hour ago", alertColor: "yellow", bg: "bg-yellow-500/10", text: "text-yellow-400", border: "border-yellow-500/20" },
-        { state: "PB", title: "Crop Growth Optimal", desc: "Green Alert! Wheat crop growth is 12% above expected levels across Vidarbha region.", time: "2 hours ago", alertColor: "green", bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20" },
-    ];
-
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) setUser(JSON.parse(storedUser));
     }, []);
 
-    const simulateScanner = () => {
-        setIsScanning(true);
-        setTimeout(() => {
-            setIsScanning(false);
-            setScannedImage("leaf_rust_sample");
-        }, 1500);
+    const cropsList = [
+        { id: "wheat", name: "Wheat", category: "cereals", suitability: 92, yield: "4.8 tons/ha", soil: "Excellent", weather: "Good", market: "High Demand", icon: "🌾", desc: "Optimal soil NPK & temperature match for current winter/Kharif cycle." },
+        { id: "rice", name: "Rice (Paddy)", category: "cereals", suitability: 88, yield: "5.2 tons/ha", soil: "Good", weather: "Optimal", market: "Stable", icon: "🌱", desc: "High water efficiency rating with consistent minimum support pricing." },
+        { id: "sugarcane", name: "Sugarcane", category: "cash", suitability: 90, yield: "75 tons/ha", soil: "Optimal", weather: "Good", market: "High Demand", icon: "🎋", desc: "Ideal for irrigated alluvial zones with extended commercial yield." },
+        { id: "cotton", name: "Cotton", category: "cash", suitability: 81, yield: "2.4 tons/ha", soil: "Fair", weather: "Moderate", market: "Very High", icon: "☁️", desc: "Requires well-drained deep black soil with regulated moisture." },
+        { id: "groundnut", name: "Groundnut", category: "pulses", suitability: 85, yield: "2.8 tons/ha", soil: "Good", weather: "Optimal", market: "High", icon: "🥜", desc: "Fixes nitrogen naturally in light sandy loam soil formations." },
+        { id: "maize", name: "Maize (Corn)", category: "cereals", suitability: 86, yield: "6.1 tons/ha", soil: "Excellent", weather: "Good", market: "Growing", icon: "🌽", desc: "Rapid crop rotation suitability with low input cost overheads." },
+    ];
+
+    const filteredCrops = activeCropFilter === "all"
+        ? cropsList
+        : cropsList.filter(c => c.category === activeCropFilter);
+
+    const marketplaceItems = [
+        { id: 1, name: "Hybrid Shriram Super Wheat Seeds (40kg)", category: "seeds", price: 1450, originalPrice: 1800, rating: 4.9, discount: "20% OFF", image: "🌾" },
+        { id: 2, name: "Bio-NPK Soil Organic Fertilizer (50kg)", category: "fertilizers", price: 890, originalPrice: 1100, rating: 4.8, discount: "19% OFF", image: "🧪" },
+        { id: 3, name: "IoT Solar Smart Soil Moisture Sensor Node", category: "equipment", price: 3200, originalPrice: 4000, rating: 5.0, discount: "20% OFF", image: "📟" },
+        { id: 4, name: "Automated Drip Irrigation Micro-Kit (1 Acre)", category: "irrigation", price: 6500, originalPrice: 7900, rating: 4.9, discount: "18% OFF", image: "💧" },
+        { id: 5, name: "Ergonomic Multi-Blade Paddy Weeder Tool", category: "tools", price: 1250, originalPrice: 1600, rating: 4.7, discount: "22% OFF", image: "🛠️" },
+        { id: 6, name: "Copper Fungicide Foliage Spray (1 Liter)", category: "fertilizers", price: 680, originalPrice: 850, rating: 4.8, discount: "20% OFF", image: "🌿" },
+    ];
+
+    const filteredProducts = activeMarketCategory === "all"
+        ? marketplaceItems
+        : marketplaceItems.filter(p => p.category === activeMarketCategory);
+
+    const handleAddToCart = (item: any) => {
+        setCartCount(prev => prev + 1);
+        setCartToast(`Added ${item.name} to Cart`);
+        setTimeout(() => setCartToast(null), 3000);
     };
 
-    return (
-        <div className="space-y-8 animate-fade-in text-[#212422] relative pb-12">
-            {/* Section 5: Premium Hero Banner */}
-            <section
-                className="relative bg-[#1E293B] rounded-3xl p-6 md:p-10 text-white shadow-xl overflow-hidden border border-blue-400/30 bg-cover bg-center"
-                style={{ backgroundImage: "linear-gradient(to right, rgba(30, 41, 59, 0.94) 0%, rgba(30, 41, 59, 0.85) 50%, rgba(30, 41, 59, 0.72) 100%), url('/farm-background.jpg')" }}
-            >
-                <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
 
-                <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                    <div className="space-y-3 max-w-xl">
-                        <div className="flex flex-wrap items-center gap-2">
-                            <div className="inline-flex items-center space-x-2 px-3.5 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/15 text-xs font-bold text-blue-400">
-                                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                                <span>AI Agricultural Telemetry Platform 🌾</span>
-                            </div>
-                            <span className={`text-xs font-extrabold px-3 py-1 rounded-full border ${timeShift.badgeClass} flex items-center space-x-1`}>
-                                <span>{timeShift.icon}</span>
-                                <span>{timeShift.tag}</span>
+        setScanError(null);
+        setScanResult(null);
+        setIsScanning(true);
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const imgData = event.target?.result as string;
+            setScannedImage(imgData);
+
+            // Foliage canvas verification
+            const img = new Image();
+            img.src = imgData;
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                if (!ctx) {
+                    setIsScanning(false);
+                    return;
+                }
+
+                canvas.width = 100;
+                canvas.height = 100;
+                ctx.drawImage(img, 0, 0, 100, 100);
+                const pData = ctx.getImageData(0, 0, 100, 100).data;
+
+                let plantColorPixels = 0;
+                const totalSamplePixels = 10000;
+
+                for (let i = 0; i < pData.length; i += 4) {
+                    const r = pData[i];
+                    const g = pData[i + 1];
+                    const b = pData[i + 2];
+
+                    const isGreenFoliage = g > r * 0.9 && g > b * 0.9 && (g > 40 || (r < 140 && g > 60));
+                    const isPlantBrownOrYellow = r > 70 && g > 50 && b < 100 && Math.abs(r - g) < 50;
+
+                    if (isGreenFoliage || isPlantBrownOrYellow) {
+                        plantColorPixels++;
+                    }
+                }
+
+                const plantRatio = plantColorPixels / totalSamplePixels;
+
+                setTimeout(() => {
+                    setIsScanning(false);
+                    if (plantRatio < 0.18) {
+                        setScanError("This image is not related to agriculture and is not helpful for farmers. Please upload a clear photo of a crop leaf.");
+                    } else {
+                        setScanResult({
+                            disease: "Leaf Rust (Puccinia triticina)",
+                            confidence: 94,
+                            severity: "Moderate",
+                            treatment: "Apply copper-based fungicide or Propiconazole 25% EC (1ml/L) and ensure field drainage within 48 hours."
+                        });
+                    }
+                }, 1600);
+            };
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleSimulateCustomPrediction = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsPredicting(true);
+        setTimeout(() => {
+            setIsPredicting(false);
+            setModalPrediction({
+                crop: predictFormData.nitrogen > 30 ? "Wheat" : "Sugarcane",
+                suitability: 93
+            });
+        }, 1200);
+    };
+
+    const handleCheckSchemeEligibility = () => {
+        setSchemeCheckResult("Eligible for PM-Kisan (₹6,000/yr) and PMFBY Crop Insurance Coverage (up to ₹45,000/ha).");
+    };
+
+    const dailyAlerts = [
+        { id: 1, title: "Cyclone Warning", desc: "Red Alert: High wind speeds predicted along coastal belt. Halt harvesting.", time: "5 mins ago", color: "red", bg: "bg-red-50 text-red-600 border-red-200" },
+        { id: 2, title: "Heavy Rainfall Forecast", desc: "Orange Alert: 18mm rainfall predicted tomorrow. Delay irrigation.", time: "25 mins ago", color: "orange", bg: "bg-amber-50 text-amber-600 border-amber-200" },
+        { id: 3, title: "Favorable Spray Window", desc: "Green Alert: Low wind speed today (8 km/h). Ideal for foliar fertilizer application.", time: "1 hour ago", color: "green", bg: "bg-emerald-50 text-emerald-600 border-emerald-200" },
+    ];
+
+    return (
+        <div className="space-y-16 animate-fade-in text-navy-900 pb-20">
+            {/* Toast Notification */}
+            {cartToast && (
+                <div className="fixed top-20 right-6 z-50 bg-navy-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-cyan/40 flex items-center space-x-2.5 animate-bounce">
+                    <CheckCircle2 className="w-4 h-4 text-cyan" />
+                    <span className="text-xs font-bold">{cartToast}</span>
+                </div>
+            )}
+
+            {/* 1. HERO SECTION (Inspired by Reference Portfolio) */}
+            <section id="hero" className="relative pt-6 pb-12 lg:pt-10 lg:pb-16 overflow-hidden">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                    {/* Hero Left Text Column */}
+                    <div className="lg:col-span-7 space-y-6">
+                        {/* Status Badge */}
+                        <div className="inline-flex items-center space-x-2.5 px-4 py-1.5 bg-white rounded-full border border-teal-800/10 shadow-xs">
+                            <span className="relative flex h-2.5 w-2.5">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+                            </span>
+                            <span className="text-xs font-bold tracking-wide text-teal-800 uppercase">
+                                ● AI Farm Systems Online
                             </span>
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                            Your Farm. <br className="hidden sm:inline" />
-                            <span className="text-blue-400">Smarter Decisions.</span> <br />
-                            Better Harvests. 🚜🌾
-                        </h1>
+                        {/* Large Headline */}
+                        <div className="space-y-2">
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-navy-900 leading-[1.08]">
+                                SMART FARM <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-800 via-cyan-500 to-lime-500">
+                                    ASSISTANT
+                                </span>
+                            </h1>
+                            <h2 className="text-lg sm:text-xl font-semibold text-slate-600">
+                                AI-powered intelligence for smarter farming decisions.
+                            </h2>
+                        </div>
 
-                        <p className="text-white/70 text-sm md:text-base font-normal leading-relaxed">
-                            AI-powered insights to help you make better farming decisions, monitor climatic telemetry, and boost crop yields.
+                        {/* Supporting Narrative */}
+                        <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
+                            Monitor your crops, predict weather, detect diseases, understand markets, and make better farming decisions with AI.
                         </p>
 
-                        <div className="pt-2 flex flex-wrap items-center gap-3">
-                            <Link
-                                href="/dashboard/crop"
-                                className="inline-flex items-center space-x-2 px-6 py-3.5 bg-blue-600 text-white hover:bg-blue-500 font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-500/30 hover:scale-105 transition-all border border-blue-400/30"
+                        {/* Hero CTA Buttons */}
+                        <div className="pt-2 flex flex-wrap items-center gap-4">
+                            <a
+                                href="#overview"
+                                className="inline-flex items-center space-x-2.5 px-6 py-3.5 bg-navy-900 hover:bg-teal-800 text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg shadow-navy-900/15 hover:shadow-glow-cyan hover:-translate-y-0.5 transition-all duration-200 border border-cyan/30"
                             >
-                                <span>View Farm Insights</span>
-                                <ArrowRight className="w-4 h-4" />
-                            </Link>
-                            <button
-                                onClick={() => setShowProjectInfo(true)}
-                                className="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white rounded-xl font-bold text-xs border border-white/15 transition-all"
+                                <span>Explore Farm Intelligence</span>
+                                <ArrowRight className="w-4 h-4 text-cyan" />
+                            </a>
+                            <a
+                                href="#disease-detection"
+                                className="inline-flex items-center space-x-2 px-5 py-3.5 bg-white hover:bg-slate-50 text-navy-900 rounded-xl font-bold text-xs border border-slate-200/80 shadow-xs hover:border-cyan/50 hover:-translate-y-0.5 transition-all duration-200"
                             >
-                                System Details
-                            </button>
+                                <Sparkles className="w-4 h-4 text-teal-700" />
+                                <span>AI Leaf Scanner</span>
+                            </a>
+                        </div>
+
+                        {/* Quick Live Telemetry Strip */}
+                        <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-500 font-medium">
+                            <div className="flex items-center space-x-2">
+                                <Activity className="w-4 h-4 text-cyan" />
+                                <span>IoT Nodes: <strong className="text-navy-900">12 Connected</strong></span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Sun className="w-4 h-4 text-amber-500" />
+                                <span>Zone A-4: <strong className="text-navy-900">28°C Optimal</strong></span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Droplets className="w-4 h-4 text-blue-500" />
+                                <span>Moisture: <strong className="text-navy-900">45% Field Cap</strong></span>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Subtle Agricultural Visual Graphics & Live Daily Clock */}
-                    <div className="relative lg:w-80 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-5 flex flex-col justify-between overflow-hidden space-y-4">
-                        <div className="flex justify-between items-center text-xs text-blue-400 font-bold">
-                            <span className="flex items-center space-x-1.5"><Activity className="w-4 h-4 animate-pulse text-blue-400" /> Telemetry Live</span>
-                            <span className="text-white/60 text-[10px]">Zone A-4</span>
-                        </div>
+                    {/* Hero Right Visual Column: Sophisticated Agricultural AI Visual */}
+                    <div className="lg:col-span-5 relative">
+                        <div className="relative mx-auto max-w-md bg-white rounded-3xl p-6 shadow-card border border-teal-800/10 overflow-hidden group">
+                            {/* Scanning laser animation overlay */}
+                            <div className="animate-scan"></div>
 
-                        {/* Live Date & Time Display Card */}
-                        <div className="bg-black/30 p-3.5 rounded-xl border border-white/15 text-white">
-                            <div className="flex items-center justify-between text-[11px] font-extrabold text-blue-400 uppercase tracking-wider mb-1">
-                                <span>{timeShift.label}</span>
-                                <span>{timeShift.icon}</span>
+                            {/* Top Graphic Header */}
+                            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-3 h-3 rounded-full bg-cyan animate-pulse"></div>
+                                    <span className="text-xs font-extrabold uppercase tracking-wider text-navy-900">Drone & Satellite Telemetry</span>
+                                </div>
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                                    LIVE SENSOR FEED
+                                </span>
                             </div>
-                            <div className="text-lg font-black text-white tracking-tight">
-                                {currentTime ? currentTime.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : "--:--:--"}
-                            </div>
-                            <div className="text-xs font-semibold text-white/80 mt-0.5">
-                                📅 {currentTime ? currentTime.toLocaleDateString("en-US", { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }) : "Loading date..."}
-                            </div>
-                        </div>
 
-                        <div className="grid grid-cols-2 gap-2 text-white text-xs">
-                            <div className="bg-black/20 p-2.5 rounded-xl border border-white/10">
-                                <p className="text-white/60 text-[10px]">Soil Moisture</p>
-                                <p className="text-base font-extrabold text-blue-400 mt-0.5">45%</p>
-                                <p className="text-[9px] text-cyan-300">Optimal Field</p>
-                            </div>
-                            <div className="bg-black/20 p-2.5 rounded-xl border border-white/10">
-                                <p className="text-white/60 text-[10px]">AI Prediction</p>
-                                <p className="text-base font-extrabold text-cyan-300 mt-0.5">+12% Yield</p>
-                                <p className="text-[9px] text-white/60">5-Day Outlook</p>
-                            </div>
-                        </div>
+                            {/* Center Visual: Crop Field Grid Radar Simulation */}
+                            <div className="relative rounded-2xl bg-navy-900 p-5 text-white overflow-hidden mb-5 border border-cyan/30">
+                                <div className="absolute inset-0 bg-[radial-gradient(#18D5D0_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
 
-                        <div className="flex items-center justify-between text-[11px] text-white/80 border-t border-white/10 pt-2">
-                            <span>IoT Sensor Node #12</span>
-                            <span className="text-blue-400 font-bold">Connected 🔵</span>
+                                <div className="relative z-10 flex items-center justify-between mb-4">
+                                    <div>
+                                        <p className="text-[10px] text-cyan font-bold uppercase tracking-wider">Active Region</p>
+                                        <h4 className="text-base font-extrabold">Sector 7 — Wheat Field 🌾</h4>
+                                    </div>
+                                    <span className="px-2.5 py-1 rounded-lg bg-white/10 text-cyan text-xs font-mono font-bold">
+                                        94% Health
+                                    </span>
+                                </div>
+
+                                <div className="relative z-10 grid grid-cols-3 gap-2.5 text-center text-xs">
+                                    <div className="p-2.5 bg-white/5 rounded-xl border border-white/10">
+                                        <p className="text-[10px] text-slate-400">Chlorophyll</p>
+                                        <p className="text-sm font-extrabold text-lime mt-0.5">88.4 SPAD</p>
+                                    </div>
+                                    <div className="p-2.5 bg-white/5 rounded-xl border border-white/10">
+                                        <p className="text-[10px] text-slate-400">Nitrogen Index</p>
+                                        <p className="text-sm font-extrabold text-cyan mt-0.5">Optimal</p>
+                                    </div>
+                                    <div className="p-2.5 bg-white/5 rounded-xl border border-white/10">
+                                        <p className="text-[10px] text-slate-400">Disease Threat</p>
+                                        <p className="text-sm font-extrabold text-emerald-400 mt-0.5">0 Detected</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Floating Analytics Dial Row */}
+                            <div className="grid grid-cols-2 gap-3 text-xs">
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 flex items-center space-x-3">
+                                    <div className="w-10 h-10 rounded-xl bg-cyan/15 text-teal-800 flex items-center justify-center font-bold">
+                                        <Sprout className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-slate-500 font-bold">Crop Growth Index</p>
+                                        <p className="text-sm font-extrabold text-navy-900">+12% vs Normal</p>
+                                    </div>
+                                </div>
+
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 flex items-center space-x-3">
+                                    <div className="w-10 h-10 rounded-xl bg-lime/20 text-teal-900 flex items-center justify-center font-bold">
+                                        <TrendingUp className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-slate-500 font-bold">Market Projected</p>
+                                        <p className="text-sm font-extrabold text-navy-900">₹2,100 / Qtl</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Project Specs Modal */}
-            {showProjectInfo && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in">
-                    <div className="bg-[#1E293B] rounded-3xl shadow-2xl border border-blue-400/30 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative text-white">
+            {/* 2. OVERVIEW SECTION ("Your Farm at a Glance") */}
+            <section id="overview" className="space-y-6">
+                <div className="text-center max-w-2xl mx-auto space-y-2">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        Your Farm at a Glance
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Everything you need to understand your farm in one view.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {/* Weather Card */}
+                    <div className="glass-panel p-6 flex flex-col justify-between h-full group">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 uppercase tracking-wider">
+                                Realtime Telemetry
+                            </span>
+                            <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <Sun className="w-5 h-5" />
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Weather</h3>
+                            <p className="text-3xl font-black text-navy-900 tracking-tight">28°C</p>
+                            <p className="text-xs font-semibold text-slate-600 mt-1">Sunny • 45% Humidity</p>
+                        </div>
+                    </div>
+
+                    {/* Crop Health Card */}
+                    <div className="glass-panel p-6 flex flex-col justify-between h-full group">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase tracking-wider">
+                                Optimal Stage
+                            </span>
+                            <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <Sprout className="w-5 h-5" />
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Crop Health</h3>
+                            <p className="text-3xl font-black text-navy-900 tracking-tight">94%</p>
+                            <p className="text-xs font-semibold text-emerald-700 mt-1">Healthy • Low Risk Threat</p>
+                        </div>
+                    </div>
+
+                    {/* Market Price Card */}
+                    <div className="glass-panel p-6 flex flex-col justify-between h-full group">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-cyan/15 text-teal-800 border border-cyan/30 uppercase tracking-wider">
+                                High Demand
+                            </span>
+                            <div className="w-10 h-10 rounded-2xl bg-cyan/15 text-teal-800 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <TrendingUp className="w-5 h-5" />
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Market Price</h3>
+                            <p className="text-3xl font-black text-navy-900 tracking-tight">₹2,100</p>
+                            <p className="text-xs font-semibold text-teal-700 mt-1">Wheat / Quintal (+8.4% this week)</p>
+                        </div>
+                    </div>
+
+                    {/* AI Farm Score Card */}
+                    <div className="glass-panel p-6 flex flex-col justify-between h-full group border-cyan/30 bg-gradient-to-br from-white to-cyan/5">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-navy-900 text-white uppercase tracking-wider border border-cyan/40">
+                                AI Index
+                            </span>
+                            <div className="w-10 h-10 rounded-2xl bg-navy-900 text-cyan flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+                                <Sparkles className="w-5 h-5" />
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">AI Farm Score</h3>
+                            <p className="text-3xl font-black text-navy-900 tracking-tight">92<span className="text-base text-slate-400 font-bold">/100</span></p>
+                            <p className="text-xs font-bold text-teal-800 mt-1">Excellent Operational Index</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 3. AI FARM INTELLIGENCE (2-Column Layout) */}
+            <section id="intelligence" className="space-y-6">
+                <div className="space-y-1">
+                    <div className="inline-flex items-center space-x-1.5 text-xs font-extrabold uppercase tracking-wider text-cyan">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Predictive Engine</span>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        AI Farm Intelligence
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Turn farm data into actionable decisions.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    {/* Left: Interactive Crop Growth Chart */}
+                    <div className="lg:col-span-8 glass-panel p-6 sm:p-8 flex flex-col justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
+                            <div>
+                                <h3 className="text-base font-extrabold text-navy-900 flex items-center">
+                                    <BarChart3 className="w-4 h-4 mr-2 text-teal-800" />
+                                    Crop Growth Telemetry vs AI 5-Day Model
+                                </h3>
+                                <p className="text-xs text-slate-500">Actual growth metric vs Expected target vs Machine Learning projection</p>
+                            </div>
+                            <span className="text-[10px] font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200 self-start sm:self-auto">
+                                Live Synced
+                            </span>
+                        </div>
+
+                        {/* Bar Visualizer */}
+                        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+                            <div className="flex justify-between items-stretch h-44 space-x-2 sm:space-x-4">
+                                {[
+                                    { day: "Mon", actual: 20, expected: 22, ai: 24 },
+                                    { day: "Tue", actual: 32, expected: 30, ai: 35 },
+                                    { day: "Wed", actual: 45, expected: 42, ai: 48 },
+                                    { day: "Thu", actual: 60, expected: 56, ai: 64 },
+                                    { day: "Fri", actual: 74, expected: 70, ai: 78 },
+                                    { day: "Sat", actual: 88, expected: 82, ai: 92 },
+                                    { day: "Sun", actual: 96, expected: 90, ai: 99 },
+                                ].map((d, i) => (
+                                    <div key={i} className="flex-1 flex flex-col justify-end items-center group cursor-pointer">
+                                        <div className="relative w-full flex justify-center items-end flex-1 space-x-1">
+                                            <div className="w-1/3 bg-navy-900 rounded-t-sm" style={{ height: `${d.actual}%` }}></div>
+                                            <div className="w-1/3 bg-slate-300 rounded-t-sm" style={{ height: `${d.expected}%` }}></div>
+                                            <div className="w-1/3 bg-cyan rounded-t-sm" style={{ height: `${d.ai}%` }}></div>
+                                        </div>
+                                        <span className="text-[10px] font-bold text-slate-500 mt-2">{d.day}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="flex items-center justify-center mt-4 space-x-6 border-t border-slate-200 pt-3 text-[11px] font-bold text-slate-600">
+                                <div className="flex items-center"><span className="w-2.5 h-2.5 bg-navy-900 rounded-xs mr-1.5"></span> Actual Growth</div>
+                                <div className="flex items-center"><span className="w-2.5 h-2.5 bg-slate-300 rounded-xs mr-1.5"></span> Expected Target</div>
+                                <div className="flex items-center"><span className="w-2.5 h-2.5 bg-cyan rounded-xs mr-1.5"></span> AI 5-Day Prediction</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right: AI Recommendation Card */}
+                    <div className="lg:col-span-4 glass-card-dark p-6 sm:p-8 flex flex-col justify-between text-white relative">
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <span className="text-[10px] font-extrabold uppercase tracking-widest text-cyan px-2.5 py-1 rounded-full bg-cyan/15 border border-cyan/30">
+                                    AI Recommendation
+                                </span>
+                                <Sparkles className="w-4 h-4 text-cyan" />
+                            </div>
+
+                            <h3 className="text-xl font-extrabold leading-snug">
+                                Wheat growth is 12% above expected levels.
+                            </h3>
+
+                            <p className="text-slate-300 text-xs leading-relaxed">
+                                Weather and soil conditions are currently favorable across your localized zone.
+                            </p>
+
+                            <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-1">
+                                <p className="text-[10px] font-extrabold uppercase text-lime tracking-wider">Recommended Action</p>
+                                <p className="text-xs font-semibold text-white">
+                                    Continue current irrigation schedule. Schedule nitrogen foliar top-dressing on Thursday.
+                                </p>
+                            </div>
+                        </div>
+
                         <button
-                            onClick={() => setShowProjectInfo(false)}
-                            className="absolute top-5 right-5 text-gray-400 hover:text-white bg-white/10 rounded-full p-2"
+                            onClick={() => setShowPredictModal(true)}
+                            className="mt-6 w-full py-3.5 bg-cyan hover:bg-cyan-300 text-navy-900 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 transition-all shadow-md"
                         >
-                            <X className="w-5 h-5" />
+                            <span>View Full Analysis</span>
+                            <ArrowRight className="w-4 h-4" />
                         </button>
-                        <div className="p-8">
-                            <h2 className="text-3xl font-extrabold text-blue-400 mb-2 flex items-center">
-                                Smart Farm Assistant 🚜🌾
-                            </h2>
-                            <p className="text-xs font-bold text-cyan-300 uppercase tracking-wider mb-6">AI Agriculture SaaS Platform</p>
-                            <div className="space-y-4 text-sm text-gray-300">
-                                <p>Smart Farm Assistant integrates Scikit-Learn machine learning, weather forecasting telemetry, plant pathology CNN image recognition, and marketplace logistics into a unified modern interface.</p>
-                                <div className="grid grid-cols-2 gap-3 text-xs pt-2">
-                                    <div className="p-3 bg-white/5 rounded-xl border border-white/10"><strong className="text-white">AI Crop Predictor:</strong> Multi-parameter ML modeling.</div>
-                                    <div className="p-3 bg-white/5 rounded-xl border border-white/10"><strong className="text-white">Weather Forecast:</strong> Real-time climatic telemetry.</div>
-                                    <div className="p-3 bg-white/5 rounded-xl border border-white/10"><strong className="text-white">Disease Diagnosis:</strong> Automated plant pathology scan.</div>
-                                    <div className="p-3 bg-white/5 rounded-xl border border-white/10"><strong className="text-white">Kisan Marketplace:</strong> Seed & equipment trading.</div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 4. CROP PREDICTION SECTION */}
+            <section id="crop-prediction" className="space-y-6">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div className="space-y-1">
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                            Crop Prediction
+                        </h2>
+                        <p className="text-slate-500 text-sm font-medium">
+                            Find the crops best suited for your farm.
+                        </p>
+                    </div>
+
+                    {/* Filter Tabs */}
+                    <div className="flex flex-wrap items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80">
+                        {[
+                            { id: "all", label: "All Crops" },
+                            { id: "cereals", label: "Cereals" },
+                            { id: "cash", label: "Cash Crops" },
+                            { id: "pulses", label: "Pulses & Oilseeds" },
+                        ].map((tab) => (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveCropFilter(tab.id)}
+                                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${activeCropFilter === tab.id
+                                    ? "bg-navy-900 text-white shadow-xs"
+                                    : "text-slate-600 hover:text-navy-900 hover:bg-white"
+                                    }`}
+                            >
+                                {tab.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Crop Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredCrops.map((crop) => (
+                        <div key={crop.id} className="glass-panel p-6 flex flex-col justify-between group">
+                            <div>
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="text-2xl p-2 rounded-xl bg-slate-100">{crop.icon}</span>
+                                        <div>
+                                            <h3 className="text-base font-extrabold text-navy-900">{crop.name}</h3>
+                                            <span className="text-[10px] font-bold text-slate-500 uppercase">{crop.category}</span>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <span className="text-[10px] font-bold text-slate-400 block">AI Match</span>
+                                        <span className="text-lg font-black text-teal-800">{crop.suitability}%</span>
+                                    </div>
+                                </div>
+
+                                <p className="text-xs text-slate-600 leading-relaxed mb-4">{crop.desc}</p>
+
+                                <div className="grid grid-cols-3 gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-100 text-center text-xs mb-5">
+                                    <div>
+                                        <span className="text-[10px] text-slate-400 block">Soil</span>
+                                        <span className="font-bold text-navy-900">{crop.soil}</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-[10px] text-slate-400 block">Weather</span>
+                                        <span className="font-bold text-navy-900">{crop.weather}</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-[10px] text-slate-400 block">Yield</span>
+                                        <span className="font-bold text-teal-800">{crop.yield.split(" ")[0]}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Link
+                                href="/dashboard/crop"
+                                className="w-full py-2.5 bg-slate-100 hover:bg-navy-900 hover:text-white text-navy-900 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 transition-colors border border-slate-200/80"
+                            >
+                                <span>View Analysis</span>
+                                <ArrowUpRight className="w-3.5 h-3.5" />
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* 5. WEATHER INTELLIGENCE & RAIN FORECAST */}
+            <section id="weather" className="space-y-6">
+                <div className="space-y-1">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        Weather & Rain Telemetry
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Hyperlocal climatic data, rain precipitation models, and irrigation schedules.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    {/* Large Current Weather Card */}
+                    <div className="lg:col-span-5 glass-panel p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Current Forecast</span>
+                                <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-cyan/15 text-teal-800 border border-cyan/30">
+                                    20% Rain Probability
+                                </span>
+                            </div>
+
+                            <div className="flex items-center justify-between my-4">
+                                <div>
+                                    <div className="text-5xl font-black text-navy-900">28°C</div>
+                                    <p className="text-sm font-bold text-amber-600 mt-1">Sunny • Clear Skies</p>
+                                </div>
+                                <Sun className="w-16 h-16 text-amber-500 animate-spin-slow" />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 text-xs">
+                                <div className="p-3 bg-slate-50 rounded-xl">
+                                    <span className="text-slate-400 block">Humidity</span>
+                                    <strong className="text-navy-900 text-sm">45%</strong>
+                                </div>
+                                <div className="p-3 bg-slate-50 rounded-xl">
+                                    <span className="text-slate-400 block">Wind Velocity</span>
+                                    <strong className="text-navy-900 text-sm">12 km/h</strong>
                                 </div>
                             </div>
                         </div>
+
+                        {/* AI Weather Insight */}
+                        <div className="mt-6 p-4 bg-teal-900 text-white rounded-2xl border border-cyan/30 space-y-1">
+                            <p className="text-[10px] font-extrabold uppercase text-cyan tracking-wider">AI Weather Insight</p>
+                            <p className="text-xs leading-relaxed text-slate-200">
+                                "Rainfall probability is low today. Irrigation can be scheduled during the early morning."
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* 5-Day Forecast & Rain Curve */}
+                    <div className="lg:col-span-7 glass-panel p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <h3 className="text-base font-extrabold text-navy-900 mb-1">5-Day Meteorological Outlook</h3>
+                            <p className="text-xs text-slate-500 mb-6">Predicted temperature highs, lows, and precipitation probabilities</p>
+
+                            <div className="grid grid-cols-5 gap-2 text-center text-xs mb-6">
+                                {[
+                                    { day: "Mon", temp: "28°", icon: "☀️", rain: "10%" },
+                                    { day: "Tue", temp: "27°", icon: "🌤️", rain: "20%" },
+                                    { day: "Wed", temp: "25°", icon: "🌧️", rain: "80%" },
+                                    { day: "Thu", temp: "26°", icon: "⛅", rain: "40%" },
+                                    { day: "Fri", temp: "29°", icon: "☀️", rain: "15%" },
+                                ].map((item, idx) => (
+                                    <div key={idx} className="p-3.5 bg-slate-50 hover:bg-white rounded-2xl border border-slate-100 transition-all font-bold">
+                                        <p className="text-[10px] text-slate-500">{item.day}</p>
+                                        <p className="text-xl my-1.5">{item.icon}</p>
+                                        <p className="text-sm font-extrabold text-navy-900">{item.temp}</p>
+                                        <span className="text-[9px] text-blue-600 mt-1 block">{item.rain}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 flex items-center justify-between text-xs">
+                            <div className="flex items-center space-x-3">
+                                <CloudRain className="w-5 h-5 text-blue-600" />
+                                <div>
+                                    <strong className="text-navy-900">Tomorrow: Expected 18 mm Rainfall</strong>
+                                    <p className="text-slate-500 text-[11px]">Recommendation: Delay field irrigation by 24 hours.</p>
+                                </div>
+                            </div>
+                            <Link href="/dashboard/rain" className="font-bold text-teal-800 hover:underline flex items-center">
+                                View Trend →
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 6. AI CROP HEALTH SCANNER (DISEASE DETECTION) */}
+            <section id="disease-detection" className="space-y-6">
+                <div className="space-y-1">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        AI Crop Health Scanner
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Upload a crop image and let AI identify potential diseases.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    {/* Scanner Upload Card */}
+                    <div className="lg:col-span-7 glass-panel p-6 sm:p-8 flex flex-col justify-between">
+                        <div
+                            onClick={() => fileInputRef.current?.click()}
+                            className="relative border-2 border-dashed border-slate-300 hover:border-cyan bg-slate-50/80 hover:bg-white rounded-3xl p-8 sm:p-12 text-center cursor-pointer transition-all group overflow-hidden"
+                        >
+                            {isScanning && <div className="animate-scan"></div>}
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                onChange={handleImageUpload}
+                                accept="image/*"
+                                className="hidden"
+                            />
+
+                            <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 text-navy-900 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                                <UploadCloud className="w-8 h-8 text-teal-800" />
+                            </div>
+
+                            <h3 className="text-base font-extrabold text-navy-900 mb-1">
+                                Drop crop leaf photo here or click to browse
+                            </h3>
+                            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                                Supports PNG, JPG, JPEG. Camera snaps from smartphones are optimized automatically.
+                            </p>
+
+                            <div className="mt-4 inline-flex items-center space-x-2 px-4 py-2 bg-navy-900 text-white rounded-xl text-xs font-bold shadow-xs">
+                                <Camera className="w-4 h-4 text-cyan" />
+                                <span>Upload / Take Photo</span>
+                            </div>
+                        </div>
+
+                        {scanError && (
+                            <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-2xl border border-red-200 text-xs font-semibold flex items-start space-x-2.5">
+                                <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />
+                                <span>{scanError}</span>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Result / Diagnosis Card */}
+                    <div className="lg:col-span-5 glass-panel p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Diagnosis Output</span>
+                                <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
+                                    Pathology CNN Model
+                                </span>
+                            </div>
+
+                            {scanResult ? (
+                                <div className="space-y-4 animate-fade-in">
+                                    <div className="p-4 bg-amber-50 rounded-2xl border border-amber-200/80">
+                                        <span className="text-[10px] font-extrabold uppercase text-amber-800 tracking-wider">Identified Pathogen</span>
+                                        <h4 className="text-lg font-black text-navy-900 mt-0.5">{scanResult.disease}</h4>
+                                        <div className="flex items-center justify-between text-xs text-slate-600 mt-2">
+                                            <span>Confidence: <strong className="text-navy-900">{scanResult.confidence}%</strong></span>
+                                            <span>Severity: <strong className="text-amber-700">{scanResult.severity}</strong></span>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                                        <p className="text-[10px] font-extrabold uppercase text-teal-800 tracking-wider">Recommended Treatment</p>
+                                        <p className="text-xs leading-relaxed text-slate-700 font-medium">
+                                            {scanResult.treatment}
+                                        </p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="py-12 text-center text-slate-400 space-y-2">
+                                    <ShieldAlert className="w-12 h-12 mx-auto text-slate-300 stroke-1" />
+                                    <p className="text-xs font-bold text-slate-500">No Leaf Scanned Yet</p>
+                                    <p className="text-[11px] max-w-xs mx-auto">Upload an image on the left to run instantaneous neural plant pathology diagnosis.</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <Link
+                            href="/dashboard/disease"
+                            className="mt-6 w-full py-3 bg-navy-900 hover:bg-teal-800 text-white rounded-xl font-bold text-xs text-center block transition-colors"
+                        >
+                            Open Full Pathology Lab →
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* 7. MARKET INTELLIGENCE & AGRI MARKETPLACE */}
+            <section id="market" className="space-y-8">
+                {/* Market Intelligence */}
+                <div className="space-y-4">
+                    <div className="space-y-1">
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                            Market Intelligence
+                        </h2>
+                        <p className="text-slate-500 text-sm font-medium">
+                            Understand prices before making your next selling decision.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div className="lg:col-span-8 glass-panel p-6 sm:p-8">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                <div>
+                                    <span className="text-xs text-slate-400 font-bold uppercase">Mandi Benchmark</span>
+                                    <h3 className="text-2xl font-black text-navy-900">Wheat: ₹2,100 / Quintal <span className="text-sm font-extrabold text-emerald-600">+8.4%</span></h3>
+                                </div>
+                                <span className="text-xs font-bold px-3 py-1 bg-cyan/15 text-teal-800 rounded-full border border-cyan/30">
+                                    7-Day Upward Trend
+                                </span>
+                            </div>
+
+                            {/* Price Trend Chart Simulation */}
+                            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 h-40 flex items-end justify-between space-x-2 text-xs font-bold text-slate-500">
+                                {[
+                                    { day: "18 Aug", val: 1940 },
+                                    { day: "19 Aug", val: 1970 },
+                                    { day: "20 Aug", val: 2010 },
+                                    { day: "21 Aug", val: 2040 },
+                                    { day: "22 Aug", val: 2080 },
+                                    { day: "23 Aug", val: 2090 },
+                                    { day: "Today", val: 2100 },
+                                ].map((p, idx) => (
+                                    <div key={idx} className="flex-1 flex flex-col items-center">
+                                        <div className="w-full bg-teal-800 rounded-t-sm transition-all" style={{ height: `${(p.val - 1900) * 1.5}%` }}></div>
+                                        <span className="text-[10px] mt-2">{p.day}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-4 glass-card-dark p-6 sm:p-8 flex flex-col justify-between text-white">
+                            <div className="space-y-3">
+                                <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan px-2.5 py-1 rounded-full bg-cyan/15 border border-cyan/30">
+                                    AI Market Forecast
+                                </span>
+                                <h4 className="text-lg font-extrabold">Market prices are expected to remain favorable.</h4>
+                                <p className="text-slate-300 text-xs leading-relaxed">
+                                    National buffer demand and export index will likely sustain prices between ₹2,080 - ₹2,160 over the next 7 days.
+                                </p>
+                            </div>
+                            <Link href="/dashboard/market" className="mt-6 text-xs font-bold text-cyan hover:underline flex items-center">
+                                View Full Commodities Chart →
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Kisan Marketplace Grid */}
+                <div id="marketplace" className="space-y-4 pt-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h3 className="text-xl font-extrabold text-navy-900">Agri Marketplace</h3>
+                            <p className="text-xs text-slate-500">Certified seeds, fertilizers, IoT hardware, and farming equipment</p>
+                        </div>
+
+                        {/* Category Selector */}
+                        <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
+                            {["all", "seeds", "fertilizers", "equipment", "irrigation", "tools"].map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setActiveMarketCategory(cat)}
+                                    className={`px-3 py-1 rounded-lg text-xs font-bold capitalize transition-all ${activeMarketCategory === cat
+                                        ? "bg-navy-900 text-white shadow-xs"
+                                        : "text-slate-600 hover:text-navy-900"
+                                        }`}
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {filteredProducts.map((item) => (
+                            <div key={item.id} className="glass-panel p-5 flex flex-col justify-between group">
+                                <div>
+                                    <div className="flex items-center justify-between mb-3">
+                                        <span className="text-3xl p-2 rounded-2xl bg-slate-100">{item.image}</span>
+                                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-lime/20 text-teal-900">
+                                            {item.discount}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-sm font-extrabold text-navy-900 group-hover:text-teal-800 transition-colors">{item.name}</h4>
+                                    <div className="flex items-center space-x-1 my-2 text-amber-500 text-xs">
+                                        <Star className="w-3.5 h-3.5 fill-current" />
+                                        <span className="font-bold text-slate-700">{item.rating}</span>
+                                    </div>
+                                    <div className="flex items-baseline space-x-2 mb-4">
+                                        <span className="text-lg font-black text-navy-900">₹{item.price}</span>
+                                        <span className="text-xs text-slate-400 line-through">₹{item.originalPrice}</span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => handleAddToCart(item)}
+                                    className="w-full py-2.5 bg-navy-900 hover:bg-teal-800 text-white rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 transition-colors border border-cyan/30"
+                                >
+                                    <Plus className="w-4 h-4 text-cyan" />
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 8. FARM ALERTS SECTION */}
+            <section id="alerts" className="space-y-6">
+                <div className="space-y-1">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        Farm Alerts & Advisory Timeline
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Immediate agro-climatic advisories requiring operational attention.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {dailyAlerts.map((alert) => (
+                        <div
+                            key={alert.id}
+                            onClick={() => setSelectedUpdate(alert)}
+                            className="glass-panel p-5 cursor-pointer hover:border-cyan/50 space-y-3"
+                        >
+                            <div className="flex items-center justify-between">
+                                <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${alert.bg}`}>
+                                    {alert.title}
+                                </span>
+                                <span className="text-[10px] text-slate-400 font-bold">{alert.time}</span>
+                            </div>
+                            <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                                {alert.desc}
+                            </p>
+                            <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-teal-800 flex items-center justify-between">
+                                <span>View advisory details</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* 9. GOVERNMENT SCHEMES & ELIGIBILITY CHECKER */}
+            <section id="schemes" className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div className="space-y-1">
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                            Government Schemes
+                        </h2>
+                        <p className="text-slate-500 text-sm font-medium">
+                            Discover farming schemes and benefits you may be eligible for.
+                        </p>
+                    </div>
+
+                    <button
+                        onClick={() => setShowSchemeModal(true)}
+                        className="px-5 py-2.5 bg-navy-900 hover:bg-teal-800 text-white rounded-xl text-xs font-bold shadow-sm transition-all border border-cyan/30 self-start sm:self-auto"
+                    >
+                        <span>Check AI Eligibility</span>
+                    </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {[
+                        { title: "PM-Kisan Samman Nidhi", benefit: "₹6,000 / Year", eligibility: "Small & Marginal Farmers", deadline: "31 Oct 2026", status: "Active" },
+                        { title: "Pradhan Mantri Fasal Bima (PMFBY)", benefit: "Full Crop Insurance", eligibility: "All Food & Oilseed Crops", deadline: "15 Nov 2026", status: "Open" },
+                        { title: "Soil Health Card Scheme", benefit: "Free Nutrient Testing", eligibility: "All Cultivating Landholders", deadline: "Ongoing", status: "Active" },
+                        { title: "PM-KUSUM Solar Pump Subsidy", benefit: "Up to 60% Subsidy", eligibility: "Agricultural Power Consumers", deadline: "30 Dec 2026", status: "Open" },
+                    ].map((s, idx) => (
+                        <div key={idx} className="glass-panel p-5 flex flex-col justify-between group">
+                            <div className="space-y-2">
+                                <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    {s.status}
+                                </span>
+                                <h4 className="text-sm font-extrabold text-navy-900">{s.title}</h4>
+                                <div className="space-y-1 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                                    <p>Benefit: <strong className="text-teal-800 font-bold">{s.benefit}</strong></p>
+                                    <p>Eligible: <span className="text-slate-500">{s.eligibility}</span></p>
+                                    <p>Deadline: <span className="text-slate-500">{s.deadline}</span></p>
+                                </div>
+                            </div>
+                            <Link href="/dashboard/schemes" className="mt-4 text-xs font-bold text-navy-900 hover:text-teal-800 flex items-center">
+                                <span>Check Eligibility →</span>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* 10. FARM ANALYTICS (Portfolio Metrics Style) */}
+            <section id="analytics" className="space-y-6">
+                <div className="text-center max-w-xl mx-auto space-y-2">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        Farm Analytics & Health Scores
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Comprehensive telemetry scores mapped across operational vectors.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {[
+                        { title: "Crop Growth", score: 94, color: "text-emerald-500", bar: "bg-emerald-500", desc: "Optimal vegetative state" },
+                        { title: "Soil Health Index", score: 88, color: "text-teal-700", bar: "bg-teal-700", desc: "Balanced NPK and pH 6.5" },
+                        { title: "Water Efficiency", score: 82, color: "text-blue-500", bar: "bg-blue-500", desc: "Regulated drip consumption" },
+                        { title: "Market Opportunity", score: 91, color: "text-cyan", bar: "bg-cyan", desc: "Peak pricing cycle window" },
+                    ].map((m, idx) => (
+                        <div key={idx} className="glass-panel p-6 text-center space-y-3">
+                            <div className="text-4xl font-black text-navy-900">{m.score}%</div>
+                            <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-500">{m.title}</h4>
+                            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div className={`h-full ${m.bar} rounded-full transition-all duration-1000`} style={{ width: `${m.score}%` }}></div>
+                            </div>
+                            <p className="text-[11px] text-slate-400">{m.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* 11. AI INSIGHTS TIMELINE */}
+            <section id="timeline" className="space-y-6">
+                <div className="space-y-1">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                        AI Telemetry Timeline
+                    </h2>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Chronological stream of automated farm intelligence events.
+                    </p>
+                </div>
+
+                <div className="glass-panel p-6 sm:p-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 relative">
+                        {[
+                            { time: "08:30 AM", title: "Weather Analyzed", desc: "Solar radiance 680 W/m² recorded." },
+                            { time: "09:15 AM", title: "Growth Updated", desc: "Foliage index up by 12%." },
+                            { time: "10:20 AM", title: "Disease Scan Done", desc: "Zero active field pathogens." },
+                            { time: "11:00 AM", title: "Market Price Synced", desc: "Wheat at ₹2,100 / Quintal." },
+                            { time: "12:30 PM", title: "AI Advisory Ready", desc: "Delay irrigation for tomorrow's rain." },
+                        ].map((event, idx) => (
+                            <div key={idx} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1.5 relative">
+                                <div className="flex items-center space-x-1.5">
+                                    <span className="w-2 h-2 rounded-full bg-cyan"></span>
+                                    <span className="text-[10px] font-mono font-bold text-teal-800">{event.time}</span>
+                                </div>
+                                <h4 className="text-xs font-extrabold text-navy-900">{event.title}</h4>
+                                <p className="text-[11px] text-slate-500">{event.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 12. FOOTER (Matching Reference Portfolio) */}
+            <footer className="pt-12 border-t border-slate-200/80 text-xs text-slate-500 space-y-6">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="flex items-center space-x-2">
+                        <span className="font-extrabold text-navy-900 text-sm">🌱 Smart Farm Assistant</span>
+                        <span>— Smarter Decisions. Better Harvests.</span>
+                    </div>
+                    <div className="flex items-center space-x-4 font-semibold text-slate-600">
+                        <a href="#hero" className="hover:text-navy-900">Home</a>
+                        <a href="#overview" className="hover:text-navy-900">Overview</a>
+                        <a href="#crop-prediction" className="hover:text-navy-900">Crops</a>
+                        <a href="#weather" className="hover:text-navy-900">Weather</a>
+                        <a href="#disease-detection" className="hover:text-navy-900">Disease</a>
+                        <a href="#marketplace" className="hover:text-navy-900">Marketplace</a>
+                    </div>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-slate-100 text-[11px]">
+                    <p>© 2026 Smart Farm Assistant. AI-powered agriculture platform for modern farmers.</p>
+                    <p className="mt-1 sm:mt-0 font-medium">Developed for Sai Dhanush MJ • All systems operational</p>
+                </div>
+            </footer>
+
+            {/* Custom Crop Prediction Simulation Modal */}
+            {showPredictModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-900/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-teal-800/20 relative">
+                        <button onClick={() => setShowPredictModal(false)} className="absolute top-5 right-5 text-slate-400 hover:text-navy-900">
+                            <X className="w-5 h-5" />
+                        </button>
+                        <h3 className="text-xl font-extrabold text-navy-900 mb-1">Custom Field Suitability Simulator</h3>
+                        <p className="text-xs text-slate-500 mb-5">Test soil parameters to evaluate crop suitability.</p>
+
+                        <form onSubmit={handleSimulateCustomPrediction} className="space-y-4 text-xs">
+                            <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label className="font-bold text-slate-700 block mb-1">Soil Type</label>
+                                    <select
+                                        value={predictFormData.soilType}
+                                        onChange={(e) => setPredictFormData({ ...predictFormData, soilType: e.target.value })}
+                                        className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 font-semibold"
+                                    >
+                                        <option>Loamy</option>
+                                        <option>Clayey</option>
+                                        <option>Sandy</option>
+                                        <option>Black</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="font-bold text-slate-700 block mb-1">Rainfall (mm)</label>
+                                    <input
+                                        type="number"
+                                        value={predictFormData.rainfall}
+                                        onChange={(e) => setPredictFormData({ ...predictFormData, rainfall: Number(e.target.value) })}
+                                        className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 font-semibold"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-2">
+                                <div>
+                                    <label className="font-bold text-slate-700 block mb-1">Nitrogen (N)</label>
+                                    <input
+                                        type="number"
+                                        value={predictFormData.nitrogen}
+                                        onChange={(e) => setPredictFormData({ ...predictFormData, nitrogen: Number(e.target.value) })}
+                                        className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 font-semibold"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="font-bold text-slate-700 block mb-1">Phosphorus (P)</label>
+                                    <input
+                                        type="number"
+                                        value={predictFormData.phosphorus}
+                                        onChange={(e) => setPredictFormData({ ...predictFormData, phosphorus: Number(e.target.value) })}
+                                        className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 font-semibold"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="font-bold text-slate-700 block mb-1">Potassium (K)</label>
+                                    <input
+                                        type="number"
+                                        value={predictFormData.potassium}
+                                        onChange={(e) => setPredictFormData({ ...predictFormData, potassium: Number(e.target.value) })}
+                                        className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 font-semibold"
+                                    />
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={isPredicting}
+                                className="w-full py-3 bg-navy-900 hover:bg-teal-800 text-white rounded-xl font-bold text-xs uppercase tracking-wider"
+                            >
+                                {isPredicting ? "Running ML Model..." : "Calculate AI Suitability"}
+                            </button>
+                        </form>
+
+                        {modalPrediction && (
+                            <div className="mt-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-200 text-center animate-fade-in">
+                                <p className="text-xs text-emerald-800 font-bold">Recommended Crop: <strong className="text-base text-navy-900">{modalPrediction.crop}</strong> ({modalPrediction.suitability}% Match)</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
 
-            {/* Section 6: Overview Statistics Cards */}
-            <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <StatCard
-                    title="Farm Weather"
-                    value="28°C"
-                    sub="Sunny • 45% Humidity"
-                    icon={Sun}
-                    badge="Live Telemetry"
-                    badgeColor="bg-amber-50 text-amber-700 border-amber-200"
-                    iconBg="bg-amber-50 text-amber-500"
-                    href="/dashboard/rain"
-                />
-                <StatCard
-                    title="Recommended Crop"
-                    value="Wheat"
-                    sub="92% Suitability Match"
-                    icon={Sprout}
-                    badge="Optimal Soil"
-                    badgeColor="bg-blue-500/20 text-blue-300 border-blue-400/50"
-                    iconBg="bg-blue-600 text-white"
-                    href="/dashboard/crop"
-                    highlight
-                />
-                <StatCard
-                    title="Market Price"
-                    value="₹2,100"
-                    sub="Wheat / Quintal (+8.4% this week)"
-                    icon={TrendingUp}
-                    badge="High Demand"
-                    badgeColor="bg-blue-50 text-blue-700 border-blue-200"
-                    iconBg="bg-blue-50 text-blue-600"
-                    href="/dashboard/market"
-                />
-                <StatCard
-                    title="Disease Risk"
-                    value="Low"
-                    sub="0 Active Field Threats"
-                    icon={ShieldCheck}
-                    badge="Field Protected"
-                    badgeColor="bg-cyan-50 text-cyan-600 border-cyan-200"
-                    iconBg="bg-cyan-50 text-cyan-600"
-                    href="/dashboard/disease"
-                />
-            </section>
+            {/* Scheme Eligibility Modal */}
+            {showSchemeModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-900/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-teal-800/20 text-center relative">
+                        <button onClick={() => setShowSchemeModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-navy-900">
+                            <X className="w-5 h-5" />
+                        </button>
+                        <Award className="w-12 h-12 text-teal-800 mx-auto mb-2" />
+                        <h3 className="text-lg font-extrabold text-navy-900">AI Scheme Eligibility Check</h3>
+                        <p className="text-xs text-slate-500 mb-4">Evaluating your land size (3.5 Acres) & regional Aadhaar KYC status...</p>
 
-            {/* Section 7 & 8: AI Farm Intelligence & Weather Telemetry */}
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* AI Crop Growth Prediction Chart */}
-                <div className="lg:col-span-2 bg-white rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60 relative overflow-hidden">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
-                        <div>
-                            <h3 className="text-lg font-extrabold text-[#1E293B] flex items-center">
-                                <BarChart3 className="w-5 h-5 mr-2 text-blue-600" />
-                                AI Farm Intelligence — Crop Growth Prediction 🌾
-                            </h3>
-                            <p className="text-xs text-gray-500 font-medium">Actual vs Expected Growth vs AI 5-Day Prediction Model</p>
-                        </div>
-                        <span className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 self-start sm:self-auto">
-                            Updated 5m ago
-                        </span>
-                    </div>
-
-                    {/* Chart Container */}
-                    <div className="bg-[#F6F8F2] rounded-2xl border border-gray-200/70 p-5 flex flex-col justify-end min-h-[16rem]">
-                        <div className="flex justify-between items-stretch h-48 space-x-2 sm:space-x-3">
-                            {[
-                                { day: "Mon", actual: 18, expected: 20, ai: 22 },
-                                { day: "Tue", actual: 30, expected: 28, ai: 32 },
-                                { day: "Wed", actual: 42, expected: 40, ai: 45 },
-                                { day: "Thu", actual: 58, expected: 54, ai: 60 },
-                                { day: "Fri", actual: 72, expected: 68, ai: 76 },
-                                { day: "Sat", actual: 86, expected: 80, ai: 90 },
-                                { day: "Sun", actual: 95, expected: 90, ai: 98 },
-                            ].map((data, index) => (
-                                <div key={index} className="flex-1 flex flex-col justify-end items-center group cursor-pointer hover:bg-white p-1 rounded-xl transition-all relative">
-                                    <div className="relative w-full flex justify-center items-end flex-1 space-x-1 px-0.5">
-                                        <div className="w-1/3 bg-[#1E293B] rounded-t-sm transition-all relative" style={{ height: `${data.actual}%` }}>
-                                            <div className="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[9px] font-bold text-white bg-blue-600 px-1 py-0.5 rounded shadow whitespace-nowrap z-20">
-                                                {data.actual}%
-                                            </div>
-                                        </div>
-                                        <div className="w-1/3 bg-gray-300 rounded-t-sm" style={{ height: `${data.expected}%` }}></div>
-                                        <div className="w-1/3 bg-blue-500 rounded-t-sm" style={{ height: `${data.ai}%` }}></div>
-                                    </div>
-                                    <p className="text-[10px] text-gray-500 font-bold mt-2">{data.day}</p>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="flex items-center justify-center mt-4 space-x-6 border-t border-gray-200 pt-3 text-[11px] font-bold text-gray-600">
-                            <div className="flex items-center"><span className="w-2.5 h-2.5 bg-[#1E293B] rounded-sm mr-1.5"></span> Actual Growth</div>
-                            <div className="flex items-center"><span className="w-2.5 h-2.5 bg-gray-300 rounded-sm mr-1.5"></span> Expected Growth</div>
-                            <div className="flex items-center"><span className="w-2.5 h-2.5 bg-blue-500 rounded-sm mr-1.5"></span> AI Prediction</div>
-                        </div>
-                    </div>
-
-                    {/* AI Insight Box */}
-                    <div className="mt-4 p-4 bg-[#1E293B] text-white rounded-2xl flex items-start space-x-3 shadow-md border border-blue-400/30">
-                        <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0 mt-0.5">
-                            <Sparkles className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                            <h4 className="text-xs font-extrabold text-blue-400 uppercase tracking-wider">AI Telemetry Insight 🌾</h4>
-                            <p className="text-xs text-white/90 leading-relaxed mt-0.5">
-                                "Your wheat crop is showing <strong>12% higher growth</strong> than expected. Weather conditions are favorable for the next 5 days."
-                            </p>
-                        </div>
+                        {schemeCheckResult ? (
+                            <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs font-bold text-emerald-800 mb-4">
+                                {schemeCheckResult}
+                            </div>
+                        ) : (
+                            <button
+                                onClick={handleCheckSchemeEligibility}
+                                className="w-full py-3 bg-navy-900 text-white rounded-xl text-xs font-bold uppercase mb-4"
+                            >
+                                Run Eligibility Scan
+                            </button>
+                        )}
                     </div>
                 </div>
-
-                {/* Weather Intelligence Card */}
-                <div className="bg-white rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60">
-                    <div>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-base font-extrabold text-[#212422] flex items-center">
-                                <Sun className="w-5 h-5 mr-2 text-amber-500" /> Weather Intelligence
-                            </h3>
-                            <span className="text-[10px] font-extrabold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
-                                20% Rain Prob
-                            </span>
-                        </div>
-
-                        <div className="p-4 bg-amber-50/50 rounded-2xl border border-amber-200/60 mb-5">
-                            <div className="flex justify-between items-center">
-                                <div>
-                                    <p className="text-3xl font-extrabold text-[#212422]">28°C</p>
-                                    <p className="text-xs font-bold text-amber-800 mt-0.5">Sunny • Clear Skies</p>
-                                </div>
-                                <div className="text-right text-xs text-gray-600 space-y-1 font-semibold">
-                                    <p>Humidity: <strong className="text-gray-900">45%</strong></p>
-                                    <p>Wind: <strong className="text-gray-900">12 km/h</strong></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* 5-Day Forecast mini-grid */}
-                        <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2.5">5-Day Outlook</p>
-                        <div className="grid grid-cols-5 gap-1.5 text-center text-xs mb-4">
-                            {[
-                                { day: "Mon", temp: "28°", icon: "☀️" },
-                                { day: "Tue", temp: "27°", icon: "🌤️" },
-                                { day: "Wed", temp: "25°", icon: "🌧️" },
-                                { day: "Thu", temp: "26°", icon: "⛅" },
-                                { day: "Fri", temp: "29°", icon: "☀️" },
-                            ].map((item, idx) => (
-                                <div key={idx} className="p-2 bg-[#F6F8F2] rounded-xl border border-gray-200/70 font-bold">
-                                    <p className="text-[10px] text-gray-500">{item.day}</p>
-                                    <p className="my-1 text-sm">{item.icon}</p>
-                                    <p className="text-[11px] text-[#212422]">{item.temp}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* AI Weather Recommendation */}
-                    <div className="p-3.5 bg-[#F6F8F2] rounded-2xl border border-blue-300 flex items-center space-x-2.5">
-                        <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                        <div>
-                            <p className="text-[10px] font-extrabold text-[#1E293B] uppercase tracking-wider">AI Recommendation 🌦️</p>
-                            <p className="text-xs font-bold text-[#1E293B]">"Good conditions for irrigation today."</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Section 9 & 10: Crop Recommendation & AI Disease Scanner */}
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Crop Recommendation Visualizer */}
-                <div className="bg-white rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60">
-                    <div>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-base font-extrabold text-[#1E293B] flex items-center">
-                                <Sprout className="w-5 h-5 mr-2 text-blue-600" /> Top Recommended Crop
-                            </h3>
-                            <span className="text-xs font-extrabold text-white bg-blue-600 px-3 py-1 rounded-full shadow-xs">
-                                92% AI Suitability Match
-                            </span>
-                        </div>
-
-                        <div className="p-5 bg-[#1E293B] text-white rounded-2xl mb-5 flex items-center justify-between border border-blue-400/30">
-                            <div>
-                                <span className="text-xs text-blue-400 font-extrabold uppercase tracking-wider">Primary Recommendation</span>
-                                <h4 className="text-3xl font-extrabold mt-1">Wheat 🌾🚜</h4>
-                                <p className="text-xs text-white/70 mt-1">Optimal soil NPK & temperature match</p>
-                            </div>
-                            <div className="text-right bg-white/10 p-3.5 rounded-xl backdrop-blur-md border border-white/15">
-                                <p className="text-[10px] text-white/70 uppercase font-bold">Expected Yield</p>
-                                <p className="text-xl font-extrabold text-blue-400 mt-0.5">4.8 tons/ha</p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-3 text-xs font-bold">
-                            <div>
-                                <div className="flex justify-between mb-1 text-gray-700">
-                                    <span>Soil Compatibility</span>
-                                    <span className="text-blue-700">94%</span>
-                                </div>
-                                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                                    <div className="h-full bg-blue-600 rounded-full" style={{ width: '94%' }}></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className="flex justify-between mb-1 text-gray-700">
-                                    <span>Weather Compatibility</span>
-                                    <span className="text-blue-700">91%</span>
-                                </div>
-                                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                                    <div className="h-full bg-blue-600 rounded-full" style={{ width: '91%' }}></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className="flex justify-between mb-1 text-gray-700">
-                                    <span>Market Demand Index</span>
-                                    <span className="text-blue-700">89%</span>
-                                </div>
-                                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                                    <div className="h-full bg-blue-600 rounded-full" style={{ width: '89%' }}></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <Link
-                        href="/dashboard/crop"
-                        className="mt-6 w-full py-3.5 bg-[#1E293B] text-blue-400 hover:bg-blue-600 hover:text-white rounded-xl font-extrabold text-xs text-center block transition-all shadow-md border border-blue-400/30"
-                    >
-                        View Full Crop Analysis →
-                    </Link>
-                </div>
-
-                {/* AI Crop Health Scanner */}
-                <div className="bg-white rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60 relative">
-                    <div>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-base font-extrabold text-[#1E293B] flex items-center">
-                                <ShieldAlert className="w-5 h-5 mr-2 text-blue-600" /> AI Crop Health Scanner
-                            </h3>
-                            <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
-                                CNN Diagnosis
-                            </span>
-                        </div>
-
-                        {/* Scanner Upload Box */}
-                        <div
-                            onClick={simulateScanner}
-                            className="relative border-2 border-dashed border-blue-400 hover:border-blue-600 bg-[#F6F8F2] rounded-2xl p-6 text-center cursor-pointer transition-all hover:bg-white group"
-                        >
-                            {isScanning && <div className="animate-scan"></div>}
-                            <div className="w-12 h-12 rounded-2xl bg-white border border-gray-200 text-[#1E293B] flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform shadow-xs">
-                                <UploadCloud className="w-6 h-6 text-blue-600" />
-                            </div>
-                            <p className="font-extrabold text-xs text-[#1E293B]">Upload Leaf Photo or Take Snap 📸</p>
-                            <p className="text-[11px] text-gray-500 mt-1">Supports PNG, JPG (Click to simulate scan)</p>
-                        </div>
-
-                        {/* Diagnostic Results */}
-                        <div className="mt-4 p-4 bg-[#F6F8F2] rounded-2xl border border-gray-200 space-y-2">
-                            <div className="flex justify-between items-center text-xs">
-                                <span className="font-extrabold text-gray-700">Diagnosis Status:</span>
-                                <span className="text-blue-700 font-extrabold flex items-center">
-                                    <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> Leaf Rust Detected
-                                </span>
-                            </div>
-                            <div className="flex justify-between items-center text-xs text-gray-600">
-                                <span>AI Confidence: <strong>94%</strong></span>
-                                <span>Severity: <strong className="text-amber-600">Moderate</strong></span>
-                            </div>
-                            <div className="pt-2 border-t border-gray-200 text-[11px] text-gray-600">
-                                <strong className="text-[#1E293B]">Recommended Treatment:</strong> Apply copper-based fungicide and schedule field drainage within 48 hours.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Section 11, 12, 13: Rain, Market & Daily Farm Alerts */}
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Rainfall Prediction */}
-                <div className="bg-white rounded-3xl p-6 flex flex-col justify-between shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60">
-                    <div>
-                        <h3 className="text-base font-extrabold text-[#1E293B] flex items-center mb-3">
-                            <CloudRain className="w-5 h-5 mr-2 text-cyan-600" /> Rainfall Telemetry
-                        </h3>
-
-                        <div className="p-4 bg-cyan-50/50 rounded-2xl border border-cyan-200/60 mb-4">
-                            <div className="flex justify-between items-center text-xs">
-                                <div>
-                                    <p className="text-gray-500 font-semibold">Tomorrow's Forecast</p>
-                                    <p className="text-2xl font-extrabold text-cyan-900 mt-0.5">18 mm</p>
-                                </div>
-                                <span className="text-xs font-bold text-cyan-700 bg-cyan-100 px-2.5 py-1 rounded-full">
-                                    Heavy Precipitation
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="p-3 bg-[#1E293B] text-blue-400 rounded-2xl text-xs font-medium border border-blue-400/30">
-                            <strong>AI Alert:</strong> "Heavy rainfall expected tomorrow. Consider delaying irrigation."
-                        </div>
-                    </div>
-
-                    <Link href="/dashboard/rain" className="mt-4 text-xs font-extrabold text-blue-700 hover:underline flex items-center">
-                        View 7-Day Rainfall Trend →
-                    </Link>
-                </div>
-
-                {/* Market Intelligence */}
-                <div className="bg-white rounded-3xl p-6 flex flex-col justify-between shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60">
-                    <div>
-                        <h3 className="text-base font-extrabold text-[#1E293B] flex items-center mb-3">
-                            <TrendingUp className="w-5 h-5 mr-2 text-blue-600" /> Market Intelligence
-                        </h3>
-
-                        <div className="p-4 bg-blue-50/50 rounded-2xl border border-blue-200/60 mb-4">
-                            <div className="flex justify-between items-center">
-                                <div>
-                                    <p className="text-xs text-gray-500 font-semibold">Wheat Market Price</p>
-                                    <p className="text-2xl font-extrabold text-[#1E293B] mt-0.5">₹2,100 / Quintal</p>
-                                </div>
-                                <span className="text-xs font-extrabold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-full">
-                                    +8.4%
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="p-3 bg-[#1E293B] text-blue-400 rounded-2xl text-xs font-medium border border-blue-400/30">
-                            <strong>AI Market Prediction:</strong> "Prices are expected to increase over the next 7 days."
-                        </div>
-                    </div>
-
-                    <Link href="/dashboard/market" className="mt-4 text-xs font-extrabold text-blue-700 hover:underline flex items-center">
-                        View Marketplace Analytics →
-                    </Link>
-                </div>
-
-                {/* Daily Farm Alerts */}
-                <div className="bg-[#1E293B] rounded-3xl p-6 flex flex-col justify-between text-white shadow-xl border border-blue-400/30">
-                    <div>
-                        <div className="flex items-center justify-between mb-3">
-                            <h3 className="text-base font-extrabold text-white flex items-center">
-                                <Bell className="w-5 h-5 mr-2 text-blue-400" /> Daily Farm Alerts 🚨
-                            </h3>
-                            <span className="relative flex h-2.5 w-2.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-                            </span>
-                        </div>
-
-                        <div className="space-y-3 max-h-56 overflow-y-auto pr-1">
-                            {dailyUpdatesList.map((alert, idx) => (
-                                <div
-                                    key={idx}
-                                    onClick={() => handleUpdateClick(alert)}
-                                    className="p-3 bg-white/10 hover:bg-white/15 rounded-2xl border border-white/10 cursor-pointer transition-all flex items-start space-x-3"
-                                >
-                                    <span className={`w-3 h-3 rounded-full mt-1.5 flex-shrink-0 ${alert.alertColor === 'red' ? 'bg-red-500 animate-pulse' :
-                                        alert.alertColor === 'orange' ? 'bg-orange-500' :
-                                            alert.alertColor === 'yellow' ? 'bg-amber-400' : 'bg-blue-400'
-                                        }`}></span>
-                                    <div>
-                                        <p className="text-xs font-bold text-white">{alert.title}</p>
-                                        <p className="text-[11px] text-white/70 line-clamp-1 mt-0.5">{alert.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
+            )}
 
             {/* Alert Detail Modal */}
             {selectedUpdate && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-                    <div className="bg-[#1E293B] rounded-3xl shadow-2xl border border-blue-400/30 max-w-md w-full p-6 text-white text-center relative">
-                        <button onClick={() => setSelectedUpdate(null)} className="absolute top-4 right-4 text-white/60 hover:text-white">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-900/70 backdrop-blur-xs animate-fade-in">
+                    <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-200 text-center relative">
+                        <button onClick={() => setSelectedUpdate(null)} className="absolute top-4 right-4 text-slate-400 hover:text-navy-900">
                             <X className="w-5 h-5" />
                         </button>
-                        <h3 className="text-2xl font-extrabold text-blue-400 mb-2">{selectedUpdate.title}</h3>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Region: {selectedUpdate.state}</p>
-                        <div className="p-4 bg-black/30 rounded-2xl text-xs leading-relaxed text-gray-200 mb-6 text-left border border-white/10">
+                        <h3 className="text-lg font-extrabold text-navy-900 mb-1">{selectedUpdate.title}</h3>
+                        <p className="text-xs text-slate-500 mb-4">{selectedUpdate.time}</p>
+                        <div className="p-4 bg-slate-50 rounded-2xl text-xs text-slate-700 leading-relaxed text-left border border-slate-100 mb-5 font-medium">
                             {selectedUpdate.desc}
                         </div>
                         <button
                             onClick={() => setSelectedUpdate(null)}
-                            className="w-full py-3.5 bg-blue-600 text-white hover:bg-blue-500 font-extrabold rounded-xl text-xs uppercase tracking-wider shadow-lg border border-blue-400/30"
+                            className="w-full py-3 bg-navy-900 text-white font-bold rounded-xl text-xs uppercase"
                         >
-                            Acknowledge Alert
+                            Acknowledge Advisory
                         </button>
                     </div>
                 </div>
@@ -672,36 +1246,5 @@ export default function Dashboard() {
     );
 }
 
-function StatCard({ title, value, sub, icon: Icon, badge, badgeColor, iconBg, href, highlight }: any) {
-    const CardContent = (
-        <div className={`p-6 rounded-3xl border transition-all duration-300 flex flex-col justify-between h-full group cursor-pointer relative overflow-hidden shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-md ${highlight
-            ? 'bg-[#1E293B] border-blue-400/40 text-white'
-            : 'bg-white border-blue-200/60 hover:border-[#1E293B]'
-            }`}>
-            <div className="flex justify-between items-start mb-4">
-                <div className={`w-10 h-10 rounded-2xl flex items-center justify-center ${highlight ? 'bg-blue-600 text-white' : iconBg} transition-transform duration-300 group-hover:scale-110 shadow-xs font-bold`}>
-                    <Icon className="w-5 h-5" />
-                </div>
-                {badge && (
-                    <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full border ${highlight ? 'bg-blue-500/20 text-blue-300 border-blue-400/30' : badgeColor}`}>
-                        {badge}
-                    </span>
-                )}
-            </div>
-
-            <div>
-                <h3 className={`text-xs font-bold uppercase tracking-wider mb-1 ${highlight ? 'text-white/70' : 'text-gray-500'}`}>{title}</h3>
-                <p className={`text-2xl font-extrabold tracking-tight ${highlight ? 'text-white' : 'text-[#1E293B]'}`}>{value}</p>
-                <p className={`text-xs font-bold mt-1 ${highlight ? 'text-blue-400' : 'text-blue-700'}`}>{sub}</p>
-            </div>
-        </div>
-    );
-
-    if (href) {
-        return <Link href={href} className="block h-full">{CardContent}</Link>;
-    }
-
-    return CardContent;
-}
 
 
