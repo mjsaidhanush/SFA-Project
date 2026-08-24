@@ -1,5 +1,7 @@
 // Global Singleton Music Manager for Hollyland Theme
-// Path: /public/audio/hollyland-theme.mp3 (served at /audio/hollyland-theme.mp3 in Next.js)
+// Target Path: /public/audio/hollyland-theme.mp3 (served at /audio/hollyland-theme.mp3)
+
+export type MusicPreference = 'needed' | 'not-needed' | null;
 
 export interface AudioState {
     isPlaying: boolean;
@@ -7,12 +9,13 @@ export interface AudioState {
     volume: number; // 0.0 to 1.0
     isLoaded: boolean;
     error: string | null;
+    preference: MusicPreference;
 }
 
 class HollylandAudioManager {
     private static instance: HollylandAudioManager | null = null;
     private audio: HTMLAudioElement | null = null;
-    private targetVolume = 0.80; // Default target volume (80%)
+    private targetVolume = 0.35; // Default volume: 35%
     private fadeInterval: any = null;
     private subscribers = new Set<(state: AudioState) => void>();
     private audioSrc = '/audio/hollyland-theme.mp3';
@@ -20,14 +23,20 @@ class HollylandAudioManager {
     private state: AudioState = {
         isPlaying: false,
         isMuted: false,
-        volume: 0.80,
+        volume: 0.35,
         isLoaded: false,
         error: null,
+        preference: null,
     };
 
     private constructor() {
         if (typeof window !== 'undefined') {
-            this.initAudio();
+            try {
+                const savedPref = localStorage.getItem('sfa_music_preference') as MusicPreference;
+                if (savedPref === 'needed' || savedPref === 'not-needed') {
+                    this.state.preference = savedPref;
+                }
+            } catch (e) {}
         }
     }
 
@@ -68,7 +77,7 @@ class HollylandAudioManager {
                 this.notifySubscribers();
             });
 
-            this.audio.addEventListener('error', (e) => {
+            this.audio.addEventListener('error', () => {
                 const errDetail = this.audio?.error ? `Code ${this.audio.error.code}: ${this.audio.error.message}` : 'Audio load error';
                 console.warn(`[Hollyland Theme] Audio file at '${this.audioSrc}' not available or could not be loaded:`, errDetail);
                 this.state.error = 'Theme audio unavailable';
@@ -76,7 +85,7 @@ class HollylandAudioManager {
                 this.notifySubscribers();
             });
         } catch (err) {
-            console.warn('[Hollyland Theme] Initialization exception:', err);
+            console.warn('[Hollyland Theme] Audio initialization notice:', err);
         }
     }
 
@@ -94,11 +103,38 @@ class HollylandAudioManager {
     }
 
     /**
-     * Starts playback of hollyland-theme.mp3 from the beginning with a smooth volume fade-in
-     * Triggered strictly when user clicks 'ENTER TO HOLLYLAND'
+     * Sets the user's music preference ('needed' | 'not-needed')
+     */
+    public setPreference(pref: 'needed' | 'not-needed') {
+        this.state.preference = pref;
+        try {
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('sfa_music_preference', pref);
+            }
+        } catch (e) {}
+        this.notifySubscribers();
+    }
+
+    /**
+     * Clears the user's music preference on logout
+     */
+    public clearPreference() {
+        this.state.preference = null;
+        try {
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('sfa_music_preference');
+            }
+        } catch (e) {}
+        this.notifySubscribers();
+    }
+
+    /**
+     * Starts playback of hollyland-theme.mp3 from 0:00 with smooth fade-in to 35% over ~1s
+     * Triggered strictly when user selects "NEED MUSIC" and clicks "ENTER SMART FARM →"
      */
     public async playHollylandTheme(): Promise<void> {
         if (typeof window === 'undefined') return;
+        this.setPreference('needed');
         this.initAudio();
         if (!this.audio) return;
 
@@ -123,9 +159,9 @@ class HollylandAudioManager {
             this.state.isPlaying = true;
             this.notifySubscribers();
 
-            // 2. Smoothly fade in volume from 0 to target volume (approx 35%) over ~1200ms
-            const stepCount = 24;
-            const target = this.targetVolume;
+            // 2. Smoothly fade in volume from 0 to 35% (0.35) over ~1000ms
+            const stepCount = 20;
+            const target = 0.35;
             const stepDuration = 50; // ms
             const increment = target / stepCount;
             let currentVol = 0;
@@ -144,9 +180,9 @@ class HollylandAudioManager {
                 }
             }, stepDuration);
         } catch (err: any) {
-            console.warn('[Hollyland Theme] Playback prevented or failed:', err);
+            console.warn('[Hollyland Theme] Playback notice:', err);
             this.state.isPlaying = false;
-            this.state.error = err?.message || 'Autoplay blocked or file missing';
+            this.state.error = err?.message || 'Autoplay prevented or file missing';
             this.notifySubscribers();
         }
     }
@@ -155,7 +191,15 @@ class HollylandAudioManager {
      * Toggles play/pause state
      */
     public togglePlay(): void {
+        if (this.state.preference === 'not-needed') {
+            // If user clicked play while music was off, enable preference
+            this.playHollylandTheme();
+            return;
+        }
+
+        this.initAudio();
         if (!this.audio) return;
+
         try {
             if (this.audio.paused) {
                 this.audio.play().catch((err) => {
@@ -183,12 +227,16 @@ class HollylandAudioManager {
      * Sets volume level between 0 and 1
      */
     public setVolume(val: number): void {
-        if (!this.audio) return;
+        if (!this.audio) {
+            this.initAudio();
+        }
         const clamped = Math.max(0, Math.min(1, val));
-        this.audio.volume = clamped;
+        if (this.audio) {
+            this.audio.volume = clamped;
+        }
         this.targetVolume = clamped;
         this.state.volume = clamped;
-        if (clamped > 0 && this.audio.muted) {
+        if (clamped > 0 && this.audio && this.audio.muted) {
             this.audio.muted = false;
             this.state.isMuted = false;
         }
@@ -199,6 +247,8 @@ class HollylandAudioManager {
      * Fades the volume out over ~700ms, stops playback, and resets position for logout
      */
     public fadeAndStop(durationMs = 700): Promise<void> {
+        this.clearPreference();
+
         return new Promise((resolve) => {
             if (!this.audio || this.audio.paused) {
                 if (this.audio) {
@@ -235,10 +285,10 @@ class HollylandAudioManager {
                     if (this.audio) {
                         this.audio.pause();
                         this.audio.currentTime = 0;
-                        this.audio.volume = this.targetVolume; // reset default for next session
+                        this.audio.volume = 0.35; // reset default for next session
                     }
                     this.state.isPlaying = false;
-                    this.state.volume = this.targetVolume;
+                    this.state.volume = 0.35;
                     this.notifySubscribers();
                     resolve();
                 }

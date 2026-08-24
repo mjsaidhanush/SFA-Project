@@ -8,9 +8,10 @@ export default function MusicControl() {
     const [audioState, setAudioState] = useState<AudioState>({
         isPlaying: false,
         isMuted: false,
-        volume: 0.80,
+        volume: 0.35,
         isLoaded: false,
         error: null,
+        preference: null,
     });
 
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
@@ -37,6 +38,22 @@ export default function MusicControl() {
 
     const volumePercent = Math.round((audioState.isMuted ? 0 : audioState.volume) * 100);
 
+    // If the user selected "Don't Need Music", display compact "🔇 Music Off"
+    if (audioState.preference === 'not-needed' && !audioState.isPlaying) {
+        return (
+            <button
+                type="button"
+                onClick={() => audioManager.playHollylandTheme()}
+                title="Background music is off. Click to enable Hollyland Theme."
+                className="flex items-center space-x-1.5 bg-slate-50 dark:bg-navy-800/80 hover:bg-slate-100 dark:hover:bg-navy-700 border border-slate-200/80 dark:border-slate-700 hover:border-cyan/40 px-3 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-cyan transition-all shadow-2xs cursor-pointer group"
+            >
+                <VolumeX className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan transition-colors" />
+                <span className="text-[11px] font-black tracking-tight">Music Off</span>
+            </button>
+        );
+    }
+
+    // Default: "♫ Farm Theme" controls with Play/Pause, Mute/Unmute, and Volume Slider (at 35%)
     return (
         <div 
             className="relative flex items-center space-x-2 bg-slate-50 dark:bg-navy-800 border border-slate-200/80 dark:border-cyan/30 px-3 py-1.5 rounded-xl shadow-2xs group transition-all"

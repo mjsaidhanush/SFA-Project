@@ -19,7 +19,10 @@ import {
     ChevronUp,
     ShieldCheck,
     Lock as LockIcon,
-    X
+    X,
+    Music,
+    Volume2,
+    VolumeX
 } from 'lucide-react';
 import { audioManager } from './audioManager';
 
@@ -56,6 +59,11 @@ export default function Home() {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [showAdminRestrictedModal, setShowAdminRestrictedModal] = useState(false);
+    
+    // Music Preference Modal States (Mandatory Step before dashboard entry)
+    const [showMusicPreferenceModal, setShowMusicPreferenceModal] = useState(false);
+    const [selectedMusicPreference, setSelectedMusicPreference] = useState<'needed' | 'not-needed' | null>(null);
+    const [preferenceErrorMessage, setPreferenceErrorMessage] = useState<string | null>(null);
     
     // Hollyland Transition States
     const [isSlidingOut, setIsSlidingOut] = useState(false);
@@ -378,21 +386,43 @@ export default function Home() {
         }, 800);
     };
 
-    // Transition from Hollyland to Dashboard or Admin Console
-    const handleEnterDestination = (targetRoute: '/dashboard' | '/admin') => {
-        // Start hollyland-theme.mp3 from the beginning, fading in smoothly from 0 to 35%
-        try {
-            audioManager.playHollylandTheme().catch((err) => {
-                console.warn("[Hollyland Theme] Audio playback notice:", err);
-            });
-        } catch (e) {
-            console.warn("[Hollyland Theme] Audio manager invocation error:", e);
+    // Step 1: When user clicks ENTER TO HOLLYLAND / ADMIN CONSOLE arrow -> Open Mandatory Music Preference Modal
+    const handleHollylandArrowClick = () => {
+        setSelectedMusicPreference(null);
+        setPreferenceErrorMessage(null);
+        setShowMusicPreferenceModal(true);
+    };
+
+    // Step 2: When user chooses preference and clicks "ENTER SMART FARM →"
+    const handleConfirmMusicPreferenceAndEnter = () => {
+        if (!selectedMusicPreference) {
+            setPreferenceErrorMessage('Please choose whether you want background music before entering Smart Farm.');
+            return;
         }
 
+        setPreferenceErrorMessage(null);
+        const targetRoute = isUserAdmin ? '/admin' : '/dashboard';
+
+        if (selectedMusicPreference === 'needed') {
+            // Start hollyland-theme.mp3 from the beginning, fading in smoothly from 0% to 35% over ~1s
+            try {
+                audioManager.playHollylandTheme().catch((err) => {
+                    console.warn("[Hollyland Theme] Audio playback notice:", err);
+                });
+            } catch (e) {
+                console.warn("[Hollyland Theme] Audio manager invocation error:", e);
+            }
+        } else {
+            // Silent entry: Do NOT play MP3, record preference
+            audioManager.setPreference('not-needed');
+        }
+
+        setShowMusicPreferenceModal(false);
         setIsSlidingOut(true);
         try {
             sessionStorage.setItem("sfa_cinematic_entered", "true");
         } catch (e) {}
+
         setTimeout(() => {
             router.push(targetRoute);
         }, 850);
@@ -424,6 +454,165 @@ export default function Home() {
                         >
                             Return to Farm
                         </button>
+                    </div>
+                </div>
+            )}
+
+            {/* MANDATORY MUSIC PREFERENCE MODAL OVER HOLLYLAND CINEMATIC VIEW */}
+            {showMusicPreferenceModal && (
+                <div 
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+                    tabIndex={-1}
+                    onKeyDown={(e) => {
+                        // Prevent dismissing with Escape key to enforce mandatory selection
+                        if (e.key === 'Escape') {
+                            e.preventDefault();
+                            if (!selectedMusicPreference) {
+                                setPreferenceErrorMessage('Please choose whether you want background music before entering Smart Farm.');
+                            }
+                        }
+                    }}
+                >
+                    <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#101820]/95 border-2 border-cyan/40 shadow-[0_0_60px_rgba(24,213,208,0.25)] space-y-6 text-center animate-fade-up relative">
+                        
+                        {/* Modal Header */}
+                        <div className="space-y-2">
+                            <div className="inline-flex items-center space-x-2 px-3.5 py-1 bg-cyan/15 rounded-full text-xs font-black text-cyan uppercase tracking-widest border border-cyan/30">
+                                <Music className="w-3.5 h-3.5 animate-pulse" />
+                                <span>Audio Experience</span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-wide text-white">
+                                🎵 Background Music
+                            </h2>
+                            <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed max-w-md mx-auto">
+                                Would you like background music while exploring Smart Farm Assistant?
+                            </p>
+                        </div>
+
+                        {/* Two Large Selectable Cards */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                            
+                            {/* OPTION 1 — NEED MUSIC */}
+                            <div
+                                onClick={() => {
+                                    setSelectedMusicPreference('needed');
+                                    setPreferenceErrorMessage(null);
+                                }}
+                                className={`p-5 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between space-y-3 relative group ${
+                                    selectedMusicPreference === 'needed'
+                                        ? "bg-cyan/15 border-2 border-cyan shadow-[0_0_30px_rgba(24,213,208,0.4)] scale-102"
+                                        : "bg-[#0B1118]/90 border border-slate-700/80 hover:border-cyan/50 hover:bg-white/5 opacity-85 hover:opacity-100"
+                                }`}
+                            >
+                                <div className="flex items-start justify-between">
+                                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl transition-all ${
+                                        selectedMusicPreference === 'needed'
+                                            ? "bg-cyan text-navy-900 shadow-[0_0_15px_rgba(24,213,208,0.6)]"
+                                            : "bg-slate-800 text-cyan border border-cyan/30"
+                                    }`}>
+                                        🎵
+                                    </div>
+                                    {selectedMusicPreference === 'needed' && (
+                                        <span className="w-6 h-6 rounded-full bg-cyan text-navy-900 flex items-center justify-center font-black text-xs shadow-sm">
+                                            ✓
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center space-x-1.5">
+                                        <span>Need Music</span>
+                                    </h3>
+                                    <p className="text-[11px] text-slate-300 font-medium leading-normal mt-1">
+                                        Play the Hollyland theme while you explore the application.
+                                    </p>
+                                </div>
+
+                                <div className="pt-2">
+                                    <span className={`w-full py-1.5 px-3 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center justify-center space-x-1 transition-all ${
+                                        selectedMusicPreference === 'needed'
+                                            ? "bg-cyan text-navy-900 shadow-sm"
+                                            : "bg-slate-800 text-slate-400 group-hover:text-cyan"
+                                    }`}>
+                                        <span>✓ Select Music</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* OPTION 2 — DON'T NEED MUSIC */}
+                            <div
+                                onClick={() => {
+                                    setSelectedMusicPreference('not-needed');
+                                    setPreferenceErrorMessage(null);
+                                }}
+                                className={`p-5 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between space-y-3 relative group ${
+                                    selectedMusicPreference === 'not-needed'
+                                        ? "bg-white/15 border-2 border-slate-200 shadow-[0_0_30px_rgba(255,255,255,0.25)] scale-102"
+                                        : "bg-[#0B1118]/90 border border-slate-700/80 hover:border-slate-400 hover:bg-white/5 opacity-85 hover:opacity-100"
+                                }`}
+                            >
+                                <div className="flex items-start justify-between">
+                                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl transition-all ${
+                                        selectedMusicPreference === 'not-needed'
+                                            ? "bg-white text-slate-900 shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                                            : "bg-slate-800 text-slate-400 border border-slate-700"
+                                    }`}>
+                                        🔇
+                                    </div>
+                                    {selectedMusicPreference === 'not-needed' && (
+                                        <span className="w-6 h-6 rounded-full bg-white text-slate-900 flex items-center justify-center font-black text-xs shadow-sm">
+                                            ✓
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <h3 className="text-sm font-black text-white uppercase tracking-wide flex items-center space-x-1.5">
+                                        <span>Don't Need Music</span>
+                                    </h3>
+                                    <p className="text-[11px] text-slate-300 font-medium leading-normal mt-1">
+                                        Continue without background music.
+                                    </p>
+                                </div>
+
+                                <div className="pt-2">
+                                    <span className={`w-full py-1.5 px-3 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center justify-center space-x-1 transition-all ${
+                                        selectedMusicPreference === 'not-needed'
+                                            ? "bg-white text-slate-900 shadow-sm"
+                                            : "bg-slate-800 text-slate-400 group-hover:text-white"
+                                    }`}>
+                                        <span>✓ Continue Silent</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {/* Inline Validation Error */}
+                        {preferenceErrorMessage && (
+                            <div className="p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-300 text-xs font-semibold animate-fade-in flex items-center justify-center space-x-2">
+                                <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                                <span>{preferenceErrorMessage}</span>
+                            </div>
+                        )}
+
+                        {/* Continue Button */}
+                        <div className="pt-1">
+                            <button
+                                type="button"
+                                onClick={handleConfirmMusicPreferenceAndEnter}
+                                disabled={!selectedMusicPreference}
+                                className={`w-full py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg ${
+                                    selectedMusicPreference
+                                        ? "bg-gradient-to-r from-teal-800 to-cyan text-white hover:scale-102 shadow-[0_0_30px_rgba(24,213,208,0.4)] cursor-pointer"
+                                        : "bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed opacity-60"
+                                }`}
+                            >
+                                <span>{isUserAdmin ? "ENTER ADMIN CONSOLE →" : "ENTER SMART FARM →"}</span>
+                                <ArrowRight className="w-4 h-4" />
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             )}
@@ -1049,10 +1238,10 @@ export default function Home() {
                             style={{ animationDelay: '800ms' }}
                         >
                             <button
-                                onClick={() => handleEnterDestination(isUserAdmin ? '/admin' : '/dashboard')}
+                                onClick={handleHollylandArrowClick}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' || e.key === ' ') {
-                                        handleEnterDestination(isUserAdmin ? '/admin' : '/dashboard');
+                                        handleHollylandArrowClick();
                                     }
                                 }}
                                 autoFocus
@@ -1097,7 +1286,7 @@ export default function Home() {
                         {isUserAdmin && (
                             <div className="pt-2 flex items-center space-x-4">
                                 <button
-                                    onClick={() => handleEnterDestination('/dashboard')}
+                                    onClick={handleHollylandArrowClick}
                                     className="text-xs font-black text-lime hover:underline uppercase tracking-wider transition-colors cursor-pointer"
                                 >
                                     🌾 Switch to Farmer Dashboard
