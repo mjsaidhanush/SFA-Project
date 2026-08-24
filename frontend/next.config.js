@@ -80,6 +80,14 @@ const nextConfig = {
             },
         ];
     },
+    async rewrites() {
+        return [
+            {
+                source: '/public/audio/:path*',
+                destination: '/audio/:path*',
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;
