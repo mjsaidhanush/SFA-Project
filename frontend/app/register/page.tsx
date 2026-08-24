@@ -38,12 +38,15 @@ export default function Register() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-6 bg-slate-950 relative overflow-hidden">
+        <div
+            className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)), url('/farm-background.jpg')" }}
+        >
             {/* Dark background dynamic blob */}
-            <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-green-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
-            <div className="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] bg-emerald-600/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+            <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+            <div className="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] bg-cyan-600/15 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
 
-            <div className="max-w-md w-full relative z-10 backdrop-blur-2xl bg-gray-900/60 p-8 rounded-3xl shadow-2xl border border-gray-800">
+            <div className="max-w-md w-full relative z-10 backdrop-blur-2xl bg-gray-900/80 p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/20">
                 <div className="text-center mb-10">
                     <Link href="/">
                         <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 tracking-tight cursor-pointer">

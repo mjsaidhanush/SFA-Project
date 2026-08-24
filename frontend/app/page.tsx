@@ -54,12 +54,15 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-6 bg-[#F6F8F2] relative overflow-hidden font-sans">
-            {/* Light ambient blobs */}
-            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob z-0"></div>
-            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-cyan-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 z-0"></div>
+        <div
+            className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden font-sans bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.80)), url('/farm-background.jpg')" }}
+        >
+            {/* Ambient Blobs */}
+            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/30 rounded-full mix-blend-screen filter blur-[100px] animate-blob z-0"></div>
+            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-cyan-400/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 z-0"></div>
 
-            <div className="max-w-md w-full relative z-10 bg-white p-8 rounded-3xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60">
+            <div className="max-w-md w-full relative z-10 bg-white/95 backdrop-blur-2xl p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/40">
                 <div className="text-center mb-10">
                     <Link href="/">
                         <h1 className="text-3xl font-extrabold text-[#1E293B] tracking-tight cursor-pointer flex justify-center items-center">

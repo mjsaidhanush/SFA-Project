@@ -169,6 +169,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     return (
         <div className="min-h-screen bg-[#F6F8F2] text-[#212422] flex flex-col md:flex-row relative overflow-hidden font-sans">
+            {/* Scenic Farm Background Image Layer */}
+            <div
+                className="fixed inset-0 bg-cover bg-center bg-no-repeat pointer-events-none z-0 opacity-25 filter brightness-105 contrast-105"
+                style={{ backgroundImage: "url('/farm-background.jpg')" }}
+            ></div>
+            <div className="fixed inset-0 bg-gradient-to-b from-[#F6F8F2]/80 via-[#F6F8F2]/70 to-[#F6F8F2]/85 pointer-events-none z-0 backdrop-blur-[0.5px]"></div>
+
             {/* Ambient Background Blobs matching Login Page */}
             <div className="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob pointer-events-none z-0"></div>
             <div className="fixed bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-cyan-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 pointer-events-none z-0"></div>

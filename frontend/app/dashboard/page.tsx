@@ -158,7 +158,10 @@ export default function Dashboard() {
     return (
         <div className="space-y-8 animate-fade-in text-[#212422] relative pb-12">
             {/* Section 5: Premium Hero Banner */}
-            <section className="relative bg-[#1E293B] rounded-3xl p-6 md:p-10 text-white shadow-xl overflow-hidden border border-blue-400/30">
+            <section
+                className="relative bg-[#1E293B] rounded-3xl p-6 md:p-10 text-white shadow-xl overflow-hidden border border-blue-400/30 bg-cover bg-center"
+                style={{ backgroundImage: "linear-gradient(to right, rgba(30, 41, 59, 0.94) 0%, rgba(30, 41, 59, 0.85) 50%, rgba(30, 41, 59, 0.72) 100%), url('/farm-background.jpg')" }}
+            >
                 <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
                 <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
