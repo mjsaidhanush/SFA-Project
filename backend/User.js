@@ -20,6 +20,22 @@ const userSchema = new mongoose.Schema({
         enum: ['Farmer', 'Buyer', 'Admin'],
         default: 'Farmer',
     },
+    phone: {
+        type: String,
+        default: '',
+    },
+    location: {
+        type: String,
+        default: '',
+    },
+    farmSize: {
+        type: String,
+        default: '',
+    },
+    primaryCrop: {
+        type: String,
+        default: '',
+    },
     createdAt: {
         type: Date,
         default: Date.now,

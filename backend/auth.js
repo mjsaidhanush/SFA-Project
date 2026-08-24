@@ -15,7 +15,7 @@ const generateToken = (id) => {
 // @access  Public
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password, role, phone, location, farmSize, primaryCrop } = req.body;
 
         const userExists = await User.findOne({ email });
         if (userExists) {
@@ -33,6 +33,10 @@ router.post('/register', async (req, res) => {
             email,
             password,
             role: normalizedRole,
+            phone: phone || '',
+            location: location || '',
+            farmSize: farmSize || '',
+            primaryCrop: primaryCrop || '',
         });
 
         if (user) {
@@ -41,6 +45,10 @@ router.post('/register', async (req, res) => {
                 name: user.name,
                 email: user.email,
                 role: user.role,
+                phone: user.phone,
+                location: user.location,
+                farmSize: user.farmSize,
+                primaryCrop: user.primaryCrop,
                 token: generateToken(user._id),
             });
         } else {
@@ -65,11 +73,50 @@ router.post('/login', async (req, res) => {
                 name: user.name,
                 email: user.email,
                 role: user.role,
+                phone: user.phone || '',
+                location: user.location || '',
+                farmSize: user.farmSize || '',
+                primaryCrop: user.primaryCrop || '',
                 token: generateToken(user._id),
             });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
         }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// @route   POST /api/auth/google
+// @access  Public
+router.post('/google', async (req, res) => {
+    try {
+        const { email, name, googleId } = req.body;
+        if (!email) {
+            return res.status(400).json({ message: 'Email is required' });
+        }
+
+        let user = await User.findOne({ email });
+        if (!user) {
+            user = await User.create({
+                name: name || email.split('@')[0],
+                email,
+                password: 'GOOGLE_OAUTH_' + (googleId || Math.random().toString(36)),
+                role: 'Farmer',
+            });
+        }
+
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            phone: user.phone || '',
+            location: user.location || '',
+            farmSize: user.farmSize || '',
+            primaryCrop: user.primaryCrop || '',
+            token: generateToken(user._id),
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
