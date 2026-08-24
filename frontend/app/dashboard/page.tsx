@@ -244,7 +244,7 @@ export default function Dashboard() {
     ];
 
     return (
-        <div className="space-y-16 animate-fade-in text-navy-900 pb-20">
+        <div className="space-y-16 animate-fade-in text-navy-900 dark:text-slate-100 pb-20">
             {/* Toast Notification */}
             {cartToast && (
                 <div className="fixed top-20 right-6 z-50 bg-navy-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-cyan/40 flex items-center space-x-2.5 animate-bounce">
@@ -260,7 +260,7 @@ export default function Dashboard() {
                     <div className="lg:col-span-7 space-y-6">
                         {/* Official Brand Logo Badge */}
                         <div className="flex items-center space-x-4">
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/40 shadow-xl overflow-hidden shrink-0">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-white dark:bg-navy-800 p-1 flex items-center justify-center border-2 border-cyan/40 shadow-xl overflow-hidden shrink-0">
                                 <img
                                     src="/smart-farm-logo.png"
                                     alt="Smart Farm Assistant Official Logo"
@@ -268,12 +268,12 @@ export default function Dashboard() {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white rounded-full border border-teal-800/10 shadow-xs">
+                                <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white dark:bg-navy-800 rounded-full border border-teal-800/10 dark:border-cyan/20 shadow-xs">
                                     <span className="relative flex h-2 w-2">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan"></span>
                                     </span>
-                                    <span className="text-[11px] font-black tracking-wider text-teal-800 uppercase">
+                                    <span className="text-[11px] font-black tracking-wider text-teal-800 dark:text-cyan uppercase">
                                         ● AI Farm Systems Online
                                     </span>
                                 </div>
@@ -285,19 +285,19 @@ export default function Dashboard() {
 
                         {/* Large Headline */}
                         <div className="space-y-2">
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-navy-900 leading-[1.08]">
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-navy-900 dark:text-white leading-[1.08]">
                                 SMART FARM <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-800 via-cyan-500 to-lime-500">
                                     ASSISTANT
                                 </span>
                             </h1>
-                            <h2 className="text-lg sm:text-xl font-bold text-slate-600">
+                            <h2 className="text-lg sm:text-xl font-bold text-slate-600 dark:text-slate-300">
                                 AI-powered precision intelligence for modern agricultural operations.
                             </h2>
                         </div>
 
                         {/* Supporting Narrative */}
-                        <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
+                        <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
                             Monitor crops, predict Doppler rain, detect leaf diseases with neural pathology, benchmark Mandi prices, and optimize harvest yield.
                         </p>
 
@@ -312,7 +312,7 @@ export default function Dashboard() {
                             </a>
                             <a
                                 href="#live-calendar"
-                                className="inline-flex items-center space-x-2 px-5 py-3.5 bg-white hover:bg-slate-50 text-navy-900 rounded-xl font-black text-xs border border-slate-200/80 shadow-xs hover:border-cyan/50 hover:-translate-y-0.5 transition-all duration-200"
+                                className="inline-flex items-center space-x-2 px-5 py-3.5 bg-white dark:bg-navy-800 hover:bg-slate-50 dark:hover:bg-navy-700 text-navy-900 dark:text-white rounded-xl font-black text-xs border border-slate-200/80 dark:border-cyan/20 shadow-xs hover:border-cyan/50 hover:-translate-y-0.5 transition-all duration-200"
                             >
                                 <Calendar className="w-4 h-4 text-cyan" />
                                 <span>Live Agro Calendar</span>
@@ -320,14 +320,14 @@ export default function Dashboard() {
                         </div>
 
                         {/* Quick Live Telemetry Strip */}
-                        <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-500 font-semibold">
+                        <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-500 dark:text-slate-400 font-semibold">
                             <div className="flex items-center space-x-2">
                                 <Activity className="w-4 h-4 text-cyan" />
-                                <span>IoT Nodes: <strong className="text-navy-900">12 Connected</strong></span>
+                                <span>IoT Nodes: <strong className="text-navy-900 dark:text-cyan">12 Connected</strong></span>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Sun className="w-4 h-4 text-amber-500" />
-                                <span>Zone A-4: <strong className="text-navy-900">28°C Optimal</strong></span>
+                                <span>Zone A-4: <strong className="text-navy-900 dark:text-white">28°C Optimal</strong></span>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Droplets className="w-4 h-4 text-blue-500" />

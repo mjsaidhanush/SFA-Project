@@ -24,7 +24,9 @@ import {
     UserCheck,
     Clock,
     Calendar,
-    ArrowRight
+    ArrowRight,
+    Sun,
+    Moon
 } from "lucide-react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -37,6 +39,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
     const [liveTime, setLiveTime] = useState<Date | null>(null);
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
     // Cinematic Landing Screen State
     const [showLanding, setShowLanding] = useState<boolean>(true);
@@ -47,6 +50,41 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { sender: 'ai', text: "Welcome to Smart Farm Assistant! I can help you with crop prediction, disease identification, weather analytics, and market prices. How can I assist your farm today?" }
     ]);
     const [inputMessage, setInputMessage] = useState("");
+
+    // Initialize Theme (Dark / Light)
+    useEffect(() => {
+        try {
+            if (typeof window !== "undefined") {
+                const savedTheme = localStorage.getItem("sfa_theme");
+                const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+                if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+                    setIsDarkMode(true);
+                    document.documentElement.classList.add("dark");
+                } else {
+                    setIsDarkMode(false);
+                    document.documentElement.classList.remove("dark");
+                }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        setIsDarkMode(prev => {
+            const nextMode = !prev;
+            if (typeof window !== "undefined") {
+                if (nextMode) {
+                    document.documentElement.classList.add("dark");
+                    localStorage.setItem("sfa_theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    localStorage.setItem("sfa_theme", "light");
+                }
+            }
+            return nextMode;
+        });
+    };
 
     // Check session entry on mount
     useEffect(() => {
@@ -429,9 +467,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="fixed bottom-[-15%] left-[-10%] w-[500px] h-[500px] bg-lime/15 rounded-full mix-blend-multiply filter blur-[120px] animate-blob animation-delay-2000 pointer-events-none z-0"></div>
 
             {/* Mobile Header Bar */}
-            <header className="md:hidden sticky top-0 z-40 w-full bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-4 py-2.5 flex items-center justify-between shadow-xs">
+            <header className="md:hidden sticky top-0 z-40 w-full bg-white/90 dark:bg-navy-900/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-cyan/20 px-4 py-2.5 flex items-center justify-between shadow-xs">
                 <Link href="/dashboard" className="flex items-center space-x-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-white p-0.5 flex items-center justify-center border border-cyan/40 shadow-xs overflow-hidden">
+                    <div className="w-9 h-9 rounded-xl bg-white dark:bg-navy-800 p-0.5 flex items-center justify-center border border-cyan/40 shadow-xs overflow-hidden">
                         <img
                             src="/smart-farm-logo.png"
                             alt="Smart Farm Logo"
@@ -439,18 +477,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         />
                     </div>
                     <div>
-                        <h1 className="text-sm font-black text-navy-900 leading-none">Smart Farm</h1>
-                        <span className="text-[10px] font-bold text-teal-700 flex items-center mt-0.5">
+                        <h1 className="text-sm font-black text-navy-900 dark:text-white leading-none">Smart Farm</h1>
+                        <span className="text-[10px] font-bold text-teal-700 dark:text-cyan flex items-center mt-0.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-cyan inline-block mr-1"></span> Assistant OS
                         </span>
                     </div>
                 </Link>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1.5">
+                    {/* Theme Toggle Mobile */}
+                    <button
+                        onClick={toggleTheme}
+                        title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                        className="p-2 rounded-xl bg-slate-100 dark:bg-navy-800 text-navy-900 dark:text-cyan border border-slate-200/80 dark:border-cyan/30"
+                    >
+                        {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-cyan" />}
+                    </button>
                     <button
                         onClick={handleReturnToWelcome}
                         title="Cinematic Welcome Screen"
-                        className="p-2 bg-slate-100 hover:bg-slate-200 text-teal-800 rounded-xl text-xs font-bold flex items-center border border-slate-200"
+                        className="p-2 bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-navy-700 text-teal-800 dark:text-cyan rounded-xl text-xs font-bold flex items-center border border-slate-200 dark:border-cyan/30"
                     >
                         🌱
                     </button>
@@ -462,7 +508,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </button>
                     <button
                         onClick={() => setSidebarOpen(!sidebarOpen)}
-                        className="p-2 rounded-xl bg-slate-100 text-navy-900 hover:bg-slate-200"
+                        className="p-2 rounded-xl bg-slate-100 dark:bg-navy-800 text-navy-900 dark:text-white hover:bg-slate-200 dark:hover:bg-navy-700"
                     >
                         {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </button>
@@ -473,25 +519,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {sidebarOpen && (
                 <div
                     onClick={() => setSidebarOpen(false)}
-                    className="md:hidden fixed inset-0 z-40 bg-navy-900/50 backdrop-blur-xs animate-fade-in"
+                    className="md:hidden fixed inset-0 z-40 bg-navy-900/60 backdrop-blur-xs animate-fade-in"
                 ></div>
             )}
 
             {/* VERTICAL SIDEBAR */}
             <aside
-                className={`fixed md:sticky top-0 left-0 z-50 md:z-30 w-72 h-screen bg-white/95 md:bg-white/90 backdrop-blur-2xl border-r border-teal-800/10 flex flex-col justify-between transition-transform duration-300 ease-in-out shadow-xl md:shadow-none ${
+                className={`fixed md:sticky top-0 left-0 z-50 md:z-30 w-72 h-screen bg-white/95 md:bg-white/90 dark:bg-navy-900/95 dark:md:bg-navy-900/90 backdrop-blur-2xl border-r border-teal-800/10 dark:border-cyan/20 flex flex-col justify-between transition-transform duration-300 ease-in-out shadow-xl md:shadow-none ${
                     sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
                 }`}
             >
                 {/* Top Brand Logo & Status */}
-                <div className="p-5 border-b border-slate-100 flex flex-col space-y-3">
+                <div className="p-5 border-b border-slate-100 dark:border-cyan/15 flex flex-col space-y-3">
                     <div className="flex items-center justify-between">
                         <button
                             onClick={handleReturnToWelcome}
                             title="Click to view Cinematic Welcome Screen"
                             className="flex items-center space-x-3 group text-left"
                         >
-                            <div className="w-12 h-12 rounded-2xl bg-white p-0.5 flex items-center justify-center shadow-lg shadow-navy-900/10 group-hover:scale-105 transition-transform border border-cyan/50 overflow-hidden shrink-0">
+                            <div className="w-12 h-12 rounded-2xl bg-white dark:bg-navy-800 p-0.5 flex items-center justify-center shadow-lg shadow-navy-900/10 group-hover:scale-105 transition-transform border border-cyan/50 overflow-hidden shrink-0">
                                 <img
                                     src="/smart-farm-logo.png"
                                     alt="Smart Farm Assistant Logo"
@@ -499,27 +545,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 />
                             </div>
                             <div className="min-w-0">
-                                <h1 className="text-sm font-black tracking-tight text-navy-900 truncate leading-none">
+                                <h1 className="text-sm font-black tracking-tight text-navy-900 dark:text-white truncate leading-none">
                                     SMART FARM
                                 </h1>
                                 <span className="text-[10px] font-black text-cyan tracking-wider uppercase block mt-0.5">
                                     ASSISTANT
                                 </span>
-                                <span className="text-[8px] font-bold text-slate-400 block tracking-tight">
+                                <span className="text-[8px] font-bold text-slate-400 dark:text-slate-400 block tracking-tight">
                                     Smarter Decisions • Better Harvests
                                 </span>
                             </div>
                         </button>
                         <button
                             onClick={() => setSidebarOpen(false)}
-                            className="md:hidden p-1.5 text-slate-400 hover:text-navy-900 rounded-lg"
+                            className="md:hidden p-1.5 text-slate-400 hover:text-navy-900 dark:hover:text-white rounded-lg"
                         >
                             <X className="w-5 h-5" />
                         </button>
                     </div>
 
                     {/* Live System Badge with Return to Welcome Trigger */}
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-navy-800/80 border border-slate-200/70 dark:border-cyan/20 flex items-center justify-between">
                         <button
                             onClick={handleReturnToWelcome}
                             className="flex items-center space-x-2 hover:opacity-80 transition-opacity text-left"
@@ -529,13 +575,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan"></span>
                             </span>
-                            <span className="text-[10px] font-extrabold tracking-wider uppercase text-teal-800">
+                            <span className="text-[10px] font-extrabold tracking-wider uppercase text-teal-800 dark:text-cyan">
                                 AI Telemetry Live
                             </span>
                         </button>
                         <button
                             onClick={handleReturnToWelcome}
-                            className="text-[9px] font-black text-teal-800 bg-cyan/15 hover:bg-cyan/25 px-2 py-0.5 rounded-md border border-cyan/30 transition-colors"
+                            className="text-[9px] font-black text-teal-800 dark:text-cyan bg-cyan/15 hover:bg-cyan/25 px-2 py-0.5 rounded-md border border-cyan/30 transition-colors"
                             title="Return to Welcome Screen"
                         >
                             Cinematic View ↵
@@ -543,13 +589,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </div>
                 </div>
 
-
                 {/* Navigation Links with Highlighted Fonts for Main Features */}
-                <div className="flex-1 overflow-y-auto px-4 py-4 space-y-6 scrollbar-thin scrollbar-thumb-slate-200">
+                <div className="flex-1 overflow-y-auto px-4 py-4 space-y-6 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-cyan/20">
                     {featureGroups.map((group, gIdx) => (
                         <div key={gIdx} className="space-y-1.5">
                             <div className="px-3 py-1 flex items-center justify-between">
-                                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-400">
                                     {group.groupName}
                                 </span>
                             </div>
@@ -566,20 +611,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                             onClick={() => setSidebarOpen(false)}
                                             className={`group relative flex items-center justify-between px-3.5 py-2.5 rounded-2xl transition-all duration-200 border ${
                                                 isActive
-                                                    ? "bg-navy-900 text-white border-navy-900 shadow-md shadow-navy-900/15"
+                                                    ? "bg-navy-900 dark:bg-cyan text-white dark:text-navy-900 border-navy-900 dark:border-cyan shadow-md shadow-navy-900/15"
                                                     : item.isMain
-                                                    ? "bg-white/80 hover:bg-slate-50 text-navy-900 border-slate-200/80 hover:border-cyan/50 shadow-2xs"
-                                                    : "text-slate-600 hover:text-navy-900 hover:bg-slate-100/70 border-transparent"
+                                                    ? "bg-white/80 dark:bg-navy-800/80 hover:bg-slate-50 dark:hover:bg-navy-700/80 text-navy-900 dark:text-white border-slate-200/80 dark:border-cyan/20 hover:border-cyan/50 shadow-2xs"
+                                                    : "text-slate-600 dark:text-slate-300 hover:text-navy-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-navy-800/60 border-transparent"
                                             }`}
                                         >
                                             <div className="flex items-center space-x-3 min-w-0">
                                                 <div
                                                     className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all ${
                                                         isActive
-                                                            ? "bg-white/10 text-cyan border border-cyan/30"
+                                                            ? "bg-white/10 dark:bg-navy-900/20 text-cyan dark:text-navy-900 border border-cyan/30"
                                                             : item.isMain
-                                                            ? "bg-slate-100 text-teal-800 group-hover:bg-cyan/15 group-hover:text-cyan border border-slate-200/60"
-                                                            : "text-slate-400 group-hover:text-navy-900"
+                                                            ? "bg-slate-100 dark:bg-navy-700/80 text-teal-800 dark:text-cyan group-hover:bg-cyan/15 group-hover:text-cyan border border-slate-200/60 dark:border-cyan/20"
+                                                            : "text-slate-400 group-hover:text-navy-900 dark:group-hover:text-white"
                                                     }`}
                                                 >
                                                     <Icon className="w-4 h-4" />
@@ -589,9 +634,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                                     <span
                                                         className={`block truncate text-xs ${
                                                             item.isMain
-                                                                ? "font-black tracking-tight text-navy-900 group-hover:text-teal-900"
+                                                                ? "font-black tracking-tight text-navy-900 dark:text-white group-hover:text-teal-900 dark:group-hover:text-cyan"
                                                                 : "font-semibold"
-                                                        } ${isActive ? "!text-white" : ""}`}
+                                                        } ${isActive ? "!text-white dark:!text-navy-900 font-black" : ""}`}
                                                     >
                                                         {item.name}
                                                     </span>
@@ -619,25 +664,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </div>
 
                 {/* Sidebar Footer: Ask AI & Farmer Profile */}
-                <div className="p-4 border-t border-slate-100 bg-slate-50/70 space-y-3">
+                <div className="p-4 border-t border-slate-100 dark:border-cyan/15 bg-slate-50/70 dark:bg-navy-900/80 space-y-3">
                     {/* Ask Farm AI Trigger Button */}
                     <button
                         onClick={() => setAiAssistantOpen(true)}
-                        className="w-full py-2.5 px-4 bg-navy-900 hover:bg-teal-800 text-white rounded-xl text-xs font-black shadow-md shadow-navy-900/15 hover:shadow-glow-cyan transition-all duration-200 flex items-center justify-center space-x-2 border border-cyan/30 group"
+                        className="w-full py-2.5 px-4 bg-navy-900 dark:bg-navy-800 hover:bg-teal-800 dark:hover:bg-navy-700 text-white rounded-xl text-xs font-black shadow-md shadow-navy-900/15 hover:shadow-glow-cyan transition-all duration-200 flex items-center justify-center space-x-2 border border-cyan/30 group"
                     >
                         <Sparkles className="w-3.5 h-3.5 text-cyan group-hover:rotate-12 transition-transform" />
                         <span>Ask Farm AI Assistant</span>
                     </button>
 
                     {/* Farmer Profile Card */}
-                    <div className="p-3 rounded-2xl bg-white border border-slate-200 flex items-center justify-between">
+                    <div className="p-3 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-cyan/25 flex items-center justify-between">
                         <div className="flex items-center space-x-2.5 min-w-0">
-                            <div className="w-8 h-8 rounded-xl bg-teal-800 text-white flex items-center justify-center font-black text-xs shrink-0">
+                            <div className="w-8 h-8 rounded-xl bg-teal-800 dark:bg-cyan text-white dark:text-navy-900 flex items-center justify-center font-black text-xs shrink-0">
                                 {getInitials(user.name)}
                             </div>
                             <div className="truncate">
-                                <p className="text-xs font-black text-navy-900 truncate">{user.name}</p>
-                                <span className="text-[9px] font-extrabold text-teal-700 uppercase tracking-wider block">
+                                <p className="text-xs font-black text-navy-900 dark:text-white truncate">{user.name}</p>
+                                <span className="text-[9px] font-extrabold text-teal-700 dark:text-cyan uppercase tracking-wider block">
                                     👨‍🌾 Verified Farmer
                                 </span>
                             </div>
@@ -646,7 +691,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <button
                             onClick={handleLogout}
                             title="Log Out"
-                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors ml-1 shrink-0"
+                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors ml-1 shrink-0"
                         >
                             <LogOut className="w-4 h-4" />
                         </button>
@@ -657,45 +702,65 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* MAIN CONTENT AREA */}
             <div className="flex-1 flex flex-col min-w-0 relative z-10">
                 {/* Desktop Top Sub-Header */}
-                <header className="hidden md:flex sticky top-0 z-20 h-16 bg-white/85 backdrop-blur-xl border-b border-teal-800/8 px-6 lg:px-8 items-center justify-between">
+                <header className="hidden md:flex sticky top-0 z-20 h-16 bg-white/85 dark:bg-navy-900/85 backdrop-blur-xl border-b border-teal-800/8 dark:border-cyan/20 px-6 lg:px-8 items-center justify-between">
                     <div className="flex items-center space-x-3">
-                        <div className="flex items-center space-x-2 text-xs font-bold text-slate-500">
-                            <Link href="/dashboard" className="hover:text-navy-900 transition-colors">Farm Dashboard</Link>
+                        <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+                            <Link href="/dashboard" className="hover:text-navy-900 dark:hover:text-white transition-colors">Farm Dashboard</Link>
                             <span>/</span>
-                            <span className="text-navy-900 font-extrabold capitalize">
+                            <span className="text-navy-900 dark:text-white font-extrabold capitalize">
                                 {pathname.replace("/dashboard", "").replace("/", "") || "Live Telemetry Overview"}
                             </span>
                         </div>
                     </div>
 
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-3">
                         {/* Live Date & Time Real-time Widget */}
-                        <div className="flex items-center space-x-2.5 bg-slate-50 border border-slate-200/80 px-3.5 py-1.5 rounded-xl shadow-2xs">
+                        <div className="flex items-center space-x-2.5 bg-slate-50 dark:bg-navy-800 border border-slate-200/80 dark:border-cyan/30 px-3.5 py-1.5 rounded-xl shadow-2xs">
                             <Calendar className="w-3.5 h-3.5 text-cyan" />
-                            <span className="text-xs font-black text-navy-900">
+                            <span className="text-xs font-black text-navy-900 dark:text-white">
                                 {liveTime ? liveTime.toLocaleDateString("en-US", { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : "Loading date..."}
                             </span>
-                            <span className="text-slate-300 font-light">|</span>
-                            <Clock className="w-3.5 h-3.5 text-teal-800" />
-                            <span className="text-xs font-black text-teal-800 font-mono tracking-tight">
+                            <span className="text-slate-300 dark:text-slate-600 font-light">|</span>
+                            <Clock className="w-3.5 h-3.5 text-teal-800 dark:text-lime" />
+                            <span className="text-xs font-black text-teal-800 dark:text-cyan font-mono tracking-tight">
                                 {liveTime ? liveTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : "00:00:00"}
                             </span>
                         </div>
 
                         {/* Live Quick Telemetry Indicator */}
-                        <div className="flex items-center space-x-3 bg-slate-50 border border-slate-200/80 px-3 py-1.5 rounded-xl text-xs font-bold">
-                            <span className="flex items-center text-teal-800 font-extrabold">
+                        <div className="hidden lg:flex items-center space-x-3 bg-slate-50 dark:bg-navy-800 border border-slate-200/80 dark:border-cyan/30 px-3 py-1.5 rounded-xl text-xs font-bold">
+                            <span className="flex items-center text-teal-800 dark:text-slate-200 font-extrabold">
                                 🌡️ 28°C
                             </span>
-                            <span className="text-slate-300">|</span>
-                            <span className="flex items-center text-teal-800 font-extrabold">
+                            <span className="text-slate-300 dark:text-slate-600">|</span>
+                            <span className="flex items-center text-teal-800 dark:text-slate-200 font-extrabold">
                                 💧 45% Moisture
                             </span>
-                            <span className="text-slate-300">|</span>
-                            <span className="flex items-center text-cyan font-black bg-navy-900 px-2 py-0.5 rounded-md text-[10px]">
+                            <span className="text-slate-300 dark:text-slate-600">|</span>
+                            <span className="flex items-center text-cyan font-black bg-navy-900 dark:bg-navy-950 px-2 py-0.5 rounded-md text-[10px] border border-cyan/30">
                                 AI SCORE 92
                             </span>
                         </div>
+
+                        {/* Dark / Light Mode Toggle Button */}
+                        <button
+                            onClick={toggleTheme}
+                            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                            className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-navy-800 border border-slate-200/80 dark:border-cyan/30 text-navy-900 dark:text-cyan font-bold text-xs shadow-2xs hover:scale-105 active:scale-95 transition-all"
+                            aria-label="Toggle Dark and Light Mode"
+                        >
+                            {isDarkMode ? (
+                                <>
+                                    <Sun className="w-3.5 h-3.5 text-amber-400" />
+                                    <span className="text-white font-black text-[11px]">Light</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Moon className="w-3.5 h-3.5 text-cyan" />
+                                    <span className="text-navy-900 font-black text-[11px]">Dark</span>
+                                </>
+                            )}
+                        </button>
 
                         {/* Quick AI Trigger */}
                         <button
@@ -726,12 +791,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             {/* Slide-out Glass AI Assistant Modal Drawer */}
             {aiAssistantOpen && (
-                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-end sm:p-6 bg-navy-900/40 backdrop-blur-xs animate-fade-in">
-                    <div className="bg-white/95 backdrop-blur-2xl border border-teal-800/15 w-full sm:max-w-md h-[88vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden text-navy-900 relative">
+                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-end sm:p-6 bg-navy-900/50 backdrop-blur-xs animate-fade-in">
+                    <div className="bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border border-teal-800/15 dark:border-cyan/25 w-full sm:max-w-md h-[88vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden text-navy-900 dark:text-white relative">
                         {/* Chat Header */}
-                        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
+                        <div className="p-4 border-b border-slate-100 dark:border-cyan/15 flex items-center justify-between bg-slate-50/70 dark:bg-navy-800/70">
                             <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 rounded-2xl bg-white p-0.5 border border-cyan/50 shadow-xs flex items-center justify-center overflow-hidden">
+                                <div className="w-10 h-10 rounded-2xl bg-white dark:bg-navy-800 p-0.5 border border-cyan/50 shadow-xs flex items-center justify-center overflow-hidden">
                                     <img
                                         src="/smart-chat-ai-logo.jpg"
                                         alt="SmartChatAI"
@@ -739,32 +804,32 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                     />
                                 </div>
                                 <div>
-                                    <h3 className="font-black text-sm text-navy-900 flex items-center">
+                                    <h3 className="font-black text-sm text-navy-900 dark:text-white flex items-center">
                                         SmartChat AI <Sparkles className="w-3.5 h-3.5 ml-1.5 text-cyan" />
                                     </h3>
                                     <div className="flex items-center space-x-1.5 mt-0.5">
                                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                        <p className="text-[10px] font-bold text-teal-700">Online • Kisan Mitra Intelligence</p>
+                                        <p className="text-[10px] font-bold text-teal-700 dark:text-cyan">Online • Kisan Mitra Intelligence</p>
                                     </div>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setAiAssistantOpen(false)}
-                                className="text-slate-400 hover:text-navy-900 p-1.5 rounded-xl hover:bg-slate-100 transition-colors"
+                                className="text-slate-400 hover:text-navy-900 dark:hover:text-white p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-navy-800 transition-colors"
                             >
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
 
                         {/* Suggested Prompt Chips */}
-                        <div className="p-3 bg-slate-50/50 border-b border-slate-100 space-y-1.5">
-                            <p className="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider px-1">Suggested Prompts</p>
+                        <div className="p-3 bg-slate-50/50 dark:bg-navy-950/40 border-b border-slate-100 dark:border-cyan/15 space-y-1.5">
+                            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-extrabold uppercase tracking-wider px-1">Suggested Prompts</p>
                             <div className="flex space-x-2 overflow-x-auto scrollbar-none pb-1">
                                 {suggestedQuestions.map((q, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => handleSendMessage(q)}
-                                        className="px-3 py-1 bg-white hover:bg-navy-900 hover:text-white text-slate-700 rounded-full text-[11px] font-bold whitespace-nowrap transition-colors border border-slate-200 shadow-2xs"
+                                        className="px-3 py-1 bg-white dark:bg-navy-800 hover:bg-navy-900 dark:hover:bg-cyan hover:text-white dark:hover:text-navy-900 text-slate-700 dark:text-slate-200 rounded-full text-[11px] font-bold whitespace-nowrap transition-colors border border-slate-200 dark:border-cyan/20 shadow-2xs"
                                     >
                                         {q}
                                     </button>
@@ -780,7 +845,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                     className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} items-start gap-2`}
                                 >
                                     {msg.sender === 'ai' && (
-                                        <div className="w-6 h-6 rounded-lg bg-white p-0.5 border border-cyan/40 shadow-xs shrink-0 mt-0.5 overflow-hidden">
+                                        <div className="w-6 h-6 rounded-lg bg-white dark:bg-navy-800 p-0.5 border border-cyan/40 shadow-xs shrink-0 mt-0.5 overflow-hidden">
                                             <img
                                                 src="/smart-chat-ai-logo.jpg"
                                                 alt="SmartChatAI"
@@ -790,8 +855,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                     )}
                                     <div
                                         className={`max-w-[85%] p-3.5 rounded-2xl text-xs leading-relaxed ${msg.sender === 'user'
-                                            ? 'bg-navy-900 text-white font-medium rounded-br-none shadow-md'
-                                            : 'bg-slate-100 text-slate-800 rounded-bl-none border border-slate-200/80 font-medium'
+                                            ? 'bg-navy-900 dark:bg-cyan text-white dark:text-navy-900 font-bold rounded-br-none shadow-md'
+                                            : 'bg-slate-100 dark:bg-navy-800 text-slate-800 dark:text-slate-100 rounded-bl-none border border-slate-200/80 dark:border-cyan/20 font-medium'
                                             }`}
                                     >
                                         {msg.text}
@@ -801,20 +866,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </div>
 
                         {/* Chat Input Bar */}
-                        <div className="p-3.5 border-t border-slate-100 bg-white flex items-center space-x-2">
+                        <div className="p-3.5 border-t border-slate-100 dark:border-cyan/15 bg-white dark:bg-navy-900 flex items-center space-x-2">
                             <input
                                 type="text"
                                 value={inputMessage}
                                 onChange={(e) => setInputMessage(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                                 placeholder="Ask about irrigation, crops, disease..."
-                                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 placeholder-slate-400 text-xs focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan font-medium"
+                                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-800 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white placeholder-slate-400 text-xs focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan font-medium"
                             />
                             <button
                                 onClick={() => handleSendMessage()}
-                                className="p-2.5 bg-navy-900 hover:bg-teal-800 text-white rounded-xl font-bold transition-transform active:scale-95 border border-cyan/30"
+                                className="p-2.5 bg-navy-900 dark:bg-cyan hover:bg-teal-800 dark:hover:bg-cyan/80 text-white dark:text-navy-900 rounded-xl font-bold transition-transform active:scale-95 border border-cyan/30"
                             >
-                                <Send className="w-4 h-4 text-cyan" />
+                                <Send className="w-4 h-4 text-cyan dark:text-navy-900" />
                             </button>
                         </div>
                     </div>
