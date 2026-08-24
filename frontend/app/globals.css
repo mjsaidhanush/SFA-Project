@@ -94,6 +94,54 @@ body {
     animation: pulseGlow 2.5s infinite ease-in-out;
 }
 
+@keyframes arrowFlow {
+    0%, 100% {
+        transform: translateX(0px);
+        filter: drop-shadow(0 0 15px rgba(24, 213, 208, 0.8)) drop-shadow(0 0 35px rgba(24, 213, 208, 0.4));
+    }
+    50% {
+        transform: translateX(12px);
+        filter: drop-shadow(0 0 25px rgba(24, 213, 208, 1)) drop-shadow(0 0 50px rgba(168, 230, 61, 0.7));
+    }
+}
+
+@keyframes lightSweep {
+    0% {
+        left: -50%;
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+    100% {
+        left: 150%;
+        opacity: 0;
+    }
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0px) translateX(0px) scale(0.8);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-25px) translateX(10px) scale(1.2);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-50px) translateX(-5px) scale(0.6);
+        opacity: 0;
+    }
+}
+
+.animate-arrow-flow {
+    animation: arrowFlow 2s ease-in-out infinite;
+}
+
+.animate-light-sweep {
+    animation: lightSweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* Glass & Card Design Tokens */
 .glass-panel {
     background: rgba(255, 255, 255, 0.88);

@@ -290,56 +290,58 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="min-h-screen agri-grid-bg text-navy-900 flex flex-col md:flex-row relative font-sans antialiased selection:bg-cyan/20 selection:text-navy-900 overflow-x-hidden">
             
             {/* ========================================================= */}
-            {/* CINEMATIC FARM LANDING EXPERIENCE OVERLAY */}
+            {/* HOLLYLAND CINEMATIC FARM LANDING EXPERIENCE OVERLAY */}
             {/* ========================================================= */}
             {showLanding && (
                 <div
                     className={`fixed inset-0 z-[100] w-screen h-screen overflow-hidden flex items-center justify-center transition-all duration-900 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                         isSlidingOut 
-                            ? "-translate-x-full opacity-90 scale-[0.98] pointer-events-none shadow-[30px_0_90px_rgba(24,213,208,0.5)]" 
+                            ? "-translate-x-full opacity-90 scale-[0.98] pointer-events-none shadow-[30px_0_90px_rgba(24,213,208,0.6)]" 
                             : "translate-x-0 opacity-100 scale-100"
                     }`}
                 >
-                    {/* Cinematic Agricultural High-Res Wallpaper */}
+                    {/* Cinematic Agricultural High-Res Wallpaper with Depth of Field */}
                     <div
-                        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 transform scale-105 ${
-                            bgLoaded ? "opacity-100" : "opacity-0"
-                        }`}
+                        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform ${
+                            isSlidingOut ? "scale-115 blur-xs" : "scale-105"
+                        } ${bgLoaded ? "opacity-100" : "opacity-0"}`}
                         style={{ backgroundImage: "url('/farm-background.jpg')" }}
                     ></div>
+
+                    {/* Laser Light Sweep during enter transition */}
+                    {isSlidingOut && (
+                        <div className="absolute inset-y-0 w-48 bg-gradient-to-r from-transparent via-cyan to-white filter blur-lg z-30 animate-light-sweep pointer-events-none"></div>
+                    )}
 
                     {/* Loading Fallback */}
                     {!bgLoaded && (
                         <div className="absolute inset-0 bg-navy-900 flex flex-col items-center justify-center z-0 text-white space-y-3">
                             <div className="w-12 h-12 rounded-2xl border-2 border-cyan border-t-transparent animate-spin"></div>
-                            <span className="text-xs font-black tracking-widest uppercase text-cyan">Loading Farm Telemetry...</span>
+                            <span className="text-xs font-black tracking-widest uppercase text-cyan">Connecting to Hollyland Telemetry...</span>
                         </div>
                     )}
 
-                    {/* Dark Cinematic Gradient Overlay & Vignette */}
+                    {/* Dark Cinematic Gradient Overlay & Soft Vignette */}
                     <div className="absolute inset-0 bg-gradient-to-b from-navy-900/85 via-navy-900/60 to-navy-900/90 mix-blend-multiply backdrop-blur-[2px] z-10"></div>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(16,24,32,0.85)_100%)] z-10"></div>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(16,24,32,0.9)_100%)] z-10"></div>
 
-                    {/* Ambient Glowing Orbs */}
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-lime/15 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob animation-delay-2000"></div>
+                    {/* Ambient Glowing Orbs & Center Halo Glow */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-radial from-cyan/25 via-teal-800/15 to-transparent rounded-full filter blur-[90px] pointer-events-none z-10"></div>
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/15 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob"></div>
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-lime/10 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob animation-delay-2000"></div>
+
+                    {/* Floating Light Particles */}
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none z-15">
+                        <div className="absolute top-1/3 left-1/3 w-2 h-2 rounded-full bg-cyan shadow-[0_0_12px_#18D5D0] animate-float-particle"></div>
+                        <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 rounded-full bg-lime shadow-[0_0_10px_#A8E63D] animate-float-particle" style={{ animationDelay: '1.2s' }}></div>
+                        <div className="absolute bottom-1/3 left-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_15px_#ffffff] animate-float-particle" style={{ animationDelay: '0.6s' }}></div>
+                    </div>
 
                     {/* Center Content Container */}
                     <div className="relative z-20 max-w-2xl mx-auto px-6 text-center flex flex-col items-center space-y-6">
                         
-                        {/* Status Pill */}
-                        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-black tracking-wider uppercase shadow-xl animate-fade-in">
-                            <span className="relative flex h-2.5 w-2.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan"></span>
-                            </span>
-                            <span className="text-cyan">Autonomous Agriculture OS</span>
-                            <span className="text-white/40">|</span>
-                            <span className="text-white/80 font-mono text-[10px]">v2.4 Live</span>
-                        </div>
-
-                        {/* Official Brand Emblem Logo */}
-                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/60 shadow-2xl shadow-cyan/30 overflow-hidden transform hover:scale-105 transition-all duration-300 animate-fade-in">
+                        {/* Official Brand Emblem Logo with Cyan Glow */}
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/60 shadow-[0_0_35px_rgba(24,213,208,0.4)] overflow-hidden transform hover:scale-105 transition-all duration-300 animate-fade-in">
                             <img
                                 src="/smart-farm-logo.png"
                                 alt="Smart Farm Assistant Logo"
@@ -347,26 +349,28 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             />
                         </div>
 
-                        {/* Brand Title */}
-                        <div className="space-y-2 animate-fade-in">
-                            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
-                                🌱 SMART FARM <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-teal-300 to-lime">
-                                    ASSISTANT
-                                </span>
+                        {/* Title & Subtitle */}
+                        <div className="space-y-1.5 animate-fade-in">
+                            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-wider uppercase text-white leading-tight">
+                                SMART FARM ASSISTANT
                             </h1>
-                            <p className="text-base sm:text-2xl font-black text-cyan tracking-wide mt-1">
-                                Smarter Decisions. Better Harvests.
+                            <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-slate-300/90">
+                                Welcome to the future of farming
                             </p>
                         </div>
 
-                        {/* Short Description */}
-                        <p className="text-sm sm:text-base text-slate-200/90 font-medium max-w-lg leading-relaxed animate-fade-in">
-                            AI-powered intelligence for modern farming. Real-time pathology scans, neural crop recommendations, Doppler rainfall analytics, and Mandi price benchmarks.
-                        </p>
+                        {/* HOLLYLAND Destination Heading */}
+                        <div className="pt-2 pb-1 animate-fade-in">
+                            <div className="relative inline-block">
+                                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan to-teal-100 filter drop-shadow-[0_0_25px_rgba(24,213,208,0.6)]">
+                                    ENTER TO HOLLYLAND
+                                </h2>
+                                <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan to-transparent mt-2 opacity-80"></div>
+                            </div>
+                        </div>
 
-                        {/* Large Premium Enter Farm Button */}
-                        <div className="pt-3 animate-fade-in">
+                        {/* THE GLOWING ARROW OF LIGHT (Main Interactive Focus) */}
+                        <div className="pt-2 animate-fade-in">
                             <button
                                 onClick={handleEnterFarm}
                                 onKeyDown={(e) => {
@@ -376,23 +380,40 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 }}
                                 autoFocus
                                 tabIndex={0}
-                                aria-label="Enter Smart Farm Assistant application"
-                                className="group relative inline-flex items-center space-x-3 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl bg-navy-900/95 hover:bg-teal-800 text-white font-black text-sm sm:text-base uppercase tracking-wider border-2 border-cyan/70 hover:border-lime shadow-2xl shadow-cyan/30 hover:shadow-glow-cyan transform hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan/50"
+                                aria-label="Enter to Hollyland"
+                                className="group relative flex flex-col items-center justify-center p-6 rounded-full focus:outline-none transition-transform duration-300"
                             >
-                                <span className="relative z-10 tracking-widest text-white font-black">
-                                    Enter Farm
-                                </span>
-                                <ArrowRight className="w-5 h-5 text-cyan group-hover:text-lime group-hover:translate-x-1.5 transition-all duration-300" />
-                                
-                                {/* Glowing highlight effect */}
-                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan/20 via-transparent to-lime/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                                {/* Outer Circular Glow Corona */}
+                                <div className="absolute inset-0 rounded-full bg-cyan/15 filter blur-xl group-hover:bg-cyan/30 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                                <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-cyan/40 group-hover:border-cyan group-hover:shadow-[0_0_30px_#18D5D0] transition-all duration-300 flex items-center justify-center bg-navy-900/60 backdrop-blur-md"></div>
+
+                                {/* Glowing Light Arrow SVG */}
+                                <div className="relative z-10 animate-arrow-flow group-hover:scale-115 transition-transform duration-300">
+                                    <svg
+                                        className="w-10 h-10 sm:w-12 sm:h-12 text-white filter drop-shadow-[0_0_15px_#18D5D0] group-hover:drop-shadow-[0_0_25px_#18D5D0]"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <line x1="4" y1="12" x2="20" y2="12" stroke="#ffffff" strokeWidth="3" />
+                                        <polyline points="13 5 20 12 13 19" stroke="#18D5D0" strokeWidth="3" />
+                                    </svg>
+                                </div>
                             </button>
                         </div>
 
-                        {/* Quick Helper Key Note */}
-                        <p className="text-[11px] font-bold text-slate-400/80 tracking-wider uppercase">
-                            Press <span className="px-2 py-0.5 rounded bg-white/10 text-white font-mono text-[10px] border border-white/20">ENTER ↵</span> to Launch OS
-                        </p>
+                        {/* Optional Microtext */}
+                        <div className="space-y-1 animate-fade-in">
+                            <p className="text-[11px] font-bold text-slate-300/80 tracking-[0.25em] uppercase">
+                                Your intelligent farm journey begins here
+                            </p>
+                            <p className="text-[10px] font-mono text-cyan/70 tracking-widest uppercase">
+                                Click Arrow or Press <span className="px-2 py-0.5 rounded bg-white/10 text-white border border-white/20">ENTER ↵</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             )}
