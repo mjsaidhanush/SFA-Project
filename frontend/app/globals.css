@@ -134,12 +134,51 @@ body {
     }
 }
 
+@keyframes entryScaleIn {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes entryFadeUp {
+    0% {
+        transform: translateY(18px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 .animate-arrow-flow {
     animation: arrowFlow 2s ease-in-out infinite;
 }
 
 .animate-light-sweep {
     animation: lightSweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-entry-scale {
+    animation: entryScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-entry-fade-up {
+    animation: entryFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Glass & Card Design Tokens */
