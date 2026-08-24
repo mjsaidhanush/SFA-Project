@@ -72,39 +72,39 @@ export default function CropPrediction() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Inputs Form */}
                 <div className="lg:col-span-2 glass-panel p-6 md:p-8 rounded-3xl shadow-sm">
-                    <div className="flex items-center justify-between mb-6 pb-3 border-b border-slate-100">
-                        <h2 className="text-base font-extrabold text-navy-900 flex items-center">
-                            <Sliders className="w-4 h-4 mr-2 text-teal-800" /> Input Soil & Climate Metrics
+                    <div className="flex items-center justify-between mb-6 pb-3 border-b border-slate-100 dark:border-cyan/20">
+                        <h2 className="text-base font-extrabold text-navy-900 dark:text-white flex items-center">
+                            <Sliders className="w-4 h-4 mr-2 text-teal-800 dark:text-cyan" /> Input Soil & Climate Metrics
                         </h2>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NPK + Telemetry</span>
+                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">NPK + Telemetry</span>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-4 text-xs font-semibold">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">State</label>
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">State</label>
                                 <input
                                     type="text"
                                     value={formData.state_name}
                                     onChange={(e) => setFormData({ ...formData, state_name: e.target.value })}
-                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
                                 />
                             </div>
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">District</label>
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">District</label>
                                 <input
                                     type="text"
                                     value={formData.district_name}
                                     onChange={(e) => setFormData({ ...formData, district_name: e.target.value })}
-                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
                                 />
                             </div>
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Season</label>
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Season</label>
                                 <select
                                     value={formData.season}
                                     onChange={(e) => setFormData({ ...formData, season: e.target.value })}
-                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
                                 >
                                     <option>Kharif</option>
                                     <option>Rabi</option>
@@ -116,11 +116,11 @@ export default function CropPrediction() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Soil Type</label>
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Soil Type</label>
                                 <select
                                     value={formData.soil_type}
                                     onChange={(e) => setFormData({ ...formData, soil_type: e.target.value })}
-                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
                                 >
                                     <option>Loamy</option>
                                     <option>Clay</option>
@@ -129,48 +129,48 @@ export default function CropPrediction() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Soil pH Level</label>
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Soil pH Level</label>
                                 <input
                                     type="number" step="0.1"
                                     value={formData.ph}
                                     onChange={(e) => setFormData({ ...formData, ph: parseFloat(e.target.value) })}
-                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all font-medium"
                                 />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-3 gap-3">
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Nitrogen (N)</label>
-                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan transition-all font-medium"
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Nitrogen (N)</label>
+                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan transition-all font-medium"
                                     value={formData.nitrogen} onChange={(e) => setFormData({ ...formData, nitrogen: parseInt(e.target.value) })} />
                             </div>
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Phosphorus (P)</label>
-                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan transition-all font-medium"
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Phosphorus (P)</label>
+                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan transition-all font-medium"
                                     value={formData.phosphorus} onChange={(e) => setFormData({ ...formData, phosphorus: parseInt(e.target.value) })} />
                             </div>
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Potassium (K)</label>
-                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan transition-all font-medium"
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Potassium (K)</label>
+                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan transition-all font-medium"
                                     value={formData.potassium} onChange={(e) => setFormData({ ...formData, potassium: parseInt(e.target.value) })} />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-3 gap-3">
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Temp (°C)</label>
-                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan transition-all font-medium"
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Temp (°C)</label>
+                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan transition-all font-medium"
                                     value={formData.temperature} onChange={(e) => setFormData({ ...formData, temperature: parseFloat(e.target.value) })} />
                             </div>
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Humidity (%)</label>
-                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan transition-all font-medium"
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Humidity (%)</label>
+                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan transition-all font-medium"
                                     value={formData.humidity} onChange={(e) => setFormData({ ...formData, humidity: parseFloat(e.target.value) })} />
                             </div>
                             <div>
-                                <label className="block text-[11px] font-bold text-slate-600 mb-1">Rainfall (mm)</label>
-                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 outline-none focus:border-cyan transition-all font-medium"
+                                <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-200 mb-1">Rainfall (mm)</label>
+                                <input type="number" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 text-navy-900 dark:text-white outline-none focus:border-cyan transition-all font-medium"
                                     value={formData.rainfall} onChange={(e) => setFormData({ ...formData, rainfall: parseFloat(e.target.value) })} />
                             </div>
                         </div>

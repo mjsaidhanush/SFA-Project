@@ -90,7 +90,7 @@ export default function RainForecast() {
             <div className="glass-panel p-6 sm:p-8 rounded-3xl shadow-sm">
                 <form onSubmit={handlePredict} className="flex flex-col sm:flex-row gap-4 mb-8 items-end">
                     <div className="flex-1 w-full">
-                        <label className="block text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide">Enter District / Region</label>
+                        <label className="block text-xs font-bold text-slate-600 dark:text-slate-200 mb-2 uppercase tracking-wide">Enter District / Region</label>
                         <div className="relative">
                             <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
                             <input
@@ -99,7 +99,7 @@ export default function RainForecast() {
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                                 placeholder="e.g. Hyderabad, Anantapur, Pune"
-                                className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:border-cyan text-navy-900 font-medium text-xs transition-all"
+                                className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-cyan/30 outline-none focus:border-cyan text-navy-900 dark:text-white font-medium text-xs transition-all"
                             />
                         </div>
                     </div>
@@ -115,14 +115,14 @@ export default function RainForecast() {
 
                 {forecast && (
                     <div className="space-y-6 animate-fade-in">
-                        <div className="p-6 bg-slate-50 border border-slate-200/80 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="p-6 bg-slate-50 dark:bg-navy-900/90 border border-slate-200/80 dark:border-cyan/20 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
                             <div>
-                                <span className="text-[10px] text-slate-400 uppercase tracking-widest font-extrabold block">Location Telemetry</span>
-                                <h3 className="text-2xl text-navy-900 font-extrabold">{forecast.city}</h3>
+                                <span className="text-[10px] text-slate-400 dark:text-slate-400 uppercase tracking-widest font-extrabold block">Location Telemetry</span>
+                                <h3 className="text-2xl text-navy-900 dark:text-white font-extrabold">{forecast.city}</h3>
                             </div>
-                            <div className="text-center bg-white border border-slate-200 px-6 py-4 rounded-xl shadow-xs">
-                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">ML Precipitation Status</span>
-                                <p className="text-2xl font-extrabold text-navy-900 flex items-center justify-center gap-2 mt-1">
+                            <div className="text-center bg-white dark:bg-navy-800 border border-slate-200 dark:border-cyan/30 px-6 py-4 rounded-xl shadow-xs">
+                                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">ML Precipitation Status</span>
+                                <p className="text-2xl font-extrabold text-navy-900 dark:text-white flex items-center justify-center gap-2 mt-1">
                                     {forecast.prediction === 'Sunny' && "☀️"}
                                     {forecast.prediction === 'Rain' && "🌧️"}
                                     {forecast.prediction === 'Thunderstorm' && "⛈️"}
@@ -134,32 +134,32 @@ export default function RainForecast() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                             <div className="glass-panel p-5 flex items-center space-x-4">
-                                <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xl">
+                                <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-xl">
                                     🌡️
                                 </div>
                                 <div>
-                                    <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">Temperature</span>
-                                    <p className="text-2xl text-navy-900 font-extrabold">{forecast.temperature}°C</p>
+                                    <span className="text-[10px] text-slate-400 dark:text-slate-400 font-extrabold uppercase tracking-wider block">Temperature</span>
+                                    <p className="text-2xl text-navy-900 dark:text-white font-extrabold">{forecast.temperature}°C</p>
                                 </div>
                             </div>
 
                             <div className="glass-panel p-5 flex items-center space-x-4">
-                                <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xl">
+                                <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xl">
                                     💧
                                 </div>
                                 <div>
-                                    <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">Relative Humidity</span>
-                                    <p className="text-2xl text-navy-900 font-extrabold">{forecast.humidity}%</p>
+                                    <span className="text-[10px] text-slate-400 dark:text-slate-400 font-extrabold uppercase tracking-wider block">Relative Humidity</span>
+                                    <p className="text-2xl text-navy-900 dark:text-white font-extrabold">{forecast.humidity}%</p>
                                 </div>
                             </div>
 
                             <div className="glass-panel p-5 flex items-center space-x-4">
-                                <div className="w-12 h-12 rounded-xl bg-cyan/15 text-teal-800 flex items-center justify-center font-bold text-xl">
+                                <div className="w-12 h-12 rounded-xl bg-cyan/15 dark:bg-cyan/20 text-teal-800 dark:text-cyan flex items-center justify-center font-bold text-xl">
                                     ☔
                                 </div>
                                 <div>
-                                    <span className="text-[10px] text-teal-700 font-extrabold uppercase tracking-wider block">Precipitation Volume</span>
-                                    <p className="text-2xl text-teal-800 font-extrabold">{forecast.rainfall} mm</p>
+                                    <span className="text-[10px] text-teal-700 dark:text-cyan font-extrabold uppercase tracking-wider block">Precipitation Volume</span>
+                                    <p className="text-2xl text-teal-800 dark:text-cyan font-extrabold">{forecast.rainfall} mm</p>
                                 </div>
                             </div>
                         </div>
