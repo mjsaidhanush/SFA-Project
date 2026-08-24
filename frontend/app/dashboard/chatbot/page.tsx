@@ -98,16 +98,20 @@ export default function Chatbot() {
             {/* Chat Header */}
             <div className="glass-card-dark p-4 shrink-0 flex items-center justify-between shadow-md z-10 text-white rounded-t-3xl border-b border-cyan/20">
                 <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-navy-900 border border-cyan/40 rounded-xl flex items-center justify-center text-cyan shadow-xs">
-                        <Bot className="w-5 h-5" />
+                    <div className="w-11 h-11 rounded-2xl bg-white p-0.5 border border-cyan/50 shadow-md flex items-center justify-center overflow-hidden">
+                        <img
+                            src="/smart-chat-ai-logo.jpg"
+                            alt="SmartChatAI Logo"
+                            className="w-full h-full object-contain rounded-xl"
+                        />
                     </div>
                     <div>
-                        <h2 className="text-white font-extrabold text-base tracking-tight flex items-center">
-                            Farm AI Assistant <Sparkles className="w-3.5 h-3.5 ml-1.5 text-cyan" />
+                        <h2 className="text-white font-black text-base tracking-tight flex items-center">
+                            SmartChat AI <Sparkles className="w-3.5 h-3.5 ml-1.5 text-cyan" />
                         </h2>
-                        <p className="text-teal-400 text-xs flex items-center font-bold">
+                        <p className="text-teal-400 text-[11px] flex items-center font-extrabold">
                             <span className="w-2 h-2 bg-emerald-500 rounded-full inline-block mr-1.5 animate-pulse"></span>
-                            Online • 24/7 Crop Intelligence
+                            Online • Kisan Mitra Agri Intelligence
                         </p>
                     </div>
                 </div>
@@ -132,7 +136,16 @@ export default function Chatbot() {
                 {messages.map((msg) => {
                     const isBot = msg.sender === "bot";
                     return (
-                        <div key={msg.id} className={`flex ${isBot ? "justify-start" : "justify-end"} animate-fade-in`}>
+                        <div key={msg.id} className={`flex ${isBot ? "justify-start" : "justify-end"} items-start gap-2.5 animate-fade-in`}>
+                            {isBot && (
+                                <div className="w-7 h-7 rounded-xl bg-white p-0.5 border border-cyan/40 shadow-xs shrink-0 mt-0.5 overflow-hidden">
+                                    <img
+                                        src="/smart-chat-ai-logo.jpg"
+                                        alt="SmartChatAI"
+                                        className="w-full h-full object-contain rounded-lg"
+                                    />
+                                </div>
+                            )}
                             <div
                                 className={`max-w-[82%] rounded-2xl px-5 py-4 text-xs leading-relaxed ${isBot
                                     ? "bg-white border border-slate-200/80 text-navy-900 font-medium rounded-tl-none shadow-xs"
@@ -148,7 +161,14 @@ export default function Chatbot() {
                     );
                 })}
                 {loading && (
-                    <div className="flex justify-start animate-fade-in">
+                    <div className="flex justify-start items-center gap-2.5 animate-fade-in">
+                        <div className="w-7 h-7 rounded-xl bg-white p-0.5 border border-cyan/40 shadow-xs shrink-0 overflow-hidden">
+                            <img
+                                src="/smart-chat-ai-logo.jpg"
+                                alt="SmartChatAI"
+                                className="w-full h-full object-contain rounded-lg"
+                            />
+                        </div>
                         <div className="bg-white border border-slate-200 text-navy-900 rounded-2xl rounded-tl-none px-5 py-3 shadow-xs text-xs flex space-x-1.5 items-center">
                             <span className="w-2 h-2 bg-cyan rounded-full animate-bounce"></span>
                             <span className="w-2 h-2 bg-cyan rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
@@ -173,12 +193,12 @@ export default function Chatbot() {
                     <button
                         type="submit"
                         disabled={!input.trim() || loading}
-                        className="p-3 bg-navy-900 hover:bg-teal-800 text-white rounded-xl transition-all border border-cyan/30 disabled:opacity-50 flex items-center justify-center"
+                        className="p-3 bg-navy-900 hover:bg-teal-800 text-white rounded-xl transition-all border border-cyan/30 disabled:opacity-50 flex items-center justify-center shadow-md"
                     >
                         <Send className="w-4 h-4 text-cyan" />
                     </button>
                 </form>
-                <p className="text-center text-[10px] text-slate-400 font-medium mt-2">Smart Farm AI provides data-driven advisories based on agricultural machine learning models.</p>
+                <p className="text-center text-[10px] text-slate-400 font-medium mt-2">SmartChat AI provides data-driven advisories based on agricultural machine learning models.</p>
             </div>
         </div>
     );

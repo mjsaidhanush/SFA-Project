@@ -153,16 +153,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             groupName: "AI AGENT & SUPPORT",
             items: [
                 {
-                    name: "Kisan Mitra AI Chat",
+                    name: "SmartChat AI",
                     href: "/dashboard/chatbot",
                     icon: Bot,
                     isMain: true,
-                    badge: "24/7 AI",
+                    badge: "SMART AI",
                     badgeColor: "bg-cyan/20 text-teal-900 border-cyan/40 animate-pulse",
                     desc: "Agronomic voice & text assistant"
                 }
             ]
         }
+
     ];
 
     if (user?.role && user.role.toLowerCase() === 'admin') {
@@ -497,16 +498,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         {/* Chat Header */}
                         <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
                             <div className="flex items-center space-x-3">
-                                <div className="w-9 h-9 rounded-xl bg-navy-900 text-white flex items-center justify-center font-bold border border-cyan/30 shadow-xs">
-                                    <Bot className="w-4 h-4 text-cyan" />
+                                <div className="w-10 h-10 rounded-2xl bg-white p-0.5 border border-cyan/50 shadow-xs flex items-center justify-center overflow-hidden">
+                                    <img
+                                        src="/smart-chat-ai-logo.jpg"
+                                        alt="SmartChatAI"
+                                        className="w-full h-full object-contain rounded-xl"
+                                    />
                                 </div>
                                 <div>
                                     <h3 className="font-black text-sm text-navy-900 flex items-center">
-                                        Farm AI Assistant <Sparkles className="w-3.5 h-3.5 ml-1.5 text-cyan" />
+                                        SmartChat AI <Sparkles className="w-3.5 h-3.5 ml-1.5 text-cyan" />
                                     </h3>
                                     <div className="flex items-center space-x-1.5 mt-0.5">
                                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                        <p className="text-[10px] font-bold text-teal-700">Online • 24/7 Crop Intelligence</p>
+                                        <p className="text-[10px] font-bold text-teal-700">Online • Kisan Mitra Intelligence</p>
                                     </div>
                                 </div>
                             </div>
@@ -539,8 +544,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             {chatMessages.map((msg, index) => (
                                 <div
                                     key={index}
-                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} items-start gap-2`}
                                 >
+                                    {msg.sender === 'ai' && (
+                                        <div className="w-6 h-6 rounded-lg bg-white p-0.5 border border-cyan/40 shadow-xs shrink-0 mt-0.5 overflow-hidden">
+                                            <img
+                                                src="/smart-chat-ai-logo.jpg"
+                                                alt="SmartChatAI"
+                                                className="w-full h-full object-contain rounded-md"
+                                            />
+                                        </div>
+                                    )}
                                     <div
                                         className={`max-w-[85%] p-3.5 rounded-2xl text-xs leading-relaxed ${msg.sender === 'user'
                                             ? 'bg-navy-900 text-white font-medium rounded-br-none shadow-md'
