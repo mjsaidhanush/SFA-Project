@@ -16,9 +16,12 @@ import {
     Menu,
     X,
     Sparkles,
-    ChevronDown,
+    ChevronRight,
     Send,
-    TrendingUp
+    TrendingUp,
+    Activity,
+    Search,
+    UserCheck
 } from "lucide-react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -28,26 +31,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         name: "Sai Dhanush MJ",
         role: "farmer"
     });
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
     const [chatMessages, setChatMessages] = useState<Array<{ sender: 'user' | 'ai'; text: string }>>([
         { sender: 'ai', text: "Welcome to Smart Farm Assistant! I can help you with crop prediction, disease identification, weather analytics, and market prices. How can I assist your farm today?" }
     ]);
     const [inputMessage, setInputMessage] = useState("");
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 20) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     useEffect(() => {
         try {
@@ -83,21 +72,114 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }, [router]);
 
     useEffect(() => {
-        setMobileMenuOpen(false);
+        setSidebarOpen(false);
     }, [pathname]);
 
-    const navLinks = [
-        { name: "Overview", href: "/dashboard", sectionId: "overview", icon: LayoutDashboard },
-        { name: "Crop Prediction", href: "/dashboard#crop-prediction", sectionId: "crop-prediction", icon: Sprout },
-        { name: "Weather", href: "/dashboard#weather", sectionId: "weather", icon: CloudRain },
-        { name: "Disease Detection", href: "/dashboard#disease-detection", sectionId: "disease-detection", icon: ShieldAlert },
-        { name: "Market", href: "/dashboard#market", sectionId: "market", icon: TrendingUp },
-        { name: "Marketplace", href: "/dashboard#marketplace", sectionId: "marketplace", icon: ShoppingBag },
-        { name: "Schemes", href: "/dashboard#schemes", sectionId: "schemes", icon: FileText },
+    // Navigation items grouped with highlighted fonts and badges for main features
+    const featureGroups = [
+        {
+            groupName: "MAIN TELEMETRY & AI",
+            items: [
+                {
+                    name: "Dashboard Overview",
+                    href: "/dashboard",
+                    icon: LayoutDashboard,
+                    isMain: false,
+                    badge: "HUB",
+                    badgeColor: "bg-slate-100 text-slate-700 border-slate-200"
+                },
+                {
+                    name: "AI Disease Scanner",
+                    href: "/dashboard/disease",
+                    icon: ShieldAlert,
+                    isMain: true,
+                    badge: "CNN AI",
+                    badgeColor: "bg-cyan/15 text-teal-800 border-cyan/40 shadow-xs",
+                    desc: "Leaf pathology diagnostics"
+                },
+                {
+                    name: "Crop Prediction",
+                    href: "/dashboard/crop",
+                    icon: Sprout,
+                    isMain: true,
+                    badge: "ML YIELD",
+                    badgeColor: "bg-lime/20 text-emerald-900 border-lime/40 shadow-xs",
+                    desc: "Soil NPK suitability"
+                },
+                {
+                    name: "Weather & Rain Telemetry",
+                    href: "/dashboard/rain",
+                    icon: CloudRain,
+                    isMain: true,
+                    badge: "LIVE 28°C",
+                    badgeColor: "bg-sky-100 text-sky-800 border-sky-300",
+                    desc: "Doppler precipitation forecast"
+                },
+                {
+                    name: "Market Intelligence",
+                    href: "/dashboard#market",
+                    icon: TrendingUp,
+                    isMain: true,
+                    badge: "+8.4%",
+                    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-300",
+                    desc: "Mandi price benchmarks"
+                }
+            ]
+        },
+        {
+            groupName: "COMMERCE & SCHEMES",
+            items: [
+                {
+                    name: "Kisan Marketplace",
+                    href: "/dashboard/market",
+                    icon: ShoppingBag,
+                    isMain: true,
+                    badge: "STORE",
+                    badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
+                    desc: "Seeds, tools & fertilizers"
+                },
+                {
+                    name: "Government Schemes",
+                    href: "/dashboard/schemes",
+                    icon: FileText,
+                    isMain: true,
+                    badge: "SUBSIDY",
+                    badgeColor: "bg-indigo-100 text-indigo-800 border-indigo-300",
+                    desc: "PM-Kisan & PMFBY insurance"
+                }
+            ]
+        },
+        {
+            groupName: "AI AGENT & SUPPORT",
+            items: [
+                {
+                    name: "Kisan Mitra AI Chat",
+                    href: "/dashboard/chatbot",
+                    icon: Bot,
+                    isMain: true,
+                    badge: "24/7 AI",
+                    badgeColor: "bg-cyan/20 text-teal-900 border-cyan/40 animate-pulse",
+                    desc: "Agronomic voice & text assistant"
+                }
+            ]
+        }
     ];
 
     if (user?.role && user.role.toLowerCase() === 'admin') {
-        navLinks.push({ name: "Admin Portal", href: "/dashboard/admin", sectionId: "admin", icon: ShieldCheck });
+        featureGroups.push({
+            groupName: "ADMINISTRATION",
+            items: [
+                {
+                    name: "Admin Portal",
+                    href: "/dashboard/admin",
+                    icon: ShieldCheck,
+                    isMain: false,
+                    badge: "ADMIN",
+                    badgeColor: "bg-purple-100 text-purple-800 border-purple-300",
+                    desc: "System oversight"
+                }
+            ]
+        });
     }
 
     const handleLogout = () => {
@@ -146,7 +228,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     ];
 
     return (
-        <div className="min-h-screen agri-grid-bg text-navy-900 flex flex-col relative font-sans antialiased selection:bg-cyan/20 selection:text-navy-900">
+        <div className="min-h-screen agri-grid-bg text-navy-900 flex flex-col md:flex-row relative font-sans antialiased selection:bg-cyan/20 selection:text-navy-900">
             {/* Ultra-subtle Scenic Wallpaper Layer */}
             <div
                 className="fixed inset-0 bg-cover bg-center bg-no-repeat pointer-events-none z-0 opacity-10 filter brightness-105 contrast-105"
@@ -157,158 +239,252 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="fixed top-[-15%] right-[-10%] w-[600px] h-[600px] bg-cyan/15 rounded-full mix-blend-multiply filter blur-[120px] animate-blob pointer-events-none z-0"></div>
             <div className="fixed bottom-[-15%] left-[-10%] w-[500px] h-[500px] bg-lime/15 rounded-full mix-blend-multiply filter blur-[120px] animate-blob animation-delay-2000 pointer-events-none z-0"></div>
 
-            {/* Floating Glass Navigation Bar (Reference Website Style) */}
-            <header className="sticky top-0 z-40 w-full px-4 sm:px-6 lg:px-8 py-3 transition-all duration-300">
-                <nav className={`max-w-7xl mx-auto rounded-2xl transition-all duration-300 px-4 sm:px-6 py-2.5 flex items-center justify-between ${isScrolled
-                    ? "bg-white/90 backdrop-blur-xl border border-teal-800/10 shadow-[0_10px_30px_rgba(16,24,32,0.06)]"
-                    : "bg-white/80 backdrop-blur-md border border-teal-800/8 shadow-sm"
-                    }`}>
-                    {/* Brand Logo */}
-                    <Link href="/dashboard" className="flex items-center space-x-3 group min-w-0">
-                        <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-white shadow-md shadow-navy-900/10 transition-transform duration-300 group-hover:scale-105 flex-shrink-0 font-extrabold text-base border border-cyan/30">
-                            🌱
-                        </div>
-                        <div className="truncate">
-                            <h1 className="text-sm sm:text-base font-extrabold tracking-tight text-navy-900 leading-tight flex items-center">
-                                Smart Farm <span className="text-teal-800 font-semibold ml-1">Assistant</span>
-                            </h1>
-                            <div className="flex items-center space-x-1.5 mt-0.5">
-                                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                                <span className="text-[10px] font-bold text-teal-700 uppercase tracking-wider">AI Farm Systems Online</span>
-                            </div>
-                        </div>
-                    </Link>
-
-                    {/* Desktop Navigation Links */}
-                    <div className="hidden lg:flex items-center space-x-1 bg-slate-100/70 p-1 rounded-xl border border-slate-200/60">
-                        {navLinks.map((link) => {
-                            const isCurrent = pathname === link.href || (pathname === '/dashboard' && link.href === '/dashboard');
-                            return (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center space-x-1.5 ${isCurrent
-                                        ? "bg-navy-900 text-white shadow-sm font-bold"
-                                        : "text-slate-600 hover:text-navy-900 hover:bg-white/80"
-                                        }`}
-                                >
-                                    <span>{link.name}</span>
-                                </Link>
-                            );
-                        })}
+            {/* Mobile Header Bar */}
+            <header className="md:hidden sticky top-0 z-40 w-full bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-4 py-3 flex items-center justify-between shadow-xs">
+                <Link href="/dashboard" className="flex items-center space-x-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-navy-900 flex items-center justify-center text-white font-extrabold text-sm border border-cyan/40">
+                        🌱
                     </div>
-
-                    {/* Right Action Bar */}
-                    <div className="flex items-center space-x-3">
-                        {/* Ask Farm AI Trigger Button */}
-                        <button
-                            onClick={() => setAiAssistantOpen(true)}
-                            className="hidden sm:inline-flex items-center space-x-2 px-4 py-2 bg-navy-900 hover:bg-teal-800 text-white rounded-xl text-xs font-bold shadow-md shadow-navy-900/15 hover:shadow-glow-cyan transition-all duration-200 group border border-cyan/30"
-                        >
-                            <Sparkles className="w-3.5 h-3.5 text-cyan group-hover:rotate-12 transition-transform" />
-                            <span>Ask Farm AI</span>
-                        </button>
-
-                        {/* User Profile Badge */}
-                        <div className="relative">
-                            <button
-                                onClick={() => setUserMenuOpen(!userMenuOpen)}
-                                className="flex items-center space-x-2 p-1.5 pr-2.5 rounded-xl bg-white border border-slate-200/80 hover:border-cyan/40 transition-colors shadow-xs"
-                            >
-                                <div className="w-7 h-7 rounded-lg bg-teal-800 text-white flex items-center justify-center font-bold text-xs">
-                                    {getInitials(user.name)}
-                                </div>
-                                <span className="text-xs font-bold text-navy-900 hidden md:inline truncate max-w-[100px]">{user.name.split(" ")[0]}</span>
-                                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-                            </button>
-
-                            {/* User Dropdown Menu */}
-                            {userMenuOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 z-50 animate-fade-in">
-                                    <div className="px-4 py-2 border-b border-slate-100">
-                                        <p className="text-xs font-bold text-navy-900 truncate">{user.name}</p>
-                                        <span className="text-[10px] font-extrabold uppercase bg-cyan/15 text-teal-800 px-2 py-0.5 rounded-md inline-block mt-1">
-                                            👨‍🌾 {user.role}
-                                        </span>
-                                    </div>
-                                    <Link href="/dashboard" onClick={() => setUserMenuOpen(false)} className="flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-navy-900">
-                                        <LayoutDashboard className="w-3.5 h-3.5 mr-2 text-teal-700" /> Dashboard Overview
-                                    </Link>
-                                    <button
-                                        onClick={handleLogout}
-                                        className="w-full flex items-center px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors border-t border-slate-100 mt-1"
-                                    >
-                                        <LogOut className="w-3.5 h-3.5 mr-2" /> Log Out
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Mobile Menu Toggle */}
-                        <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="lg:hidden p-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-navy-900 hover:bg-slate-50"
-                        >
-                            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </button>
+                    <div>
+                        <h1 className="text-sm font-black text-navy-900">Smart Farm Assistant</h1>
+                        <span className="text-[10px] font-bold text-teal-700 flex items-center">
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyan inline-block mr-1"></span> Online
+                        </span>
                     </div>
-                </nav>
+                </Link>
 
-                {/* Mobile Drawer Navigation */}
-                {mobileMenuOpen && (
-                    <div className="lg:hidden mt-2 p-4 bg-white/95 backdrop-blur-2xl rounded-2xl border border-slate-200/80 shadow-2xl space-y-2 animate-fade-in">
-                        <div className="space-y-1">
-                            {navLinks.map((link) => {
-                                const Icon = link.icon;
-                                const isCurrent = pathname === link.href;
-                                return (
-                                    <Link
-                                        key={link.name}
-                                        href={link.href}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={`flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${isCurrent
-                                            ? "bg-navy-900 text-white font-bold"
-                                            : "text-slate-700 hover:bg-slate-100"
-                                            }`}
-                                    >
-                                        <Icon className="w-4 h-4 text-cyan" />
-                                        <span>{link.name}</span>
-                                    </Link>
-                                );
-                            })}
-                        </div>
-                        <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
-                            <button
-                                onClick={() => {
-                                    setMobileMenuOpen(false);
-                                    setAiAssistantOpen(true);
-                                }}
-                                className="w-full py-2.5 bg-navy-900 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-2"
-                            >
-                                <Sparkles className="w-3.5 h-3.5 text-cyan" />
-                                <span>Open AI Assistant</span>
-                            </button>
-                            <button
-                                onClick={handleLogout}
-                                className="w-full py-2.5 bg-red-50 text-red-600 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 border border-red-200"
-                            >
-                                <LogOut className="w-3.5 h-3.5" />
-                                <span>Log Out</span>
-                            </button>
-                        </div>
-                    </div>
-                )}
+                <div className="flex items-center space-x-2">
+                    <button
+                        onClick={() => setAiAssistantOpen(true)}
+                        className="p-2 bg-navy-900 text-white rounded-xl text-xs font-bold flex items-center border border-cyan/30"
+                    >
+                        <Sparkles className="w-4 h-4 text-cyan" />
+                    </button>
+                    <button
+                        onClick={() => setSidebarOpen(!sidebarOpen)}
+                        className="p-2 rounded-xl bg-slate-100 text-navy-900 hover:bg-slate-200"
+                    >
+                        {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                    </button>
+                </div>
             </header>
 
-            {/* Main Application Dynamic Workspace */}
-            <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
-                {children}
-            </main>
+            {/* Backdrop Overlay for Mobile Sidebar */}
+            {sidebarOpen && (
+                <div
+                    onClick={() => setSidebarOpen(false)}
+                    className="md:hidden fixed inset-0 z-40 bg-navy-900/50 backdrop-blur-xs animate-fade-in"
+                ></div>
+            )}
+
+            {/* VERTICAL SIDEBAR */}
+            <aside
+                className={`fixed md:sticky top-0 left-0 z-50 md:z-30 w-72 h-screen bg-white/95 md:bg-white/90 backdrop-blur-2xl border-r border-teal-800/10 flex flex-col justify-between transition-transform duration-300 ease-in-out shadow-xl md:shadow-none ${
+                    sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+                }`}
+            >
+                {/* Top Brand Logo & Status */}
+                <div className="p-5 border-b border-slate-100 flex flex-col space-y-3">
+                    <div className="flex items-center justify-between">
+                        <Link href="/dashboard" className="flex items-center space-x-3 group">
+                            <div className="w-10 h-10 rounded-2xl bg-navy-900 flex items-center justify-center text-white shadow-lg shadow-navy-900/15 group-hover:scale-105 transition-transform border border-cyan/40">
+                                <span className="text-lg">🌱</span>
+                            </div>
+                            <div>
+                                <h1 className="text-base font-black tracking-tight text-navy-900 flex items-center leading-none">
+                                    Smart Farm
+                                </h1>
+                                <span className="text-[11px] font-bold text-teal-800 tracking-wide uppercase">
+                                    Assistant OS
+                                </span>
+                            </div>
+                        </Link>
+                        <button
+                            onClick={() => setSidebarOpen(false)}
+                            className="md:hidden p-1.5 text-slate-400 hover:text-navy-900 rounded-lg"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
+
+                    {/* Live System Badge */}
+                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan"></span>
+                            </span>
+                            <span className="text-[10px] font-extrabold tracking-wider uppercase text-teal-800">
+                                AI Telemetry Live
+                            </span>
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-400 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                            v2.4
+                        </span>
+                    </div>
+                </div>
+
+                {/* Navigation Links with Highlighted Fonts for Main Features */}
+                <div className="flex-1 overflow-y-auto px-4 py-4 space-y-6 scrollbar-thin scrollbar-thumb-slate-200">
+                    {featureGroups.map((group, gIdx) => (
+                        <div key={gIdx} className="space-y-1.5">
+                            <div className="px-3 py-1 flex items-center justify-between">
+                                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                                    {group.groupName}
+                                </span>
+                            </div>
+
+                            <div className="space-y-1">
+                                {group.items.map((item) => {
+                                    const Icon = item.icon;
+                                    const isActive = pathname === item.href || (pathname.startsWith(item.href) && item.href !== '/dashboard');
+
+                                    return (
+                                        <Link
+                                            key={item.name}
+                                            href={item.href}
+                                            onClick={() => setSidebarOpen(false)}
+                                            className={`group relative flex items-center justify-between px-3.5 py-2.5 rounded-2xl transition-all duration-200 border ${
+                                                isActive
+                                                    ? "bg-navy-900 text-white border-navy-900 shadow-md shadow-navy-900/15"
+                                                    : item.isMain
+                                                    ? "bg-white/80 hover:bg-slate-50 text-navy-900 border-slate-200/80 hover:border-cyan/50 shadow-2xs"
+                                                    : "text-slate-600 hover:text-navy-900 hover:bg-slate-100/70 border-transparent"
+                                            }`}
+                                        >
+                                            <div className="flex items-center space-x-3 min-w-0">
+                                                <div
+                                                    className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all ${
+                                                        isActive
+                                                            ? "bg-white/10 text-cyan border border-cyan/30"
+                                                            : item.isMain
+                                                            ? "bg-slate-100 text-teal-800 group-hover:bg-cyan/15 group-hover:text-cyan border border-slate-200/60"
+                                                            : "text-slate-400 group-hover:text-navy-900"
+                                                    }`}
+                                                >
+                                                    <Icon className="w-4 h-4" />
+                                                </div>
+                                                <div className="truncate">
+                                                    {/* HIGHLIGHTED FONTS FOR MAIN FEATURES */}
+                                                    <span
+                                                        className={`block truncate text-xs ${
+                                                            item.isMain
+                                                                ? "font-black tracking-tight text-navy-900 group-hover:text-teal-900"
+                                                                : "font-semibold"
+                                                        } ${isActive ? "!text-white" : ""}`}
+                                                    >
+                                                        {item.name}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Feature Badge */}
+                                            {item.badge && (
+                                                <span
+                                                    className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border tracking-wider ml-2 shrink-0 ${
+                                                        isActive
+                                                            ? "bg-cyan text-navy-900 border-cyan font-extrabold"
+                                                            : item.badgeColor
+                                                    }`}
+                                                >
+                                                    {item.badge}
+                                                </span>
+                                            )}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Sidebar Footer: Ask AI & Farmer Profile */}
+                <div className="p-4 border-t border-slate-100 bg-slate-50/70 space-y-3">
+                    {/* Ask Farm AI Trigger Button */}
+                    <button
+                        onClick={() => setAiAssistantOpen(true)}
+                        className="w-full py-2.5 px-4 bg-navy-900 hover:bg-teal-800 text-white rounded-xl text-xs font-black shadow-md shadow-navy-900/15 hover:shadow-glow-cyan transition-all duration-200 flex items-center justify-center space-x-2 border border-cyan/30 group"
+                    >
+                        <Sparkles className="w-3.5 h-3.5 text-cyan group-hover:rotate-12 transition-transform" />
+                        <span>Ask Farm AI Assistant</span>
+                    </button>
+
+                    {/* Farmer Profile Card */}
+                    <div className="p-3 rounded-2xl bg-white border border-slate-200 flex items-center justify-between">
+                        <div className="flex items-center space-x-2.5 min-w-0">
+                            <div className="w-8 h-8 rounded-xl bg-teal-800 text-white flex items-center justify-center font-black text-xs shrink-0">
+                                {getInitials(user.name)}
+                            </div>
+                            <div className="truncate">
+                                <p className="text-xs font-black text-navy-900 truncate">{user.name}</p>
+                                <span className="text-[9px] font-extrabold text-teal-700 uppercase tracking-wider block">
+                                    👨‍🌾 Verified Farmer
+                                </span>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={handleLogout}
+                            title="Log Out"
+                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors ml-1 shrink-0"
+                        >
+                            <LogOut className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            {/* MAIN CONTENT AREA */}
+            <div className="flex-1 flex flex-col min-w-0 relative z-10">
+                {/* Desktop Top Sub-Header */}
+                <header className="hidden md:flex sticky top-0 z-20 h-16 bg-white/80 backdrop-blur-xl border-b border-teal-800/8 px-6 lg:px-8 items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-2 text-xs font-bold text-slate-500">
+                            <Link href="/dashboard" className="hover:text-navy-900 transition-colors">Farm Dashboard</Link>
+                            <span>/</span>
+                            <span className="text-navy-900 font-extrabold capitalize">
+                                {pathname.replace("/dashboard", "").replace("/", "") || "Live Telemetry Overview"}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center space-x-4">
+                        {/* Live Quick Telemetry Indicator */}
+                        <div className="flex items-center space-x-3 bg-slate-50 border border-slate-200/80 px-3 py-1.5 rounded-xl text-xs font-bold">
+                            <span className="flex items-center text-teal-800 font-extrabold">
+                                🌡️ 28°C
+                            </span>
+                            <span className="text-slate-300">|</span>
+                            <span className="flex items-center text-teal-800 font-extrabold">
+                                💧 45% Moisture
+                            </span>
+                            <span className="text-slate-300">|</span>
+                            <span className="flex items-center text-cyan font-black bg-navy-900 px-2 py-0.5 rounded-md text-[10px]">
+                                AI SCORE 92
+                            </span>
+                        </div>
+
+                        {/* Quick AI Trigger */}
+                        <button
+                            onClick={() => setAiAssistantOpen(true)}
+                            className="flex items-center space-x-2 px-3 py-1.5 bg-navy-900 hover:bg-teal-800 text-white rounded-xl text-xs font-bold border border-cyan/30 transition-colors"
+                        >
+                            <Sparkles className="w-3.5 h-3.5 text-cyan" />
+                            <span>Quick Chat</span>
+                        </button>
+                    </div>
+                </header>
+
+                {/* Page Workspace Content */}
+                <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
+                    {children}
+                </main>
+            </div>
 
             {/* Floating Bottom-Right AI Assistant Trigger */}
             <button
                 onClick={() => setAiAssistantOpen(true)}
-                className="fixed bottom-6 right-6 z-40 bg-navy-900 hover:bg-teal-800 text-white px-5 py-3.5 rounded-full font-extrabold text-xs shadow-2xl flex items-center space-x-2.5 border border-cyan/40 hover:scale-105 active:scale-95 transition-all group hover:shadow-glow-cyan"
+                className="fixed bottom-6 right-6 z-40 bg-navy-900 hover:bg-teal-800 text-white px-5 py-3.5 rounded-full font-black text-xs shadow-2xl flex items-center space-x-2.5 border border-cyan/40 hover:scale-105 active:scale-95 transition-all group hover:shadow-glow-cyan"
             >
                 <Sparkles className="w-4 h-4 text-cyan animate-pulse" />
                 <span>Ask Farm AI</span>
@@ -325,7 +501,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                     <Bot className="w-4 h-4 text-cyan" />
                                 </div>
                                 <div>
-                                    <h3 className="font-extrabold text-sm text-navy-900 flex items-center">
+                                    <h3 className="font-black text-sm text-navy-900 flex items-center">
                                         Farm AI Assistant <Sparkles className="w-3.5 h-3.5 ml-1.5 text-cyan" />
                                     </h3>
                                     <div className="flex items-center space-x-1.5 mt-0.5">
@@ -350,7 +526,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                     <button
                                         key={idx}
                                         onClick={() => handleSendMessage(q)}
-                                        className="px-3 py-1 bg-white hover:bg-navy-900 hover:text-white text-slate-700 rounded-full text-[11px] font-semibold whitespace-nowrap transition-colors border border-slate-200 shadow-2xs"
+                                        className="px-3 py-1 bg-white hover:bg-navy-900 hover:text-white text-slate-700 rounded-full text-[11px] font-bold whitespace-nowrap transition-colors border border-slate-200 shadow-2xs"
                                     >
                                         {q}
                                     </button>
@@ -385,7 +561,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 onChange={(e) => setInputMessage(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                                 placeholder="Ask about irrigation, crops, disease..."
-                                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 placeholder-slate-400 text-xs focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan"
+                                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-navy-900 placeholder-slate-400 text-xs focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan font-medium"
                             />
                             <button
                                 onClick={() => handleSendMessage()}
@@ -400,5 +576,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
     );
 }
+
 
 
