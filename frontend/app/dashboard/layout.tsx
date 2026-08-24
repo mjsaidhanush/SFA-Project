@@ -378,10 +378,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <div className="absolute bottom-1/3 left-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_15px_#ffffff] animate-float-particle" style={{ animationDelay: '0.6s' }}></div>
                     </div>
 
-                    {/* 3 & 4. Center Content with Staggered Brand Animation (1-1.5s sequence) */}
+                    {/* Center Content Container */}
                     <div className="relative z-20 max-w-2xl mx-auto px-6 text-center flex flex-col items-center space-y-6">
                         
-                        {/* 3. Logo softly scales from 95% -> 100% */}
+                        {/* Official Brand Emblem Logo with Cyan Glow */}
                         <div 
                             className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/60 shadow-[0_0_35px_rgba(24,213,208,0.4)] overflow-hidden transform hover:scale-105 transition-all duration-300 animate-entry-scale"
                             style={{ animationDelay: '200ms' }}
@@ -393,35 +393,36 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             />
                         </div>
 
-                        {/* 4. Main Heading fades upward */}
+                        {/* Title & Subtitle */}
                         <div 
-                            className="space-y-2 animate-entry-fade-up"
+                            className="space-y-1.5 animate-entry-fade-up"
                             style={{ animationDelay: '400ms' }}
                         >
-                            <div className="inline-flex items-center space-x-2 px-3.5 py-1 bg-cyan/15 rounded-full text-xs font-black text-cyan uppercase tracking-widest border border-cyan/30">
-                                <span>🌱</span>
-                                <span>SMART FARM ASSISTANT</span>
-                            </div>
-                            <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
-                                Smarter Decisions.<br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan to-lime">
-                                    Better Harvests.
-                                </span>
+                            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-wider uppercase text-white leading-tight">
+                                SMART FARM ASSISTANT
                             </h1>
+                            <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-slate-300/90">
+                                Welcome to the future of farming
+                            </p>
                         </div>
 
-                        {/* 6. Description appears */}
-                        <p 
-                            className="text-xs sm:text-sm font-bold text-slate-300/90 max-w-md tracking-wide animate-entry-fade-up"
-                            style={{ animationDelay: '700ms' }}
+                        {/* HOLLYLAND Destination Heading */}
+                        <div 
+                            className="pt-2 pb-1 animate-entry-fade-up"
+                            style={{ animationDelay: '600ms' }}
                         >
-                            AI-powered intelligence for modern farming.
-                        </p>
+                            <div className="relative inline-block">
+                                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan to-teal-100 filter drop-shadow-[0_0_25px_rgba(24,213,208,0.6)]">
+                                    ENTER TO HOLLYLAND
+                                </h2>
+                                <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan to-transparent mt-2 opacity-80"></div>
+                            </div>
+                        </div>
 
-                        {/* 7. Enter Button appears last (1000ms delay) */}
+                        {/* THE GLOWING ARROW OF LIGHT (Main Interactive Element) */}
                         <div 
                             className="pt-2 animate-entry-fade-up"
-                            style={{ animationDelay: '1000ms' }}
+                            style={{ animationDelay: '800ms' }}
                         >
                             <button
                                 onClick={handleEnterFarm}
@@ -432,23 +433,43 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 }}
                                 autoFocus
                                 tabIndex={0}
-                                aria-label="Enter Farm"
-                                className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-4.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#101820] to-[#15222E] text-white font-black text-sm sm:text-base tracking-wider uppercase border-2 border-cyan/50 hover:border-lime shadow-[0_0_30px_rgba(24,213,208,0.4)] hover:shadow-[0_0_45px_rgba(168,230,61,0.6)] focus:ring-4 focus:ring-cyan/40 outline-none transition-all duration-300 active:scale-95 cursor-pointer"
+                                aria-label="Enter to Hollyland"
+                                className="group relative flex flex-col items-center justify-center p-6 rounded-full focus:outline-none transition-transform duration-300 cursor-pointer"
                             >
-                                <span className="relative z-10 flex items-center space-x-3 text-white group-hover:text-cyan transition-colors">
-                                    <span>Enter Farm</span>
-                                    <ArrowRight className="w-5 h-5 text-cyan group-hover:translate-x-1.5 group-hover:text-lime transition-transform duration-300" />
-                                </span>
+                                {/* Outer Circular Glow Corona */}
+                                <div className="absolute inset-0 rounded-full bg-cyan/15 filter blur-xl group-hover:bg-cyan/35 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
+                                <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-cyan/40 group-hover:border-cyan group-hover:shadow-[0_0_35px_#18D5D0] transition-all duration-300 flex items-center justify-center bg-navy-900/60 backdrop-blur-md"></div>
+
+                                {/* Glowing Light Arrow SVG */}
+                                <div className="relative z-10 animate-arrow-flow group-hover:scale-115 transition-transform duration-300">
+                                    <svg
+                                        className="w-10 h-10 sm:w-12 sm:h-12 text-white filter drop-shadow-[0_0_15px_#18D5D0] group-hover:drop-shadow-[0_0_28px_#18D5D0]"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <line x1="4" y1="12" x2="20" y2="12" stroke="#ffffff" strokeWidth="3" />
+                                        <polyline points="13 5 20 12 13 19" stroke="#18D5D0" strokeWidth="3" />
+                                    </svg>
+                                </div>
                             </button>
                         </div>
 
-                        {/* Micro Navigation Cue */}
-                        <p 
-                            className="text-[10px] font-mono text-cyan/70 tracking-widest uppercase animate-entry-fade-up"
-                            style={{ animationDelay: '1200ms' }}
+                        {/* Microtext Navigation Cue */}
+                        <div 
+                            className="space-y-1 animate-entry-fade-up"
+                            style={{ animationDelay: '1000ms' }}
                         >
-                            Press <span className="px-2 py-0.5 rounded bg-white/10 text-white border border-white/20">ENTER ↵</span> or Click to Enter
-                        </p>
+                            <p className="text-[11px] font-bold text-slate-300/80 tracking-[0.25em] uppercase">
+                                Follow the light to enter
+                            </p>
+                            <p className="text-[10px] font-mono text-cyan/70 tracking-widest uppercase">
+                                Click Arrow or Press <span className="px-2 py-0.5 rounded bg-white/10 text-white border border-white/20">ENTER ↵</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             )}
