@@ -431,10 +431,13 @@ export default function AdminConsole() {
             try {
                 const token = localStorage.getItem("token");
                 const savedUserStr = localStorage.getItem("user");
+                const musicPref = localStorage.getItem("sfa_music_preference") || sessionStorage.getItem("sfa_music_preference_chosen");
+                const entered = sessionStorage.getItem("sfa_cinematic_entered");
 
-                if (!token || !savedUserStr) {
+                if (!token || !savedUserStr || !musicPref || !entered) {
                     setIsAdmin(false);
                     setIsLoadingAuth(false);
+                    router.push("/");
                     return;
                 }
 
@@ -458,17 +461,19 @@ export default function AdminConsole() {
                     }
                 } else {
                     setIsAdmin(false);
+                    router.push("/");
                 }
             } catch (err) {
                 console.error("Admin verification error:", err);
                 setIsAdmin(false);
+                router.push("/");
             } finally {
                 setIsLoadingAuth(false);
             }
         };
 
         verifyAdminSession();
-    }, []);
+    }, [router]);
 
     // Handle Profile Setup Save
     const handleSaveAdminProfile = async (e: React.FormEvent) => {
@@ -510,7 +515,9 @@ export default function AdminConsole() {
         } catch (e) {}
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("sfa_music_preference");
         sessionStorage.removeItem("sfa_cinematic_entered");
+        sessionStorage.removeItem("sfa_music_preference_chosen");
         router.push("/");
     };
 

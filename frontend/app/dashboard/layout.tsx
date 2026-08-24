@@ -89,19 +89,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         });
     };
 
-    // Check session entry on mount
+    // Check session entry & music preference on mount (Protect route)
     useEffect(() => {
         try {
             if (typeof window !== "undefined") {
+                const token = localStorage.getItem("token");
+                const musicPref = localStorage.getItem("sfa_music_preference") || sessionStorage.getItem("sfa_music_preference_chosen");
                 const entered = sessionStorage.getItem("sfa_cinematic_entered");
-                if (entered === "true") {
-                    setShowLanding(false);
+
+                // If user is not authenticated or hasn't selected music preference, redirect to Hollyland entry
+                if (!token || !entered || !musicPref) {
+                    router.push("/");
+                    return;
                 }
+                setShowLanding(false);
             }
         } catch (e) {
             console.error(e);
         }
-    }, []);
+    }, [router]);
 
     // Preload background image
     useEffect(() => {
@@ -288,7 +294,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         } catch (e) {}
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("sfa_music_preference");
         sessionStorage.removeItem("sfa_cinematic_entered");
+        sessionStorage.removeItem("sfa_music_preference_chosen");
         router.push("/");
     };
 

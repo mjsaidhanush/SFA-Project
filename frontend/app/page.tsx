@@ -419,11 +419,14 @@ export default function Home() {
             audioManager.setPreference('not-needed');
         }
 
+        try {
+            localStorage.setItem('sfa_music_preference', selectedMusicPreference);
+            sessionStorage.setItem('sfa_music_preference_chosen', 'true');
+            sessionStorage.setItem('sfa_cinematic_entered', 'true');
+        } catch (e) {}
+
         setShowMusicPreferenceModal(false);
         setIsSlidingOut(true);
-        try {
-            sessionStorage.setItem("sfa_cinematic_entered", "true");
-        } catch (e) {}
 
         setTimeout(() => {
             router.push(targetRoute);
@@ -469,7 +472,7 @@ export default function Home() {
             
             {/* ACCESS RESTRICTED MODAL */}
             {showAdminRestrictedModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
                     <div className="w-full max-w-md p-8 rounded-3xl bg-[#101820] border-2 border-red-500/40 shadow-[0_0_50px_rgba(239,68,68,0.25)] text-center space-y-5">
                         <div className="w-14 h-14 rounded-2xl bg-red-500/15 text-red-400 flex items-center justify-center mx-auto border border-red-500/30">
                             <LockIcon className="w-7 h-7" />
@@ -495,7 +498,7 @@ export default function Home() {
             {/* MANDATORY MUSIC PREFERENCE MODAL OVER HOLLYLAND CINEMATIC VIEW */}
             {showMusicPreferenceModal && (
                 <div 
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg animate-fade-in pointer-events-auto"
                     tabIndex={-1}
                     onKeyDown={(e) => {
                         // Prevent dismissing with Escape key to enforce mandatory selection
@@ -1332,12 +1335,16 @@ export default function Home() {
                         {/* Switch account / Log out link */}
                         <div className="pt-2">
                             <button
+                                type="button"
                                 onClick={async () => {
                                     try {
                                         await audioManager.fadeAndStop(700);
                                     } catch (e) {}
                                     localStorage.removeItem('token');
                                     localStorage.removeItem('user');
+                                    localStorage.removeItem('sfa_music_preference');
+                                    sessionStorage.removeItem('sfa_cinematic_entered');
+                                    sessionStorage.removeItem('sfa_music_preference_chosen');
                                     setAuthenticatedUser(null);
                                     setCurrentStep('auth');
                                     setAuthMode('login');
