@@ -32,9 +32,10 @@ import {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
-    const [user, setUser] = useState<{ name: string; role: string }>({
+    const [user, setUser] = useState<{ name: string; role: string; email?: string; displayName?: string }>({
         name: "Sai Dhanush MJ",
-        role: "farmer"
+        role: "farmer",
+        email: "mjsaidhanush@gmail.com"
     });
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
@@ -780,6 +781,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 </>
                             )}
                         </button>
+
+                        {/* Administrator Access Indicator & Switcher (Requirement 24) */}
+                        {(user.role === 'Admin' || ['mjsaidhanush@gmail.com', 'purush361@gmail.com'].includes(user.email?.toLowerCase())) && (
+                            <Link
+                                href="/admin"
+                                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-purple-950/80 hover:bg-purple-900 border border-purple-500/50 text-purple-300 hover:text-white font-black text-xs shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-all hover:scale-105"
+                                title="Open Admin Console"
+                            >
+                                <span className="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+                                <span className="text-[10px] tracking-wider uppercase font-extrabold">ADMIN PORTAL →</span>
+                            </Link>
+                        )}
 
                         {/* Quick AI Trigger */}
                         <button

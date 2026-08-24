@@ -21,8 +21,10 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'Smart Farm Backend is running' });
 });
 
-// Mock routes based on requirements
-app.use('/api/auth', require('./auth'));
+// Authentication & Admin RBAC Routes
+const { router: authRouter } = require('./auth');
+app.use('/api/auth', authRouter);
+app.use('/api/admin', require('./adminRoutes'));
 
 app.get('/api/marketplace/products', (req, res) => {
     res.json([{ id: 1, name: 'Tractor', price: 500000 }, { id: 2, name: 'Fertilizer', price: 1200 }]);

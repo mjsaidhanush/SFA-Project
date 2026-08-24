@@ -17,8 +17,16 @@ import {
     AlertCircle, 
     ChevronDown, 
     ChevronUp,
-    ShieldCheck
+    ShieldCheck,
+    Lock as LockIcon,
+    X
 } from 'lucide-react';
+
+// Approved Administrator Allowlist
+const ADMIN_EMAILS = [
+    'mjsaidhanush@gmail.com',
+    'purush361@gmail.com'
+];
 
 export default function Home() {
     const router = useRouter();
@@ -46,6 +54,7 @@ export default function Home() {
     const [googleLoading, setGoogleLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [showAdminRestrictedModal, setShowAdminRestrictedModal] = useState(false);
     
     // Hollyland Transition States
     const [isSlidingOut, setIsSlidingOut] = useState(false);
@@ -65,7 +74,6 @@ export default function Home() {
             if (token && savedUser) {
                 const parsed = JSON.parse(savedUser);
                 setAuthenticatedUser(parsed);
-                // Already authenticated -> directly present Hollyland experience
                 setCurrentStep('hollyland');
             }
         } catch (e) {
@@ -73,9 +81,46 @@ export default function Home() {
         }
     }, []);
 
+    // Helper to check if email is an authorized administrator
+    const isAdminAccount = (emailStr: string) => {
+        if (!emailStr) return false;
+        return ADMIN_EMAILS.includes(emailStr.trim().toLowerCase());
+    };
+
     // Email validation helper
     const isValidEmail = (emailStr: string) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr);
+    };
+
+    // Handle Admin Access Click
+    const handleAdminAccessClick = () => {
+        setErrorMessage('');
+        setSuccessMessage('');
+        
+        try {
+            const token = localStorage.getItem("token");
+            const savedUser = localStorage.getItem("user");
+
+            if (!token || !savedUser) {
+                setAuthMode('login');
+                setErrorMessage('Please sign in with your authorized administrator account to access the Admin Console.');
+                return;
+            }
+
+            const parsed = JSON.parse(savedUser);
+            const userEmail = parsed.email ? parsed.email.trim().toLowerCase() : '';
+            const isAdmin = isAdminAccount(userEmail) || parsed.role === 'Admin';
+
+            if (isAdmin) {
+                router.push('/admin');
+            } else {
+                setAuthenticatedUser(parsed);
+                setShowAdminRestrictedModal(true);
+            }
+        } catch (e) {
+            setAuthMode('login');
+            setErrorMessage('Please sign in with your authorized administrator credentials.');
+        }
     };
 
     // Handle Login
@@ -94,12 +139,15 @@ export default function Home() {
         }
 
         setLoading(true);
+        const normalizedEmail = email.trim().toLowerCase();
+        const isAdmin = isAdminAccount(normalizedEmail);
+
         try {
             const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
             const res = await fetch(`${backendUrl}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email.trim(), password }),
+                body: JSON.stringify({ email: normalizedEmail, password }),
             });
 
             const data = await res.json();
@@ -107,8 +155,10 @@ export default function Home() {
                 localStorage.setItem('token', data.token);
                 const userObj = {
                     name: data.name,
+                    displayName: data.displayName || data.name,
                     email: data.email,
-                    role: data.role || 'Farmer',
+                    role: isAdmin ? 'Admin' : (data.role || 'Farmer'),
+                    isAdmin,
                     phone: data.phone || '',
                     location: data.location || location,
                     farmSize: data.farmSize || farmSize,
@@ -116,7 +166,7 @@ export default function Home() {
                 };
                 localStorage.setItem('user', JSON.stringify(userObj));
                 setAuthenticatedUser(userObj);
-                setSuccessMessage('Welcome back! Initializing Hollyland...');
+                setSuccessMessage(isAdmin ? 'Administrator authenticated! Entering Admin Console...' : 'Welcome back! Initializing Hollyland...');
                 setTimeout(() => {
                     setCurrentStep('hollyland');
                 }, 400);
@@ -124,12 +174,14 @@ export default function Home() {
                 setErrorMessage(data.message || 'Invalid email or password.');
             }
         } catch (err) {
-            // Fallback for seamless demo if backend server is offline
+            // Fallback for seamless demo
             console.warn('Backend unavailable, activating local session fallback');
             const fallbackUser = {
                 name: email.split('@')[0].toUpperCase(),
-                email: email.trim(),
-                role: 'Farmer',
+                displayName: email.split('@')[0],
+                email: normalizedEmail,
+                role: isAdmin ? 'Admin' : 'Farmer',
+                isAdmin,
                 phone,
                 location,
                 farmSize,
@@ -168,6 +220,9 @@ export default function Home() {
         }
 
         setLoading(true);
+        const normalizedEmail = email.trim().toLowerCase();
+        const isAdmin = isAdminAccount(normalizedEmail);
+
         try {
             const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
             const res = await fetch(`${backendUrl}/api/auth/register`, {
@@ -175,9 +230,10 @@ export default function Home() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: name.trim(),
-                    email: email.trim(),
+                    displayName: name.trim().split(' ')[0],
+                    email: normalizedEmail,
                     password,
-                    role: 'Farmer',
+                    role: isAdmin ? 'Admin' : 'Farmer',
                     phone,
                     location,
                     farmSize,
@@ -190,8 +246,10 @@ export default function Home() {
                 localStorage.setItem('token', data.token);
                 const userObj = {
                     name: data.name,
+                    displayName: data.displayName || data.name,
                     email: data.email,
-                    role: data.role || 'Farmer',
+                    role: isAdmin ? 'Admin' : (data.role || 'Farmer'),
+                    isAdmin,
                     phone: data.phone || phone,
                     location: data.location || location,
                     farmSize: data.farmSize || farmSize,
@@ -207,12 +265,12 @@ export default function Home() {
                 setErrorMessage(data.message || 'Registration failed. User may already exist.');
             }
         } catch (err) {
-            // Fallback for seamless demo
-            console.warn('Backend unavailable, activating local session fallback');
             const fallbackUser = {
                 name: name.trim(),
-                email: email.trim(),
-                role: 'Farmer',
+                displayName: name.trim().split(' ')[0],
+                email: normalizedEmail,
+                role: isAdmin ? 'Admin' : 'Farmer',
+                isAdmin,
                 phone,
                 location,
                 farmSize,
@@ -232,6 +290,7 @@ export default function Home() {
         setErrorMessage('');
         setGoogleLoading(true);
         try {
+            // Simulated OAuth payload for Dhanush (Default Admin account)
             const simulatedGoogleUser = {
                 name: 'Dhanush',
                 email: 'mjsaidhanush@gmail.com',
@@ -245,13 +304,17 @@ export default function Home() {
                 body: JSON.stringify(simulatedGoogleUser),
             });
 
+            const isAdmin = isAdminAccount(simulatedGoogleUser.email);
+
             if (res.ok) {
                 const data = await res.json();
                 localStorage.setItem('token', data.token);
                 const userObj = {
                     name: data.name,
+                    displayName: data.displayName || data.name,
                     email: data.email,
-                    role: data.role || 'Farmer',
+                    role: isAdmin ? 'Admin' : (data.role || 'Farmer'),
+                    isAdmin,
                     phone: data.phone || '',
                     location: data.location || 'Andhra Pradesh',
                     farmSize: data.farmSize || '5 Acres',
@@ -260,11 +323,12 @@ export default function Home() {
                 localStorage.setItem('user', JSON.stringify(userObj));
                 setAuthenticatedUser(userObj);
             } else {
-                // Fallback store
                 const userObj = {
                     name: 'Dhanush',
+                    displayName: 'Dhanush',
                     email: 'mjsaidhanush@gmail.com',
-                    role: 'Farmer',
+                    role: 'Admin',
+                    isAdmin: true,
                     phone: '+91 98765 43210',
                     location: 'Andhra Pradesh',
                     farmSize: '5 Acres',
@@ -281,8 +345,10 @@ export default function Home() {
         } catch (err) {
             const userObj = {
                 name: 'Dhanush',
+                displayName: 'Dhanush',
                 email: 'mjsaidhanush@gmail.com',
-                role: 'Farmer',
+                role: 'Admin',
+                isAdmin: true,
                 phone: '',
                 location: 'Andhra Pradesh',
                 farmSize: '5 Acres',
@@ -311,20 +377,47 @@ export default function Home() {
         }, 800);
     };
 
-    // Transition from Hollyland to Main Dashboard
-    const handleEnterToHollyland = () => {
+    // Transition from Hollyland to Dashboard or Admin Console
+    const handleEnterDestination = (targetRoute: '/dashboard' | '/admin') => {
         setIsSlidingOut(true);
         try {
             sessionStorage.setItem("sfa_cinematic_entered", "true");
         } catch (e) {}
         setTimeout(() => {
-            router.push('/dashboard');
+            router.push(targetRoute);
         }, 850);
     };
+
+    const isUserAdmin = authenticatedUser?.role === 'Admin' || isAdminAccount(authenticatedUser?.email);
 
     return (
         <div className="min-h-screen w-screen h-screen relative overflow-hidden font-sans bg-[#0B1118] select-none text-white">
             
+            {/* ACCESS RESTRICTED MODAL */}
+            {showAdminRestrictedModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+                    <div className="w-full max-w-md p-8 rounded-3xl bg-[#101820] border-2 border-red-500/40 shadow-[0_0_50px_rgba(239,68,68,0.25)] text-center space-y-5">
+                        <div className="w-14 h-14 rounded-2xl bg-red-500/15 text-red-400 flex items-center justify-center mx-auto border border-red-500/30">
+                            <LockIcon className="w-7 h-7" />
+                        </div>
+                        <div className="space-y-2">
+                            <h3 className="text-xl font-black uppercase text-white tracking-wide">
+                                Access Restricted
+                            </h3>
+                            <p className="text-xs text-slate-300 font-medium leading-relaxed">
+                                This account (<span className="text-white font-mono font-bold">{authenticatedUser?.email}</span>) does not have administrator permissions.
+                            </p>
+                        </div>
+                        <button
+                            onClick={() => setShowAdminRestrictedModal(false)}
+                            className="w-full py-3.5 bg-gradient-to-r from-teal-800 to-cyan text-white font-black rounded-xl text-xs uppercase tracking-wider shadow-lg hover:scale-102 transition-all cursor-pointer"
+                        >
+                            Return to Farm
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* ========================================================= */}
             {/* 1. MODERN FUTURISTIC AUTHENTICATION PAGE (SPLIT-SCREEN) */}
             {/* ========================================================= */}
@@ -333,12 +426,10 @@ export default function Home() {
                     
                     {/* LEFT PANEL — CINEMATIC AGRICULTURAL SHOWCASE */}
                     <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col justify-between p-12 text-white border-r border-cyan/20">
-                        {/* Background Wallpaper */}
                         <div 
                             className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 transform scale-105 ${bgLoaded ? 'opacity-100' : 'opacity-0'}`}
                             style={{ backgroundImage: "url('/farm-background.jpg')" }}
                         ></div>
-                        {/* Gradient Overlays & Vignette */}
                         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1118]/90 via-[#0B1118]/70 to-[#0B1118]/85 mix-blend-multiply backdrop-blur-[1px]"></div>
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(24,213,208,0.15)_0%,transparent_60%)]"></div>
 
@@ -392,7 +483,6 @@ export default function Home() {
 
                     {/* RIGHT PANEL — AUTHENTICATION CARD */}
                     <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 overflow-y-auto bg-[#0B1118]/95 relative">
-                        {/* Ambient Glowing Orbs */}
                         <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-cyan/10 rounded-full filter blur-[100px] pointer-events-none"></div>
                         <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-lime/10 rounded-full filter blur-[100px] pointer-events-none"></div>
 
@@ -546,6 +636,21 @@ export default function Home() {
                                             Create Account
                                         </button>
                                     </div>
+
+                                    {/* SUBTLE ADMIN ACCESS SECTION */}
+                                    <div className="pt-4 mt-4 border-t border-slate-800/80 text-center">
+                                        <div className="inline-flex items-center space-x-2 text-[11px] text-slate-400">
+                                            <span>Are you an administrator?</span>
+                                            <button
+                                                type="button"
+                                                onClick={handleAdminAccessClick}
+                                                className="font-bold text-cyan hover:underline flex items-center space-x-1 cursor-pointer"
+                                            >
+                                                <span>Admin Portal</span>
+                                                <ArrowRight className="w-3 h-3" />
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
 
@@ -561,7 +666,6 @@ export default function Home() {
                                         </p>
                                     </div>
 
-                                    {/* Google Register Button */}
                                     <button
                                         type="button"
                                         onClick={handleGoogleAuth}
@@ -577,7 +681,6 @@ export default function Home() {
                                         <span>Continue with Google</span>
                                     </button>
 
-                                    {/* Divider */}
                                     <div className="relative flex items-center justify-center my-3">
                                         <div className="border-t border-slate-700 w-full"></div>
                                         <span className="bg-[#0B1118] px-3 text-[11px] font-extrabold uppercase tracking-widest text-slate-400">
@@ -586,7 +689,6 @@ export default function Home() {
                                         <div className="border-t border-slate-700 w-full"></div>
                                     </div>
 
-                                    {/* Error / Success Alerts */}
                                     {errorMessage && (
                                         <div className="p-3 rounded-xl bg-red-950/60 border border-red-500/50 text-red-300 text-xs font-semibold flex items-center space-x-2 animate-fade-in">
                                             <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
@@ -594,7 +696,6 @@ export default function Home() {
                                         </div>
                                     )}
 
-                                    {/* Registration Form */}
                                     <form onSubmit={handleRegister} className="space-y-3.5">
                                         <div>
                                             <label className="block text-xs font-bold text-slate-300 mb-1 uppercase tracking-wide">
@@ -760,7 +861,6 @@ export default function Home() {
                                         </button>
                                     </form>
 
-                                    {/* Switch to Login */}
                                     <div className="text-center pt-2">
                                         <span className="text-xs text-slate-400 font-medium">Already have an account? </span>
                                         <button
@@ -786,7 +886,6 @@ export default function Home() {
                                         </p>
                                     </div>
 
-                                    {/* Error / Success Alerts */}
                                     {errorMessage && (
                                         <div className="p-3.5 rounded-xl bg-red-950/60 border border-red-500/50 text-red-300 text-xs font-semibold flex items-center space-x-2">
                                             <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
@@ -846,7 +945,7 @@ export default function Home() {
             )}
 
             {/* ========================================================= */}
-            {/* 2. HOLLYLAND CINEMATIC OPENING SCREEN (WITH LIGHT ARROW) */}
+            {/* 2. HOLLYLAND & ADMIN CONSOLE CINEMATIC ENTRANCE */}
             {/* ========================================================= */}
             {currentStep === 'hollyland' && (
                 <div
@@ -856,7 +955,6 @@ export default function Home() {
                             : "translate-x-0 opacity-100 scale-100"
                     }`}
                 >
-                    {/* 1. Cinematic Agricultural High-Resolution Background */}
                     <div
                         className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform ${
                             isSlidingOut ? "scale-115 blur-xs" : "scale-105"
@@ -864,12 +962,10 @@ export default function Home() {
                         style={{ backgroundImage: "url('/farm-background.jpg')" }}
                     ></div>
 
-                    {/* Laser Light Sweep during enter transition */}
                     {isSlidingOut && (
                         <div className="absolute inset-y-0 w-56 bg-gradient-to-r from-transparent via-cyan to-white filter blur-lg z-30 animate-light-sweep pointer-events-none"></div>
                     )}
 
-                    {/* Loading Fallback */}
                     {!bgLoaded && (
                         <div className="absolute inset-0 bg-[#0B1118] flex flex-col items-center justify-center z-0 text-white space-y-4">
                             <div className="w-12 h-12 rounded-2xl border-2 border-cyan border-t-transparent animate-spin"></div>
@@ -880,16 +976,13 @@ export default function Home() {
                         </div>
                     )}
 
-                    {/* Dark Cinematic Gradient Overlay & Soft Vignette */}
                     <div className="absolute inset-0 bg-gradient-to-b from-[#0B1118]/85 via-[#101820]/60 to-[#0B1118]/90 mix-blend-multiply backdrop-blur-[2px] z-10 transition-opacity duration-1000"></div>
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(11,17,24,0.92)_100%)] z-10"></div>
 
-                    {/* Ambient Glowing Orbs & Center Halo Glow */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[580px] bg-radial from-cyan/25 via-teal-800/15 to-transparent rounded-full filter blur-[100px] pointer-events-none z-10"></div>
                     <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/15 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob"></div>
                     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-lime/10 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob animation-delay-2000"></div>
 
-                    {/* Floating Light Particles */}
                     <div className="absolute inset-0 overflow-hidden pointer-events-none z-15">
                         <div className="absolute top-1/3 left-1/3 w-2 h-2 rounded-full bg-cyan shadow-[0_0_12px_#18D5D0] animate-float-particle"></div>
                         <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 rounded-full bg-lime shadow-[0_0_10px_#A8E63D] animate-float-particle" style={{ animationDelay: '1.2s' }}></div>
@@ -920,18 +1013,21 @@ export default function Home() {
                                 SMART FARM ASSISTANT
                             </h1>
                             <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-slate-300/90">
-                                {authenticatedUser?.name ? `Welcome to Hollyland, ${authenticatedUser.name}` : 'Welcome to the future of farming'}
+                                {isUserAdmin 
+                                    ? `Welcome to Smart Farm Assistant Admin Console` 
+                                    : (authenticatedUser?.name ? `Welcome to Hollyland, ${authenticatedUser.name}` : 'Welcome to the future of farming')
+                                }
                             </p>
                         </div>
 
-                        {/* HOLLYLAND Destination Heading */}
+                        {/* Destination Heading */}
                         <div 
                             className="pt-2 pb-1 animate-entry-fade-up"
                             style={{ animationDelay: '600ms' }}
                         >
                             <div className="relative inline-block">
                                 <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan to-teal-100 filter drop-shadow-[0_0_25px_rgba(24,213,208,0.6)]">
-                                    ENTER TO HOLLYLAND
+                                    {isUserAdmin ? "ENTER ADMIN CONSOLE" : "ENTER TO HOLLYLAND"}
                                 </h2>
                                 <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan to-transparent mt-2 opacity-80"></div>
                             </div>
@@ -943,22 +1039,20 @@ export default function Home() {
                             style={{ animationDelay: '800ms' }}
                         >
                             <button
-                                onClick={handleEnterToHollyland}
+                                onClick={() => handleEnterDestination(isUserAdmin ? '/admin' : '/dashboard')}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' || e.key === ' ') {
-                                        handleEnterToHollyland();
+                                        handleEnterDestination(isUserAdmin ? '/admin' : '/dashboard');
                                     }
                                 }}
                                 autoFocus
                                 tabIndex={0}
-                                aria-label="Enter to Hollyland"
+                                aria-label={isUserAdmin ? "Enter Admin Console" : "Enter to Hollyland"}
                                 className="group relative flex flex-col items-center justify-center p-6 rounded-full focus:outline-none transition-transform duration-300 cursor-pointer"
                             >
-                                {/* Outer Circular Glow Corona */}
                                 <div className="absolute inset-0 rounded-full bg-cyan/15 filter blur-xl group-hover:bg-cyan/35 group-hover:scale-125 transition-all duration-500 pointer-events-none"></div>
                                 <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-cyan/40 group-hover:border-cyan group-hover:shadow-[0_0_35px_#18D5D0] transition-all duration-300 flex items-center justify-center bg-navy-900/60 backdrop-blur-md"></div>
 
-                                {/* Glowing Light Arrow SVG */}
                                 <div className="relative z-10 animate-arrow-flow group-hover:scale-115 transition-transform duration-300">
                                     <svg
                                         className="w-10 h-10 sm:w-12 sm:h-12 text-white filter drop-shadow-[0_0_15px_#18D5D0] group-hover:drop-shadow-[0_0_28px_#18D5D0]"
@@ -989,8 +1083,20 @@ export default function Home() {
                             </p>
                         </div>
 
+                        {/* Additional Administrator Options */}
+                        {isUserAdmin && (
+                            <div className="pt-2 flex items-center space-x-4">
+                                <button
+                                    onClick={() => handleEnterDestination('/dashboard')}
+                                    className="text-xs font-black text-lime hover:underline uppercase tracking-wider transition-colors cursor-pointer"
+                                >
+                                    🌾 Switch to Farmer Dashboard
+                                </button>
+                            </div>
+                        )}
+
                         {/* Switch account / Log out link */}
-                        <div className="pt-4">
+                        <div className="pt-2">
                             <button
                                 onClick={() => {
                                     localStorage.removeItem('token');
@@ -1001,7 +1107,7 @@ export default function Home() {
                                 }}
                                 className="text-[11px] text-slate-400 hover:text-cyan underline font-medium tracking-wide transition-colors cursor-pointer"
                             >
-                                Switch Farmer Account
+                                Switch Account
                             </button>
                         </div>
                     </div>
@@ -1010,6 +1116,3 @@ export default function Home() {
         </div>
     );
 }
-
-
-
