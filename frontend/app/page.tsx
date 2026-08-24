@@ -1,159 +1,136 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Sparkles, LogIn } from 'lucide-react';
 
-export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+export default function Home() {
     const router = useRouter();
+    const [isSlidingOut, setIsSlidingOut] = useState(false);
+    const [bgLoaded, setBgLoaded] = useState(false);
 
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
+    useEffect(() => {
+        const img = new Image();
+        img.src = "/farm-background.jpg";
+        img.onload = () => setBgLoaded(true);
+        img.onerror = () => setBgLoaded(true);
+    }, []);
 
+    const handleEnterFarm = () => {
+        setIsSlidingOut(true);
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-            const res = await fetch(`${apiUrl}/api/auth/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            });
-            const data = await res.json();
-
-            if (res.ok) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data));
-                router.push('/dashboard');
-            } else {
-                alert(data.message || 'Login failed');
-            }
-        } catch (error) {
-            console.error(error);
-            // Default demo fallback for effortless login
-            localStorage.setItem('token', 'demo_token_123');
-            localStorage.setItem('user', JSON.stringify({ name: "Demo Farmer", email, role: "farmer" }));
-            router.push('/dashboard');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleGoogleLogin = () => {
-        setLoading(true);
+            sessionStorage.setItem("sfa_cinematic_entered", "true");
+        } catch (e) {}
         setTimeout(() => {
-            const mockGoogleUser = {
-                name: "Google Farmer User",
-                email: "google.user@example.com",
-                role: "farmer"
-            };
-            localStorage.setItem('token', 'mock_google_oauth_token_123');
-            localStorage.setItem('user', JSON.stringify(mockGoogleUser));
             router.push('/dashboard');
-        }, 1000);
+        }, 850);
     };
 
     return (
-        <div
-            className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden font-sans bg-cover bg-center bg-no-repeat agri-grid-bg"
-            style={{ backgroundImage: "linear-gradient(rgba(16, 24, 32, 0.82), rgba(16, 24, 32, 0.90)), url('/farm-background.jpg')" }}
-        >
-            {/* Ambient Background Light Orbs */}
-            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyan/20 rounded-full mix-blend-screen filter blur-[120px] pointer-events-none"></div>
-            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-lime/15 rounded-full mix-blend-screen filter blur-[120px] pointer-events-none"></div>
+        <div className="min-h-screen w-screen h-screen relative overflow-hidden font-sans bg-navy-900 select-none">
+            {/* Cinematic Landing Container with Slide Transition */}
+            <div
+                className={`fixed inset-0 z-50 w-full h-full flex items-center justify-center transition-all duration-900 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    isSlidingOut 
+                        ? "-translate-x-full opacity-90 scale-[0.98] pointer-events-none shadow-[30px_0_90px_rgba(24,213,208,0.5)]" 
+                        : "translate-x-0 opacity-100 scale-100"
+                }`}
+            >
+                {/* High-Resolution Cinematic Agricultural Background Image */}
+                <div
+                    className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 transform scale-105 ${
+                        bgLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{ backgroundImage: "url('/farm-background.jpg')" }}
+                ></div>
 
-            <div className="max-w-md w-full relative z-10 glass-panel bg-white/95 backdrop-blur-2xl p-8 sm:p-10 rounded-3xl shadow-2xl border border-white/60">
-                <div className="text-center mb-8">
-                    <div className="w-20 h-20 mx-auto rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/40 shadow-xl overflow-hidden mb-4">
+                {/* Loading Fallback */}
+                {!bgLoaded && (
+                    <div className="absolute inset-0 bg-navy-900 flex flex-col items-center justify-center z-0 text-white space-y-3">
+                        <div className="w-12 h-12 rounded-2xl border-2 border-cyan border-t-transparent animate-spin"></div>
+                        <span className="text-xs font-black tracking-widest uppercase text-cyan">Loading Farm Telemetry...</span>
+                    </div>
+                )}
+
+                {/* Dark Cinematic Gradient Overlay & Soft Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-b from-navy-900/85 via-navy-900/60 to-navy-900/90 mix-blend-multiply backdrop-blur-[2px] z-10"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(16,24,32,0.85)_100%)] z-10"></div>
+
+                {/* Ambient Glowing Orbs */}
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-lime/15 rounded-full filter blur-[120px] pointer-events-none z-10 animate-blob animation-delay-2000"></div>
+
+                {/* Center Content */}
+                <div className="relative z-20 max-w-2xl mx-auto px-6 text-center flex flex-col items-center space-y-6">
+                    
+                    {/* Status Pill */}
+                    <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-black tracking-wider uppercase shadow-xl animate-fade-in">
+                        <span className="relative flex h-2.5 w-2.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan"></span>
+                        </span>
+                        <span className="text-cyan">Autonomous Agriculture OS</span>
+                        <span className="text-white/40">|</span>
+                        <span className="text-white/80 font-mono text-[10px]">v2.4 Live</span>
+                    </div>
+
+                    {/* Official Brand Emblem Logo */}
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/60 shadow-2xl shadow-cyan/30 overflow-hidden transform hover:scale-105 transition-all duration-300 animate-fade-in">
                         <img
                             src="/smart-farm-logo.png"
                             alt="Smart Farm Assistant Logo"
                             className="w-full h-full object-cover rounded-2xl"
                         />
                     </div>
-                    <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-cyan/10 rounded-full text-[11px] font-bold text-teal-800 mb-2 border border-cyan/20">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                        <span>AI Farm Operating System</span>
+
+                    {/* Brand Title */}
+                    <div className="space-y-2 animate-fade-in">
+                        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+                            🌱 SMART FARM <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-teal-300 to-lime">
+                                ASSISTANT
+                            </span>
+                        </h1>
+                        <p className="text-base sm:text-2xl font-black text-cyan tracking-wide mt-1">
+                            Smarter Decisions. Better Harvests.
+                        </p>
                     </div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-navy-900 tracking-tight flex items-center justify-center">
-                        Smart Farm Assistant
-                    </h1>
-                    <p className="text-[11px] font-bold text-cyan uppercase tracking-wider mt-0.5">
-                        Smarter Decisions • Better Harvests
+
+                    {/* Short Description */}
+                    <p className="text-sm sm:text-base text-slate-200/90 font-medium max-w-lg leading-relaxed animate-fade-in">
+                        AI-powered intelligence for modern farming. Real-time pathology scans, neural crop recommendations, Doppler rainfall analytics, and Mandi price benchmarks.
                     </p>
-                </div>
 
-                <form onSubmit={handleLogin} className="space-y-4">
-                    <div>
-                        <label className="block text-xs font-extrabold text-slate-700 mb-1 uppercase tracking-wide">Farmer Email</label>
-                        <input
-                            type="email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-cyan bg-slate-50 text-navy-900 placeholder-slate-400 text-xs transition-all outline-none font-medium"
-                            placeholder="farmer@kisan.in"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs font-extrabold text-slate-700 mb-1 uppercase tracking-wide">Security Password</label>
-                        <input
-                            type="password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-cyan bg-slate-50 text-navy-900 placeholder-slate-400 text-xs transition-all outline-none font-medium"
-                            placeholder="••••••••"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full py-3.5 bg-navy-900 hover:bg-teal-800 text-white font-extrabold rounded-xl shadow-lg shadow-navy-900/15 hover:shadow-glow-cyan transition-all duration-200 disabled:opacity-70 text-xs uppercase tracking-wider flex items-center justify-center space-x-2 border border-cyan/30 mt-2"
-                    >
-                        <span>{loading ? 'Authenticating...' : 'Sign In To Farm OS'}</span>
-                        <ArrowRight className="w-4 h-4 text-cyan" />
-                    </button>
-                </form>
-
-                <div className="mt-6">
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-slate-200"></div>
-                        </div>
-                        <div className="relative flex justify-center text-xs">
-                            <span className="bg-white px-3 text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Or instant access</span>
-                        </div>
-                    </div>
-
-                    <div className="mt-5">
+                    {/* Large Premium Enter Farm Button */}
+                    <div className="pt-3 animate-fade-in">
                         <button
-                            type="button"
-                            onClick={handleGoogleLogin}
-                            disabled={loading}
-                            className="w-full flex items-center justify-center py-3 px-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold transition-all text-xs shadow-xs"
+                            onClick={handleEnterFarm}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    handleEnterFarm();
+                                }
+                            }}
+                            autoFocus
+                            tabIndex={0}
+                            aria-label="Enter Smart Farm Assistant application"
+                            className="group relative inline-flex items-center space-x-3 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl bg-navy-900/95 hover:bg-teal-800 text-white font-black text-sm sm:text-base uppercase tracking-wider border-2 border-cyan/70 hover:border-lime shadow-2xl shadow-cyan/30 hover:shadow-glow-cyan transform hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan/50"
                         >
-                            <svg className="w-4 h-4 mr-2.5" viewBox="0 0 24 24">
-                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                            </svg>
-                            <span>Continue with Google</span>
+                            <span className="relative z-10 tracking-widest text-white font-black">
+                                Enter Farm
+                            </span>
+                            <ArrowRight className="w-5 h-5 text-cyan group-hover:text-lime group-hover:translate-x-1.5 transition-all duration-300" />
+                            
+                            {/* Glowing highlight effect */}
+                            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan/20 via-transparent to-lime/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                         </button>
                     </div>
-                </div>
 
-                <p className="mt-6 text-center text-xs text-slate-500 font-medium">
-                    New to Smart Farm?{' '}
-                    <Link href="/register" className="font-extrabold text-teal-800 hover:text-cyan transition-colors">
-                        Register Free Account
-                    </Link>
-                </p>
+                    {/* Quick Helper Key Note */}
+                    <p className="text-[11px] font-bold text-slate-400/80 tracking-wider uppercase">
+                        Press <span className="px-2 py-0.5 rounded bg-white/10 text-white font-mono text-[10px] border border-white/20">ENTER ↵</span> to Launch OS
+                    </p>
+                </div>
             </div>
         </div>
     );
