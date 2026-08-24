@@ -52,14 +52,23 @@ export default function Register() {
 
             <div className="max-w-md w-full relative z-10 glass-panel bg-white/95 backdrop-blur-2xl p-8 sm:p-10 rounded-3xl shadow-2xl border border-white/60">
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-cyan/10 rounded-full text-[11px] font-bold text-teal-800 mb-3 border border-cyan/20">
+                    <div className="w-18 h-18 mx-auto rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/40 shadow-xl overflow-hidden mb-3">
+                        <img
+                            src="/smart-farm-logo.png"
+                            alt="Smart Farm Assistant Logo"
+                            className="w-full h-full object-cover rounded-2xl"
+                        />
+                    </div>
+                    <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-cyan/10 rounded-full text-[11px] font-bold text-teal-800 mb-2 border border-cyan/20">
                         <Sparkles className="w-3.5 h-3.5 text-cyan" />
                         <span>Kisan Smart Ecosystem</span>
                     </div>
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-black text-navy-900 tracking-tight">
                         Create Farmer Account
                     </h1>
-                    <p className="text-xs text-slate-500 mt-1 font-medium">Join thousands of smart farmers using AI telemetry</p>
+                    <p className="text-[11px] font-bold text-cyan uppercase tracking-wider mt-0.5">
+                        Smarter Decisions • Better Harvests
+                    </p>
                 </div>
 
                 <form onSubmit={handleRegister} className="space-y-4">

@@ -21,7 +21,9 @@ import {
     TrendingUp,
     Activity,
     Search,
-    UserCheck
+    UserCheck,
+    Clock,
+    Calendar
 } from "lucide-react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -33,10 +35,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     });
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
+    const [liveTime, setLiveTime] = useState<Date | null>(null);
     const [chatMessages, setChatMessages] = useState<Array<{ sender: 'user' | 'ai'; text: string }>>([
         { sender: 'ai', text: "Welcome to Smart Farm Assistant! I can help you with crop prediction, disease identification, weather analytics, and market prices. How can I assist your farm today?" }
     ]);
     const [inputMessage, setInputMessage] = useState("");
+
+    useEffect(() => {
+        setLiveTime(new Date());
+        const timer = setInterval(() => {
+            setLiveTime(new Date());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+
 
     useEffect(() => {
         try {
@@ -241,15 +253,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="fixed bottom-[-15%] left-[-10%] w-[500px] h-[500px] bg-lime/15 rounded-full mix-blend-multiply filter blur-[120px] animate-blob animation-delay-2000 pointer-events-none z-0"></div>
 
             {/* Mobile Header Bar */}
-            <header className="md:hidden sticky top-0 z-40 w-full bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-4 py-3 flex items-center justify-between shadow-xs">
+            <header className="md:hidden sticky top-0 z-40 w-full bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-4 py-2.5 flex items-center justify-between shadow-xs">
                 <Link href="/dashboard" className="flex items-center space-x-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-navy-900 flex items-center justify-center text-white font-extrabold text-sm border border-cyan/40">
-                        🌱
+                    <div className="w-9 h-9 rounded-xl bg-white p-0.5 flex items-center justify-center border border-cyan/40 shadow-xs overflow-hidden">
+                        <img
+                            src="/smart-farm-logo.png"
+                            alt="Smart Farm Logo"
+                            className="w-full h-full object-cover rounded-lg"
+                        />
                     </div>
                     <div>
-                        <h1 className="text-sm font-black text-navy-900">Smart Farm Assistant</h1>
-                        <span className="text-[10px] font-bold text-teal-700 flex items-center">
-                            <span className="w-1.5 h-1.5 rounded-full bg-cyan inline-block mr-1"></span> Online
+                        <h1 className="text-sm font-black text-navy-900 leading-none">Smart Farm</h1>
+                        <span className="text-[10px] font-bold text-teal-700 flex items-center mt-0.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyan inline-block mr-1"></span> Assistant OS
                         </span>
                     </div>
                 </Link>
@@ -288,15 +304,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <div className="p-5 border-b border-slate-100 flex flex-col space-y-3">
                     <div className="flex items-center justify-between">
                         <Link href="/dashboard" className="flex items-center space-x-3 group">
-                            <div className="w-10 h-10 rounded-2xl bg-navy-900 flex items-center justify-center text-white shadow-lg shadow-navy-900/15 group-hover:scale-105 transition-transform border border-cyan/40">
-                                <span className="text-lg">🌱</span>
+                            <div className="w-12 h-12 rounded-2xl bg-white p-0.5 flex items-center justify-center shadow-lg shadow-navy-900/10 group-hover:scale-105 transition-transform border border-cyan/50 overflow-hidden shrink-0">
+                                <img
+                                    src="/smart-farm-logo.png"
+                                    alt="Smart Farm Assistant Logo"
+                                    className="w-full h-full object-cover rounded-xl"
+                                />
                             </div>
-                            <div>
-                                <h1 className="text-base font-black tracking-tight text-navy-900 flex items-center leading-none">
-                                    Smart Farm
+                            <div className="min-w-0">
+                                <h1 className="text-sm font-black tracking-tight text-navy-900 truncate leading-none">
+                                    SMART FARM
                                 </h1>
-                                <span className="text-[11px] font-bold text-teal-800 tracking-wide uppercase">
-                                    Assistant OS
+                                <span className="text-[10px] font-black text-cyan tracking-wider uppercase block mt-0.5">
+                                    ASSISTANT
+                                </span>
+                                <span className="text-[8px] font-bold text-slate-400 block tracking-tight">
+                                    Smarter Decisions • Better Harvests
                                 </span>
                             </div>
                         </Link>
@@ -438,7 +461,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* MAIN CONTENT AREA */}
             <div className="flex-1 flex flex-col min-w-0 relative z-10">
                 {/* Desktop Top Sub-Header */}
-                <header className="hidden md:flex sticky top-0 z-20 h-16 bg-white/80 backdrop-blur-xl border-b border-teal-800/8 px-6 lg:px-8 items-center justify-between">
+                <header className="hidden md:flex sticky top-0 z-20 h-16 bg-white/85 backdrop-blur-xl border-b border-teal-800/8 px-6 lg:px-8 items-center justify-between">
                     <div className="flex items-center space-x-3">
                         <div className="flex items-center space-x-2 text-xs font-bold text-slate-500">
                             <Link href="/dashboard" className="hover:text-navy-900 transition-colors">Farm Dashboard</Link>
@@ -450,6 +473,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </div>
 
                     <div className="flex items-center space-x-4">
+                        {/* Live Date & Time Real-time Widget */}
+                        <div className="flex items-center space-x-2.5 bg-slate-50 border border-slate-200/80 px-3.5 py-1.5 rounded-xl shadow-2xs">
+                            <Calendar className="w-3.5 h-3.5 text-cyan" />
+                            <span className="text-xs font-black text-navy-900">
+                                {liveTime ? liveTime.toLocaleDateString("en-US", { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : "Loading date..."}
+                            </span>
+                            <span className="text-slate-300 font-light">|</span>
+                            <Clock className="w-3.5 h-3.5 text-teal-800" />
+                            <span className="text-xs font-black text-teal-800 font-mono tracking-tight">
+                                {liveTime ? liveTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : "00:00:00"}
+                            </span>
+                        </div>
+
                         {/* Live Quick Telemetry Indicator */}
                         <div className="flex items-center space-x-3 bg-slate-50 border border-slate-200/80 px-3 py-1.5 rounded-xl text-xs font-bold">
                             <span className="flex items-center text-teal-800 font-extrabold">
@@ -475,6 +511,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </button>
                     </div>
                 </header>
+
 
                 {/* Page Workspace Content */}
                 <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">

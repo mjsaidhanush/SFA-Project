@@ -83,13 +83,41 @@ export default function Dashboard() {
     const [showSchemeModal, setShowSchemeModal] = useState(false);
     const [schemeCheckResult, setSchemeCheckResult] = useState<string | null>(null);
 
+    // Live Calendar and Time State
+    const [selectedCalDay, setSelectedCalDay] = useState<number>(24);
+
+    const [calMonth, setCalMonth] = useState<number>(7); // 7 is August (0-indexed)
+    const [calYear, setCalYear] = useState<number>(2026);
+
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const daysInMonth = (month: number, year: number) => new Date(year, month + 1, 0).getDate();
+    const firstDayOfMonth = (month: number, year: number) => new Date(year, month, 1).getDay();
+
+    const agriculturalEvents: Record<number, { title: string; type: 'sow' | 'irrigate' | 'drone' | 'fertilize' | 'market' | 'rain'; time: string; badge: string }> = {
+        4: { title: "Monsoon Precipitation Window", type: "rain", time: "08:00 AM", badge: "RAIN PREP" },
+        10: { title: "Wheat & Cereal Sowing Phase", type: "sow", time: "06:30 AM", badge: "SOWING" },
+        17: { title: "Drone Aerial NDVI Scouting", type: "drone", time: "10:30 AM", badge: "DRONE AI" },
+        24: { title: "Precision Crop Health & Mandi Trading", type: "market", time: "09:00 AM", badge: "TODAY • ACTIVE" },
+        29: { title: "Micro-Drip Irrigation Cycle", type: "irrigate", time: "05:30 PM", badge: "IRRIGATION" }
+    };
+
     useEffect(() => {
-        setCurrentTime(new Date());
+        const now = new Date();
+        setCurrentTime(now);
+        setSelectedCalDay(now.getDate());
+        setCalMonth(now.getMonth());
+        setCalYear(now.getFullYear());
+
         const timer = setInterval(() => {
             setCurrentTime(new Date());
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -225,60 +253,74 @@ export default function Dashboard() {
                 </div>
             )}
 
-            {/* 1. HERO SECTION (Inspired by Reference Portfolio) */}
+            {/* 1. HERO SECTION WITH OFFICIAL LOGO */}
             <section id="hero" className="relative pt-6 pb-12 lg:pt-10 lg:pb-16 overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
                     {/* Hero Left Text Column */}
                     <div className="lg:col-span-7 space-y-6">
-                        {/* Status Badge */}
-                        <div className="inline-flex items-center space-x-2.5 px-4 py-1.5 bg-white rounded-full border border-teal-800/10 shadow-xs">
-                            <span className="relative flex h-2.5 w-2.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
-                            </span>
-                            <span className="text-xs font-bold tracking-wide text-teal-800 uppercase">
-                                ● AI Farm Systems Online
-                            </span>
+                        {/* Official Brand Logo Badge */}
+                        <div className="flex items-center space-x-4">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-white p-1 flex items-center justify-center border-2 border-cyan/40 shadow-xl overflow-hidden shrink-0">
+                                <img
+                                    src="/smart-farm-logo.png"
+                                    alt="Smart Farm Assistant Official Logo"
+                                    className="w-full h-full object-cover rounded-2xl"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white rounded-full border border-teal-800/10 shadow-xs">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan"></span>
+                                    </span>
+                                    <span className="text-[11px] font-black tracking-wider text-teal-800 uppercase">
+                                        ● AI Farm Systems Online
+                                    </span>
+                                </div>
+                                <p className="text-[10px] font-black text-cyan tracking-wider uppercase">
+                                    Smarter Decisions • Better Harvests
+                                </p>
+                            </div>
                         </div>
 
                         {/* Large Headline */}
                         <div className="space-y-2">
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-navy-900 leading-[1.08]">
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-navy-900 leading-[1.08]">
                                 SMART FARM <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-800 via-cyan-500 to-lime-500">
                                     ASSISTANT
                                 </span>
                             </h1>
-                            <h2 className="text-lg sm:text-xl font-semibold text-slate-600">
-                                AI-powered intelligence for smarter farming decisions.
+                            <h2 className="text-lg sm:text-xl font-bold text-slate-600">
+                                AI-powered precision intelligence for modern agricultural operations.
                             </h2>
                         </div>
 
                         {/* Supporting Narrative */}
-                        <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-                            Monitor your crops, predict weather, detect diseases, understand markets, and make better farming decisions with AI.
+                        <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
+                            Monitor crops, predict Doppler rain, detect leaf diseases with neural pathology, benchmark Mandi prices, and optimize harvest yield.
                         </p>
 
                         {/* Hero CTA Buttons */}
                         <div className="pt-2 flex flex-wrap items-center gap-4">
                             <a
                                 href="#overview"
-                                className="inline-flex items-center space-x-2.5 px-6 py-3.5 bg-navy-900 hover:bg-teal-800 text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg shadow-navy-900/15 hover:shadow-glow-cyan hover:-translate-y-0.5 transition-all duration-200 border border-cyan/30"
+                                className="inline-flex items-center space-x-2.5 px-6 py-3.5 bg-navy-900 hover:bg-teal-800 text-white rounded-xl font-black text-xs uppercase tracking-wider shadow-lg shadow-navy-900/15 hover:shadow-glow-cyan hover:-translate-y-0.5 transition-all duration-200 border border-cyan/30"
                             >
                                 <span>Explore Farm Intelligence</span>
                                 <ArrowRight className="w-4 h-4 text-cyan" />
                             </a>
                             <a
-                                href="#disease-detection"
-                                className="inline-flex items-center space-x-2 px-5 py-3.5 bg-white hover:bg-slate-50 text-navy-900 rounded-xl font-bold text-xs border border-slate-200/80 shadow-xs hover:border-cyan/50 hover:-translate-y-0.5 transition-all duration-200"
+                                href="#live-calendar"
+                                className="inline-flex items-center space-x-2 px-5 py-3.5 bg-white hover:bg-slate-50 text-navy-900 rounded-xl font-black text-xs border border-slate-200/80 shadow-xs hover:border-cyan/50 hover:-translate-y-0.5 transition-all duration-200"
                             >
-                                <Sparkles className="w-4 h-4 text-teal-700" />
-                                <span>AI Leaf Scanner</span>
+                                <Calendar className="w-4 h-4 text-cyan" />
+                                <span>Live Agro Calendar</span>
                             </a>
                         </div>
 
                         {/* Quick Live Telemetry Strip */}
-                        <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-500 font-medium">
+                        <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-500 font-semibold">
                             <div className="flex items-center space-x-2">
                                 <Activity className="w-4 h-4 text-cyan" />
                                 <span>IoT Nodes: <strong className="text-navy-900">12 Connected</strong></span>
@@ -368,11 +410,273 @@ export default function Dashboard() {
                 </div>
             </section>
 
+            {/* 1.5. TIME, DATE & LIVE AGRICULTURAL CALENDAR SECTION */}
+            <section id="live-calendar" className="space-y-6">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pb-2 border-b border-slate-200/80">
+                    <div>
+                        <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-cyan/15 rounded-full text-[11px] font-black text-teal-800 mb-2 border border-cyan/30">
+                            <Clock className="w-3.5 h-3.5 text-cyan" />
+                            <span>Real-Time Agronomic Timekeeper</span>
+                        </div>
+                        <h2 className="text-2xl sm:text-3xl font-black text-navy-900 tracking-tight">
+                            Live Time, Date & Crop Calendar
+                        </h2>
+                        <p className="text-slate-500 text-xs sm:text-sm font-medium">
+                            Plan irrigation, sowing windows, fertilizing cycles, and harvest timelines with real-time solar telemetry.
+                        </p>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                        <span className="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">
+                            Kharif Season 2026
+                        </span>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                    {/* Left: Interactive Monthly Calendar Grid (7 Columns) */}
+                    <div className="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl flex flex-col justify-between">
+                        <div>
+                            {/* Calendar Header with Controls */}
+                            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+                                <div className="flex items-center space-x-3">
+                                    <div className="w-10 h-10 rounded-2xl bg-navy-900 text-cyan flex items-center justify-center font-bold border border-cyan/40 shadow-xs">
+                                        <Calendar className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-base sm:text-lg font-black text-navy-900">
+                                            {monthNames[calMonth]} {calYear}
+                                        </h3>
+                                        <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
+                                            Agricultural Sowing & Schedular
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center space-x-1.5">
+                                    <button
+                                        onClick={() => {
+                                            if (calMonth === 0) {
+                                                setCalMonth(11);
+                                                setCalYear(prev => prev - 1);
+                                            } else {
+                                                setCalMonth(prev => prev - 1);
+                                            }
+                                        }}
+                                        className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-navy-900 border border-slate-200 transition-colors"
+                                    >
+                                        <ChevronLeft className="w-4 h-4" />
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            const now = new Date();
+                                            setCalMonth(now.getMonth());
+                                            setCalYear(now.getFullYear());
+                                            setSelectedCalDay(now.getDate());
+                                        }}
+                                        className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-navy-900 hover:text-white text-navy-900 text-xs font-bold transition-all border border-slate-200"
+                                    >
+                                        Today
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (calMonth === 11) {
+                                                setCalMonth(0);
+                                                setCalYear(prev => prev + 1);
+                                            } else {
+                                                setCalMonth(prev => prev + 1);
+                                            }
+                                        }}
+                                        className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-navy-900 border border-slate-200 transition-colors"
+                                    >
+                                        <ChevronRight className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Days of Week Header */}
+                            <div className="grid grid-cols-7 gap-2 text-center text-xs font-black text-slate-400 mb-2">
+                                <span>SUN</span>
+                                <span>MON</span>
+                                <span>TUE</span>
+                                <span>WED</span>
+                                <span>THU</span>
+                                <span>FRI</span>
+                                <span>SAT</span>
+                            </div>
+
+                            {/* Month Grid Cells */}
+                            <div className="grid grid-cols-7 gap-2">
+                                {/* Empty offset days */}
+                                {Array.from({ length: firstDayOfMonth(calMonth, calYear) }).map((_, i) => (
+                                    <div key={`empty-${i}`} className="h-10 sm:h-12 rounded-xl bg-slate-50/40"></div>
+                                ))}
+
+                                {/* Month Days */}
+                                {Array.from({ length: daysInMonth(calMonth, calYear) }).map((_, i) => {
+                                    const dayNum = i + 1;
+                                    const isToday = dayNum === new Date().getDate() && calMonth === new Date().getMonth() && calYear === new Date().getFullYear();
+                                    const isSelected = dayNum === selectedCalDay;
+                                    const event = agriculturalEvents[dayNum];
+
+                                    return (
+                                        <button
+                                            key={`day-${dayNum}`}
+                                            onClick={() => setSelectedCalDay(dayNum)}
+                                            className={`relative h-10 sm:h-12 rounded-2xl flex flex-col items-center justify-center font-bold text-xs sm:text-sm transition-all border ${
+                                                isSelected
+                                                    ? "bg-navy-900 text-white border-navy-900 shadow-md shadow-navy-900/15 scale-105 z-10"
+                                                    : isToday
+                                                    ? "bg-cyan/15 text-teal-900 border-cyan font-black"
+                                                    : "bg-slate-50 hover:bg-slate-100/80 text-navy-900 border-slate-200/60"
+                                            }`}
+                                        >
+                                            <span>{dayNum}</span>
+                                            {event && (
+                                                <span
+                                                    className={`w-1.5 h-1.5 rounded-full mt-0.5 ${
+                                                        isSelected
+                                                            ? "bg-cyan"
+                                                            : event.type === 'rain'
+                                                            ? "bg-blue-500"
+                                                            : event.type === 'sow'
+                                                            ? "bg-emerald-500"
+                                                            : event.type === 'drone'
+                                                            ? "bg-cyan"
+                                                            : "bg-amber-500"
+                                                    }`}
+                                                ></span>
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Selected Day Milestone Banner */}
+                        <div className="mt-6 pt-4 border-t border-slate-100">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                                    Schedule for {monthNames[calMonth]} {selectedCalDay}, {calYear}
+                                </span>
+                                {agriculturalEvents[selectedCalDay] && (
+                                    <span className="text-[10px] font-black px-2 py-0.5 rounded-md bg-cyan/20 text-teal-900 border border-cyan/30">
+                                        {agriculturalEvents[selectedCalDay].badge}
+                                    </span>
+                                )}
+                            </div>
+
+                            {agriculturalEvents[selectedCalDay] ? (
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="text-xl">
+                                            {agriculturalEvents[selectedCalDay].type === 'rain' && "🌧️"}
+                                            {agriculturalEvents[selectedCalDay].type === 'sow' && "🌾"}
+                                            {agriculturalEvents[selectedCalDay].type === 'drone' && "🔬"}
+                                            {agriculturalEvents[selectedCalDay].type === 'irrigate' && "💧"}
+                                            {agriculturalEvents[selectedCalDay].type === 'market' && "📈"}
+                                        </span>
+                                        <div>
+                                            <p className="text-xs font-black text-navy-900">{agriculturalEvents[selectedCalDay].title}</p>
+                                            <p className="text-[11px] font-medium text-slate-500">Scheduled Time: {agriculturalEvents[selectedCalDay].time}</p>
+                                        </div>
+                                    </div>
+                                    <span className="text-xs font-bold text-teal-800">Confirmed</span>
+                                </div>
+                            ) : (
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-slate-500 text-xs font-medium flex items-center justify-between">
+                                    <span>Standard field maintenance and automated soil telemetry logging.</span>
+                                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-slate-600 border border-slate-200">Routine</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Right: Live Digital Precision Clock & Solar Telemetry (5 Columns) */}
+                    <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+                        {/* Live Digital Clock Card */}
+                        <div className="glass-card-dark text-white p-6 sm:p-7 rounded-3xl border border-cyan/30 shadow-xl relative overflow-hidden flex flex-col justify-between">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="inline-flex items-center space-x-2 px-3 py-1 bg-cyan/15 rounded-full border border-cyan/30">
+                                    <span className="w-2 h-2 rounded-full bg-cyan animate-ping"></span>
+                                    <span className="text-[10px] font-black uppercase text-cyan tracking-wider">Live System Clock</span>
+                                </div>
+                                <span className="text-xs font-mono font-bold text-slate-300">IST (UTC+5:30)</span>
+                            </div>
+
+                            {/* Big Bold Clock Numbers */}
+                            <div className="my-3">
+                                <p className="text-3xl sm:text-4xl lg:text-5xl font-black font-mono tracking-tight text-white flex items-baseline">
+                                    <span>
+                                        {currentTime ? currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : "07:05:00 PM"}
+                                    </span>
+                                </p>
+                                <p className="text-xs sm:text-sm font-extrabold text-cyan mt-1">
+                                    {currentTime ? currentTime.toLocaleDateString("en-US", { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }) : "Monday, August 24, 2026"}
+                                </p>
+                            </div>
+
+                            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-300 font-medium">
+                                <span>Day 236 of 365 (64.6%)</span>
+                                <span className="text-lime font-bold">Autumn Kharif Phase</span>
+                            </div>
+                        </div>
+
+                        {/* Astronomical, Daylight & Solar Radiation Telemetry */}
+                        <div className="glass-panel p-6 rounded-3xl space-y-4">
+                            <div className="flex items-center justify-between">
+                                <span className="text-xs font-black uppercase tracking-wider text-slate-500">Daylight & Solar Telemetry</span>
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-teal-800">Doppler Live</span>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3 text-xs">
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                                    <div className="flex items-center space-x-1.5 text-amber-600 font-black">
+                                        <Sun className="w-4 h-4" />
+                                        <span>Sunrise & Sunset</span>
+                                    </div>
+                                    <p className="text-sm font-black text-navy-900 mt-1">05:48 AM – 06:42 PM</p>
+                                    <p className="text-[10px] text-slate-500">12h 54m Total Photoperiod</p>
+                                </div>
+
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                                    <div className="flex items-center space-x-1.5 text-teal-800 font-black">
+                                        <Compass className="w-4 h-4" />
+                                        <span>Moon Phase</span>
+                                    </div>
+                                    <p className="text-sm font-black text-navy-900 mt-1">Waxing Gibbous</p>
+                                    <p className="text-[10px] text-emerald-700 font-bold">Optimal For Foliar Sprays</p>
+                                </div>
+
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                                    <div className="flex items-center space-x-1.5 text-cyan font-black">
+                                        <Activity className="w-4 h-4" />
+                                        <span>Solar Radiation</span>
+                                    </div>
+                                    <p className="text-sm font-black text-navy-900 mt-1">840 W/m²</p>
+                                    <p className="text-[10px] text-slate-500">High Photosynthetic Peak</p>
+                                </div>
+
+                                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                                    <div className="flex items-center space-x-1.5 text-blue-600 font-black">
+                                        <Droplets className="w-4 h-4" />
+                                        <span>Irrigation Today</span>
+                                    </div>
+                                    <p className="text-sm font-black text-navy-900 mt-1">2.4 L / m²</p>
+                                    <p className="text-[10px] text-teal-800 font-bold">Morning Window: 06-08 AM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* 2. OVERVIEW SECTION ("Your Farm at a Glance") */}
             <section id="overview" className="space-y-6">
                 <div className="text-center max-w-2xl mx-auto space-y-2">
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
                         Your Farm at a Glance
+
                     </h2>
                     <p className="text-slate-500 text-sm font-medium">
                         Everything you need to understand your farm in one view.
