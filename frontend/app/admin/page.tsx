@@ -40,6 +40,8 @@ import {
     Clock,
     Lock
 } from "lucide-react";
+import MusicControl from "../components/MusicControl";
+import { audioManager } from "../audioManager";
 
 // Approved Administrator Allowlist
 const ADMIN_EMAILS = [
@@ -502,7 +504,10 @@ export default function AdminConsole() {
     };
 
     // Handle Logout
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        try {
+            await audioManager.fadeAndStop(700);
+        } catch (e) {}
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         sessionStorage.removeItem("sfa_cinematic_entered");
@@ -836,6 +841,9 @@ export default function AdminConsole() {
                 </div>
 
                 <div className="flex items-center space-x-3 sm:space-x-4">
+                    {/* Music Control Widget: ♫ Farm Theme */}
+                    <MusicControl />
+
                     {/* Return to Farmer Dashboard */}
                     <Link
                         href="/dashboard"

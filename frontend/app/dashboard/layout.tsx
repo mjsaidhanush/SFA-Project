@@ -28,6 +28,8 @@ import {
     Sun,
     Moon
 } from "lucide-react";
+import MusicControl from "../components/MusicControl";
+import { audioManager } from "../audioManager";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -280,7 +282,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         });
     }
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        try {
+            await audioManager.fadeAndStop(700);
+        } catch (e) {}
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         sessionStorage.removeItem("sfa_cinematic_entered");
@@ -761,6 +766,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 AI SCORE 92
                             </span>
                         </div>
+
+                        {/* Music Control Widget: ♫ Farm Theme */}
+                        <MusicControl />
 
                         {/* Dark / Light Mode Toggle Button */}
                         <button

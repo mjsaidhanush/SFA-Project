@@ -21,6 +21,7 @@ import {
     Lock as LockIcon,
     X
 } from 'lucide-react';
+import { audioManager } from './audioManager';
 
 // Approved Administrator Allowlist
 const ADMIN_EMAILS = [
@@ -379,6 +380,15 @@ export default function Home() {
 
     // Transition from Hollyland to Dashboard or Admin Console
     const handleEnterDestination = (targetRoute: '/dashboard' | '/admin') => {
+        // Start hollyland-theme.mp3 from the beginning, fading in smoothly from 0 to 35%
+        try {
+            audioManager.playHollylandTheme().catch((err) => {
+                console.warn("[Hollyland Theme] Audio playback notice:", err);
+            });
+        } catch (e) {
+            console.warn("[Hollyland Theme] Audio manager invocation error:", e);
+        }
+
         setIsSlidingOut(true);
         try {
             sessionStorage.setItem("sfa_cinematic_entered", "true");
@@ -1098,7 +1108,10 @@ export default function Home() {
                         {/* Switch account / Log out link */}
                         <div className="pt-2">
                             <button
-                                onClick={() => {
+                                onClick={async () => {
+                                    try {
+                                        await audioManager.fadeAndStop(700);
+                                    } catch (e) {}
                                     localStorage.removeItem('token');
                                     localStorage.removeItem('user');
                                     setAuthenticatedUser(null);
