@@ -12,7 +12,7 @@ export interface AudioState {
 class HollylandAudioManager {
     private static instance: HollylandAudioManager | null = null;
     private audio: HTMLAudioElement | null = null;
-    private targetVolume = 0.35; // Default target volume (35%)
+    private targetVolume = 0.80; // Default target volume (80%)
     private fadeInterval: any = null;
     private subscribers = new Set<(state: AudioState) => void>();
     private audioSrc = '/audio/hollyland-theme.mp3';
@@ -20,7 +20,7 @@ class HollylandAudioManager {
     private state: AudioState = {
         isPlaying: false,
         isMuted: false,
-        volume: 0.35,
+        volume: 0.80,
         isLoaded: false,
         error: null,
     };

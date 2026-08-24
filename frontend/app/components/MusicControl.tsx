@@ -8,7 +8,7 @@ export default function MusicControl() {
     const [audioState, setAudioState] = useState<AudioState>({
         isPlaying: false,
         isMuted: false,
-        volume: 0.35,
+        volume: 0.80,
         isLoaded: false,
         error: null,
     });
