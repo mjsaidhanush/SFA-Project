@@ -4,9 +4,9 @@
 
 :root {
     --color-bg-light: #F6F8F2;
-    --color-dark-charcoal: #212422;
-    --color-lime-accent: #DDF489;
-    --color-soft-green: #65B741;
+    --color-dark-charcoal: #1E293B;
+    --color-blue-accent: #3B82F6;
+    --color-soft-blue: #2563EB;
 }
 
 body {
@@ -60,7 +60,7 @@ body {
     position: absolute;
     height: 2px;
     width: 100%;
-    background: linear-gradient(90deg, transparent, #DDF489, transparent);
+    background: linear-gradient(90deg, transparent, #3B82F6, transparent);
     animation: scanLine 2.5s linear infinite;
 }
 

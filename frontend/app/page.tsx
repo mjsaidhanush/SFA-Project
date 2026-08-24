@@ -56,14 +56,14 @@ export default function Login() {
     return (
         <div className="min-h-screen flex items-center justify-center p-6 bg-[#F6F8F2] relative overflow-hidden font-sans">
             {/* Light ambient blobs */}
-            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#DDF489]/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob z-0"></div>
-            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-green-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 z-0"></div>
+            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob z-0"></div>
+            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-cyan-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 z-0"></div>
 
-            <div className="max-w-md w-full relative z-10 bg-white p-8 rounded-3xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-[#DDF489]/30">
+            <div className="max-w-md w-full relative z-10 bg-white p-8 rounded-3xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-blue-200/60">
                 <div className="text-center mb-10">
                     <Link href="/">
-                        <h1 className="text-3xl font-extrabold text-[#212422] tracking-tight cursor-pointer flex justify-center items-center">
-                            Smart Farm<span className="text-[#DDF489] ml-2 text-3xl">🌱</span>
+                        <h1 className="text-3xl font-extrabold text-[#1E293B] tracking-tight cursor-pointer flex justify-center items-center">
+                            Smart Farm<span className="text-blue-500 ml-2 text-3xl">🌾</span>
                         </h1>
                     </Link>
                     <p className="text-gray-500 mt-2 font-medium">Welcome back!</p>
@@ -77,7 +77,7 @@ export default function Login() {
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-[#212422] focus:ring-2 focus:ring-[#DDF489]/40 bg-[#F6F8F2] text-[#212422] placeholder-gray-400 transition-all outline-none font-medium"
+                            className="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-[#1E293B] focus:ring-2 focus:ring-blue-400/40 bg-[#F6F8F2] text-[#1E293B] placeholder-gray-400 transition-all outline-none font-medium"
                             placeholder="farmer@example.com"
                         />
                     </div>
@@ -88,7 +88,7 @@ export default function Login() {
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-[#212422] focus:ring-2 focus:ring-[#DDF489]/40 bg-[#F6F8F2] text-[#212422] placeholder-gray-400 transition-all outline-none font-medium"
+                            className="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-[#1E293B] focus:ring-2 focus:ring-blue-400/40 bg-[#F6F8F2] text-[#1E293B] placeholder-gray-400 transition-all outline-none font-medium"
                             placeholder="••••••••"
                         />
                     </div>
@@ -97,7 +97,7 @@ export default function Login() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3.5 bg-[#212422] text-[#DDF489] font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full py-3.5 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-500 shadow-blue-500/20 hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {loading ? 'Authenticating...' : 'Sign In'}
                         </button>
@@ -146,7 +146,7 @@ export default function Login() {
 
                 <p className="mt-8 text-center text-sm text-gray-500 font-medium">
                     Don't have an account?{' '}
-                    <Link href="/register" className="font-bold text-[#212422] hover:text-[#404441] underline decoration-[#DDF489] decoration-4 underline-offset-2 transition-colors">
+                    <Link href="/register" className="font-bold text-blue-600 hover:text-blue-700 underline decoration-blue-400 decoration-4 underline-offset-2 transition-colors">
                         Register as a Farmer
                     </Link>
                 </p>

@@ -165,40 +165,42 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         "What crop should I grow?",
         "Will it rain tomorrow?",
         "Is my crop healthy?",
-        "What is today's market price?",
-        "How can I improve my yield?"
-    ]; return (
+    ];
+
+    return (
         <div className="min-h-screen bg-[#F6F8F2] text-[#212422] flex flex-col md:flex-row relative overflow-hidden font-sans">
             {/* Ambient Background Blobs matching Login Page */}
-            <div className="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#DDF489]/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob pointer-events-none z-0"></div>
-            <div className="fixed bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-green-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 pointer-events-none z-0"></div>
+            <div className="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob pointer-events-none z-0"></div>
+            <div className="fixed bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-cyan-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 pointer-events-none z-0"></div>
 
             {/* Left Sidebar */}
             <aside
-                className={`bg-[#212422] border-r border-[#212422]/20 flex-col hidden md:flex relative z-30 transition-all duration-300 rounded-tr-3xl rounded-br-3xl my-3 ml-3 shadow-2xl overflow-hidden ${sidebarCollapsed ? 'w-20' : 'w-64'
+                className={`bg-[#1E293B] border-r border-[#1E293B]/20 flex-col hidden md:flex relative z-30 transition-all duration-300 rounded-tr-3xl rounded-br-3xl my-3 ml-3 shadow-2xl overflow-hidden ${sidebarCollapsed ? 'w-20' : 'w-64'
                     }`}
             >
                 {/* Top Accent Bar */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 via-[#DDF489] to-emerald-400"></div>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-sky-400"></div>
 
                 {/* Logo & Brand Header */}
                 <div className="p-5 border-b border-white/10 flex items-center justify-between">
                     <Link href="/dashboard" className="flex items-center space-x-3 group min-w-0">
-                        <div className="w-10 h-10 rounded-2xl bg-[#DDF489] flex items-center justify-center text-[#212422] shadow-lg shadow-[#DDF489]/20 transition-transform duration-300 group-hover:scale-105 flex-shrink-0 font-extrabold text-lg">
-                            🌱
+                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 transition-transform duration-300 group-hover:scale-105 flex-shrink-0 font-extrabold text-lg">
+                            🌾
                         </div>
                         {!sidebarCollapsed && (
                             <div className="truncate">
                                 <h1 className="text-base font-extrabold tracking-tight text-white leading-tight flex items-center">
-                                    Smart Farm <span className="text-[#DDF489] ml-1.5">🌱</span>
+                                    Smart Farm <span className="text-blue-400 ml-1.5">🚜</span>
                                 </h1>
-                                <p className="text-[10px] font-bold text-[#DDF489] uppercase tracking-wider">Assistant</p>
+                                <p className="text-[10px] font-bold text-cyan-300 uppercase tracking-wider flex items-center">
+                                    <Sparkles className="w-3 h-3 mr-1 text-blue-400" /> AI Assistant
+                                </p>
                             </div>
                         )}
                     </Link>
                     <button
                         onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                        className="text-white/60 hover:text-[#DDF489] p-1.5 rounded-xl hover:bg-white/10 transition-colors focus:outline-none hidden lg:block"
+                        className="text-white/60 hover:text-blue-400 p-1.5 rounded-xl hover:bg-white/10 transition-colors focus:outline-none hidden lg:block"
                         title={sidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
                     >
                         {sidebarCollapsed ? <PanelLeftOpen className="w-5 h-5" /> : <PanelLeftClose className="w-5 h-5" />}
@@ -208,14 +210,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {/* User Profile Badge */}
                 {!sidebarCollapsed && (
                     <div className="mx-4 mt-4 p-3 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-xl bg-[#DDF489] text-[#212422] flex items-center justify-center font-extrabold text-xs shadow-md relative flex-shrink-0">
+                        <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-extrabold text-xs shadow-md relative flex-shrink-0">
                             {getInitials(user.name)}
-                            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-[#212422] rounded-full"></span>
+                            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-cyan-400 border-2 border-[#1E293B] rounded-full"></span>
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-white font-bold text-xs truncate" title={user.name}>{user.name}</p>
-                            <span className="text-[9px] font-extrabold tracking-wider uppercase bg-[#DDF489]/20 text-[#DDF489] px-2 py-0.5 rounded-md border border-[#DDF489]/30 inline-block mt-0.5">
-                                {user.role}
+                            <span className="text-[9px] font-extrabold tracking-wider uppercase bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-md border border-blue-400/30 inline-block mt-0.5 flex items-center w-max">
+                                👨‍🌾 {user.role}
                             </span>
                         </div>
                     </div>
@@ -233,17 +235,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             <Link key={link.name} href={link.href}>
                                 <div
                                     className={`flex items-center ${sidebarCollapsed ? 'justify-center px-0' : 'justify-between px-3.5'} py-2.5 rounded-xl transition-all duration-300 cursor-pointer group relative mb-1 ${isActive
-                                        ? "bg-[#DDF489] text-[#212422] font-extrabold shadow-lg shadow-[#DDF489]/20"
+                                        ? "bg-blue-600 text-white font-extrabold shadow-lg shadow-blue-500/30 border border-blue-400/30"
                                         : "text-white/80 hover:bg-white/10 hover:text-white"
                                         }`}
                                     title={sidebarCollapsed ? link.name : undefined}
                                 >
                                     <div className="flex items-center space-x-3">
-                                        <Icon className={`w-5 h-5 transition-transform duration-300 ${isActive ? "text-[#212422]" : "text-[#DDF489] group-hover:scale-110"}`} />
+                                        <Icon className={`w-5 h-5 transition-transform duration-300 ${isActive ? "text-white" : "text-blue-400 group-hover:scale-110"}`} />
                                         {!sidebarCollapsed && <span className="text-xs font-bold tracking-wide">{link.name}</span>}
                                     </div>
                                     {!sidebarCollapsed && isActive && (
-                                        <span className="w-1.5 h-4 bg-[#212422] rounded-full"></span>
+                                        <span className="w-1.5 h-4 bg-cyan-300 rounded-full"></span>
                                     )}
                                 </div>
                             </Link>
@@ -257,14 +259,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <p className="px-3 text-[10px] font-extrabold text-white/40 uppercase tracking-widest mb-1">System</p>
                     )}
                     <Link href="/dashboard" className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'space-x-3 px-3.5'} py-2 text-white/70 hover:text-white rounded-xl hover:bg-white/10 text-xs font-semibold`}>
-                        <Settings className="w-4 h-4 text-[#DDF489]" />
+                        <Settings className="w-4 h-4 text-blue-400" />
                         {!sidebarCollapsed && <span>Settings</span>}
                     </Link>
                     <button
                         onClick={() => setAiAssistantOpen(true)}
                         className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center' : 'space-x-3 px-3.5'} py-2 text-white/70 hover:text-white rounded-xl hover:bg-white/10 text-xs font-semibold`}
                     >
-                        <HelpCircle className="w-4 h-4 text-[#DDF489]" />
+                        <HelpCircle className="w-4 h-4 text-blue-400" />
                         {!sidebarCollapsed && <span>Help & Support</span>}
                     </button>
                     <button
@@ -281,18 +283,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Main Workspace Area */}
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
                 {/* Top Header Bar */}
-                <header className="glass-header-light sticky top-0 z-20 border-b border-[#DDF489]/30 px-4 md:px-8 py-3.5 flex items-center justify-between shadow-xs">
+                <header className="glass-header-light sticky top-0 z-20 border-b border-blue-200/60 px-4 md:px-8 py-3.5 flex items-center justify-between shadow-xs bg-white/80 backdrop-blur-md">
                     {/* Header Left: Dynamic Greeting & Time Period */}
                     <div className="flex items-center space-x-3">
                         <button
                             onClick={() => setMobileMenuOpen(true)}
-                            className="md:hidden p-2 rounded-xl bg-[#212422] text-[#DDF489]"
+                            className="md:hidden p-2 rounded-xl bg-[#1E293B] text-blue-400"
                         >
                             <Menu className="w-5 h-5" />
                         </button>
                         <div>
                             <div className="flex items-center space-x-2">
-                                <h2 className="text-lg font-extrabold text-[#212422] flex items-center">
+                                <h2 className="text-lg font-extrabold text-[#1E293B] flex items-center">
                                     {timePeriod.greeting}, {user?.name.split(" ")[0] || "Farmer"} <span className="ml-1.5 text-xl">{timePeriod.icon}</span>
                                 </h2>
                                 <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${timePeriod.badgeBg} hidden sm:inline-block`}>
@@ -300,24 +302,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 </span>
                             </div>
                             <p className="text-xs text-gray-600 font-medium hidden sm:flex items-center mt-0.5">
-                                <span className="font-bold text-[#212422] mr-2">
+                                <span className="font-bold text-[#1E293B] mr-2">
                                     📅 {currentTime ? currentTime.toLocaleDateString("en-US", { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : "Loading date..."}
                                 </span>
-                                <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                                <span className="text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
                                     ⏰ {currentTime ? currentTime.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : "--:--:--"}
                                 </span>
                             </p>
                         </div>
                     </div>
 
-
                     {/* Header Right Controls */}
                     <div className="flex items-center space-x-3 md:space-x-4">
                         {/* Status Dot Pill */}
-                        <div className="hidden lg:flex items-center space-x-2 px-3 py-1.5 bg-white rounded-full border border-[#DDF489]/40 text-xs font-bold text-[#212422] shadow-xs">
+                        <div className="hidden lg:flex items-center space-x-2 px-3 py-1.5 bg-white rounded-full border border-blue-200 text-xs font-bold text-[#1E293B] shadow-xs">
                             <span className="relative flex h-2.5 w-2.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
                             </span>
                             <span>Farm systems operational</span>
                         </div>
@@ -330,24 +331,24 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search telemetry..."
-                                className="w-full pl-9 pr-3 py-1.5 bg-white rounded-xl border border-gray-200 text-xs font-medium text-[#212422] placeholder-gray-400 focus:outline-none focus:border-[#212422] focus:ring-2 focus:ring-[#DDF489]/40 transition-all"
+                                className="w-full pl-9 pr-3 py-1.5 bg-white rounded-xl border border-gray-200 text-xs font-medium text-[#1E293B] placeholder-gray-400 focus:outline-none focus:border-[#1E293B] focus:ring-2 focus:ring-blue-400/40 transition-all"
                             />
                         </div>
 
                         {/* Notifications */}
-                        <button className="relative p-2 rounded-xl bg-white border border-gray-200 text-gray-700 hover:text-[#212422] hover:bg-gray-50 transition-colors">
-                            <Bell className="w-4.5 h-4.5" />
-                            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        <button className="relative p-2 rounded-xl bg-white border border-gray-200 text-gray-700 hover:text-[#1E293B] hover:bg-gray-50 transition-colors">
+                            <Bell className="w-4.5 h-4.5 text-blue-600" />
+                            <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
                         </button>
 
                         {/* Weather Indicator */}
-                        <Link href="/dashboard/rain" className="flex items-center space-x-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-xl text-xs font-bold text-[#212422] hover:border-gray-400 transition-all shadow-xs">
+                        <Link href="/dashboard/rain" className="flex items-center space-x-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-xl text-xs font-bold text-[#1E293B] hover:border-blue-400 transition-all shadow-xs">
                             <Sun className="w-4 h-4 text-amber-500" />
                             <span>28°C Sunny</span>
                         </Link>
 
                         {/* User Avatar */}
-                        <div className="w-9 h-9 rounded-xl bg-[#212422] text-[#DDF489] flex items-center justify-center font-bold text-xs shadow-sm">
+                        <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-md border border-blue-400/40">
                             {getInitials(user.name)}
                         </div>
                     </div>
@@ -361,7 +362,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             {/* Mobile Drawer Menu */}
             {mobileMenuOpen && (
-                <div className="md:hidden fixed inset-0 z-50 bg-[#212422]/95 backdrop-blur-xl flex flex-col pt-16 px-6 pb-6 animate-fade-in space-y-4">
+                <div className="md:hidden fixed inset-0 z-50 bg-[#1E293B]/95 backdrop-blur-xl flex flex-col pt-16 px-6 pb-6 animate-fade-in space-y-4">
                     <button
                         onClick={() => setMobileMenuOpen(false)}
                         className="absolute top-4 right-4 p-2 text-white/70 hover:text-white bg-white/10 rounded-xl"
@@ -369,12 +370,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <X className="w-6 h-6" />
                     </button>
                     <div className="p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center space-x-3 mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-[#DDF489] text-[#212422] flex items-center justify-center font-extrabold text-xs">
+                        <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-extrabold text-xs">
                             {getInitials(user.name)}
                         </div>
                         <div>
                             <p className="text-white font-bold text-sm">{user.name}</p>
-                            <span className="text-[10px] font-extrabold uppercase bg-[#DDF489]/20 text-[#DDF489] px-2 py-0.5 rounded">
+                            <span className="text-[10px] font-extrabold uppercase bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded">
                                 {user.role}
                             </span>
                         </div>
@@ -388,7 +389,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 <Link key={link.name} href={link.href}>
                                     <div
                                         className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
-                                            ? "bg-[#DDF489] text-[#212422] font-bold"
+                                            ? "bg-blue-600 text-white font-bold"
                                             : "text-white/80 hover:bg-white/10"
                                             }`}
                                     >
@@ -413,27 +414,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Floating AI Farmer Assistant Button */}
             <button
                 onClick={() => setAiAssistantOpen(true)}
-                className="fixed bottom-6 right-6 z-40 bg-[#212422] text-[#DDF489] px-5 py-3.5 rounded-full font-extrabold text-sm shadow-2xl flex items-center space-x-2.5 border border-[#DDF489]/40 hover:scale-105 active:scale-95 transition-all group"
+                className="fixed bottom-6 right-6 z-40 bg-[#1E293B] text-white px-5 py-3.5 rounded-full font-extrabold text-sm shadow-2xl flex items-center space-x-2.5 border border-blue-400/40 hover:scale-105 active:scale-95 transition-all group"
             >
-                <Sparkles className="w-5 h-5 text-[#DDF489] animate-pulse" />
+                <Sparkles className="w-5 h-5 text-blue-400 animate-pulse" />
                 <span>Ask Farm AI</span>
             </button>
 
             {/* Floating AI Chat Assistant Glass Drawer Panel */}
             {aiAssistantOpen && (
                 <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-end sm:p-6 bg-black/50 backdrop-blur-xs animate-fade-in">
-                    <div className="bg-[#212422] border border-[#DDF489]/30 w-full sm:max-w-md h-[85vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden text-white relative">
+                    <div className="bg-[#1E293B] border border-blue-400/30 w-full sm:max-w-md h-[85vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden text-white relative">
                         {/* Chat Header */}
                         <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/5">
                             <div className="flex items-center space-x-3">
-                                <div className="w-9 h-9 rounded-xl bg-[#DDF489] text-[#212422] flex items-center justify-center font-bold">
+                                <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">
                                     <Bot className="w-5 h-5" />
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-sm text-white flex items-center">
-                                        Ask Farm AI <Sparkles className="w-3.5 h-3.5 ml-1.5 text-[#DDF489]" />
+                                        Ask Farm AI <Sparkles className="w-3.5 h-3.5 ml-1.5 text-blue-400" />
                                     </h3>
-                                    <p className="text-[10px] text-[#DDF489]">Online • 24/7 Crop Intelligence</p>
+                                    <p className="text-[10px] text-blue-300">Online • 24/7 Crop Intelligence</p>
                                 </div>
                             </div>
                             <button
@@ -452,7 +453,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                     <button
                                         key={idx}
                                         onClick={() => handleSendMessage(q)}
-                                        className="px-3 py-1 bg-white/10 hover:bg-[#DDF489]/20 hover:text-[#DDF489] text-white/80 rounded-full text-[11px] font-semibold whitespace-nowrap transition-colors border border-white/10"
+                                        className="px-3 py-1 bg-white/10 hover:bg-blue-500/20 hover:text-blue-300 text-white/80 rounded-full text-[11px] font-semibold whitespace-nowrap transition-colors border border-white/10"
                                     >
                                         {q}
                                     </button>
@@ -469,7 +470,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 >
                                     <div
                                         className={`max-w-[82%] p-3.5 rounded-2xl text-xs leading-relaxed ${msg.sender === 'user'
-                                            ? 'bg-[#DDF489] text-[#212422] font-semibold rounded-br-none shadow-md'
+                                            ? 'bg-blue-600 text-white font-semibold rounded-br-none shadow-md'
                                             : 'bg-white/10 text-white rounded-bl-none border border-white/10'
                                             }`}
                                     >
@@ -487,11 +488,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 onChange={(e) => setInputMessage(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                                 placeholder="Ask your farm assistant..."
-                                className="flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 text-xs focus:outline-none focus:border-[#DDF489]"
+                                className="flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 text-xs focus:outline-none focus:border-blue-400"
                             />
                             <button
                                 onClick={() => handleSendMessage()}
-                                className="p-2.5 bg-[#DDF489] text-[#212422] rounded-xl font-bold hover:scale-105 transition-transform"
+                                className="p-2.5 bg-blue-600 text-white rounded-xl font-bold hover:scale-105 transition-transform"
                             >
                                 <Send className="w-4 h-4" />
                             </button>
@@ -502,3 +503,4 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
     );
 }
+
